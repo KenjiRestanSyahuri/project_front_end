@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./navbar";
 import TambahProject from "./tambahproject";
@@ -8,93 +9,85 @@ import "./dashboard.css"; // Mengimpor CSS yang berisi style untuk modal
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Dashboard = () => {
-  const [projects, setProjects] = useState([]); // State untuk menyimpan daftar proyek
-  const [searchQuery, setSearchQuery] = useState(""); // State untuk menyimpan input pencarian
-  const [showAddProject, setShowAddProject] = useState(false); // State untuk kontrol modal Tambah Project
-  const [showEditProject, setShowEditProject] = useState(false); // State untuk modal edit
-  const [currentGuid, setCurrentGuid] = useState(""); // State untuk menyimpan guid proyek yang akan diedit
+  const [projects, setProjects] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showAddProject, setShowAddProject] = useState(false);
+  const [showEditProject, setShowEditProject] = useState(false);
+  const [currentGuid, setCurrentGuid] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const [message, setMessage] = useState(""); // State untuk menampilkan pesan notifikasi
 
-  // State untuk pagination
-  const [currentPage, setCurrentPage] = useState(1); // Halaman saat ini
-  const [itemsPerPage] = useState(5); // Jumlah item per halaman
-
-  const apiUrl = import.meta.env.VITE_API_URL; // Mengambil API_URL dari environment variables
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetchProjects(); // Ambil daftar proyek saat komponen pertama kali dimuat
+    fetchProjects();
   }, []);
 
-  // Fungsi untuk mengambil daftar proyek dari API
   const fetchProjects = async () => {
     try {
       const response = await axios.get(`${apiUrl}/projects`);
-      setProjects(response.data); // Update state dengan data proyek
+      setProjects(response.data);
+      setMessage(""); // Reset pesan saat data berhasil diambil
     } catch (error) {
       console.error("Error fetching projects:", error);
+      setMessage("Gagal memuat data proyek."); // Set pesan error
     }
   };
 
-  // Fungsi untuk melakukan pencarian proyek berdasarkan query
   const searchProjects = async () => {
     if (searchQuery) {
       try {
-        const response = await axios.get(
-          `${apiUrl}/projects/search?name=${searchQuery}`
-        );
-        setProjects(response.data); // Update state dengan hasil pencarian
+        const response = await axios.get(`${apiUrl}/projects/search?name=${searchQuery}`);
+        setProjects(response.data);
       } catch (error) {
         console.error("Error searching projects:", error);
+        setMessage("Gagal melakukan pencarian."); // Set pesan error
       }
     } else {
-      fetchProjects(); // Kembali ambil semua proyek jika query kosong
+      fetchProjects();
     }
   };
 
-  // Fungsi untuk memformat tanggal dalam format yang lebih ramah
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString("id-ID", options);
   };
 
-  // Fungsi untuk mengeksekusi pencarian saat tombol Enter ditekan
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       searchProjects();
     }
   };
 
-  // Fungsi untuk menambah proyek baru ke dalam daftar
   const handleAddProject = (newProject) => {
     setProjects([...projects, newProject]);
+    setMessage("Proyek berhasil ditambahkan."); // Set pesan sukses
   };
 
-  // Fungsi untuk mengedit proyek yang sudah ada
   const handleEditProject = (guid) => {
-    setCurrentGuid(guid); // Set guid proyek yang akan diedit
-    setShowEditProject(true); // Tampilkan modal edit
+    setCurrentGuid(guid);
+    setShowEditProject(true);
   };
 
-  // Fungsi untuk memperbarui proyek yang sudah diedit
   const handleProjectUpdated = (updatedProject) => {
-    setProjects(
-      projects.map(
-        (project) =>
-          project.guid === updatedProject.guid ? updatedProject : project // Perbarui proyek yang diedit
-      )
-    );
+    setProjects(projects.map((project) => (project.guid === updatedProject.guid ? updatedProject : project)));
+    setMessage("Proyek berhasil diperbarui."); // Set pesan sukses
   };
 
-  // Fungsi untuk menghapus proyek berdasarkan guid
   const handleDeleteProject = async (guid) => {
-    try {
-      await axios.delete(`${apiUrl}/projects/${guid}`);
-      setProjects(projects.filter((project) => project.guid !== guid)); // Hapus proyek dari state
-    } catch (error) {
-      console.error("Error deleting project:", error);
+    if (window.confirm("Apakah Anda yakin ingin menghapus proyek ini?")) {
+      try {
+        await axios.delete(`${apiUrl}/projects/${guid}`);
+        setProjects(projects.filter((project) => project.guid !== guid));
+        setMessage("Proyek berhasil dihapus."); // Set pesan sukses
+      } catch (error) {
+        console.error("Error deleting project:", error);
+        setMessage("Gagal menghapus proyek."); // Set pesan error
+      }
     }
   };
 
-  // Menghitung proyek yang ditampilkan berdasarkan pagination
   const indexOfLastProject = currentPage * itemsPerPage;
   const indexOfFirstProject = indexOfLastProject - itemsPerPage;
   const currentProjects = projects.slice(
@@ -102,7 +95,6 @@ const Dashboard = () => {
     indexOfLastProject
   );
 
-  // Fungsi untuk mengubah halaman
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -111,8 +103,10 @@ const Dashboard = () => {
       <div className="container mt-3">
         <h2>List Project Terdaftar</h2>
 
+        {/* Notifikasi Pesan */}
+        {message && <div className="alert alert-info">{message}</div>}
+
         <div className="input-group mb-3 position-relative">
-          {/* Input pencarian project */}
           <input
             type="text"
             className="bi bi-search form-control rounded-pill"
@@ -131,7 +125,6 @@ const Dashboard = () => {
             Cari
           </button>
 
-          {/* Tombol untuk menampilkan modal Tambah Project */}
           <button
             className="ms-3 btn btn rounded-pill"
             onClick={() => setShowAddProject(true)}
@@ -141,7 +134,6 @@ const Dashboard = () => {
             Tambah Project
           </button>
 
-          {/* Ikon search */}
           <i
             className="bi bi-search position-absolute"
             style={{
@@ -154,7 +146,6 @@ const Dashboard = () => {
           ></i>
         </div>
 
-        {/* Modal Tambah Project */}
         {showAddProject && (
           <TambahProject
             onClose={() => setShowAddProject(false)}
@@ -162,16 +153,14 @@ const Dashboard = () => {
           />
         )}
 
-        {/* Modal Edit Project */}
         {showEditProject && (
           <EditProject
-            guid={currentGuid} // Pass guid proyek yang akan diedit
+            guid={currentGuid}
             onClose={() => setShowEditProject(false)}
-            onProjectUpdated={handleProjectUpdated} // Handle untuk pembaruan proyek
+            onProjectUpdated={handleProjectUpdated}
           />
         )}
 
-        {/* Tabel daftar project */}
         <table className="table table-striped">
           <thead>
             <tr>
@@ -196,6 +185,8 @@ const Dashboard = () => {
                   </td>
                   <td className="action-cell">
                     {/* Tombol untuk edit dan hapus project */}
+
+
                     <button
                       className="btn btn btn-sm me-1 rounded-5"
                       onClick={() => handleEditProject(project.guid)}
@@ -223,7 +214,6 @@ const Dashboard = () => {
           </tbody>
         </table>
 
-        {/* Pagination controls */}
         <nav>
           <ul className="pagination justify-content-center">
             {[...Array(Math.ceil(projects.length / itemsPerPage))].map(
