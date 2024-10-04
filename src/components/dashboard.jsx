@@ -176,7 +176,12 @@ const Dashboard = () => {
             {currentProjects.length > 0 ? (
               currentProjects.map((project) => (
                 <tr key={project.guid}>
-                  <td className="same-width">{project.name}</td>
+                  {/* Bungkus row proyek dengan Link */}
+                  <td>
+                    <Link to={`/project/${project.guid}`} className="text-decoration-none same-width">
+                      {project.name}
+                    </Link>
+                  </td>
                   <td className="same-width">{project.owner}</td>
                   <td className="same-width">{project.user}</td>
                   <td className="same-width">{project.description}</td>
