@@ -1,63 +1,42 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate, Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import { Button } from 'react-bootstrap';
 
 const LupaPassword = () => {
   const [username, setUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-    console.log('Username updated:', e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setNewPassword(e.target.value);
-    console.log('New password updated:', e.target.value);
-  };
+  const [success, setSuccess] = useState('');
+  
+  const navigate = useNavigate(); // gunakan useNavigate untuk navigasi
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted with:', { username, newPassword });
 
     if (!username || !newPassword) {
       setError('Username dan Password Baru wajib diisi');
-      console.log('Error: Form fields are empty');
       return;
     }
 
     try {
-      setError(''); // Reset error state
+      setError('');
+      setSuccess('');
       const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/forgot-password`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, newPassword }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
       const data = await response.json();
-      console.log('API Response:', data);
 
-      const success = data?.success ?? false;
-      if (success) {
-        // Tidak ada alert di sini, langsung arahkan ke login
-        console.log('Password berhasil diubah, redirect ke halaman login');
-        navigate('/login'); // Langsung redirect ke halaman login
+      if (response.ok) {
+        setSuccess(data.message); // Set pesan sukses dari respons
+        navigate('/'); // Arahkan user ke halaman login
       } else {
-        const errorMessage = data?.message ?? 'Gagal mengganti password';
-        setError(errorMessage);
-        console.log('Error from server:', errorMessage);
-      }
+        setError(data.message || 'Gagal mengganti password');
+      }      
     } catch (error) {
-      console.error('Error:', error);
       setError('Gagal mengganti password');
     }
   };
@@ -88,41 +67,30 @@ const LupaPassword = () => {
               <h2 style={{ color: '#226195' }}>LIFE CYCLE MANAGEMENT</h2>
             </div>
 
-            {error && (
-              <div className="alert alert-danger" role="alert">
-                {error}
-              </div>
-            )}
+            {error && <div className="alert alert-danger">{error}</div>}
+            {success && <div className="alert alert-success">{success}</div>}
 
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label htmlFor="username" className="form-label">
-                  Username Saat Ini
-                </label>
+                <label htmlFor="username" className="form-label">Username Saat Ini</label>
                 <input
                   type="text"
                   className="form-control"
                   id="username"
                   placeholder="Masukkan Username Saat Ini"
                   value={username}
-                  onChange={handleUsernameChange}
-                  aria-label="Username"
-                  style={{ width: '100%' }}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="newPassword" className="form-label">
-                  Password Baru
-                </label>
+                <label htmlFor="newPassword" className="form-label">Password Baru</label>
                 <input
                   type="password"
                   className="form-control"
                   id="newPassword"
                   placeholder="Masukkan Password Baru"
                   value={newPassword}
-                  onChange={handlePasswordChange}
-                  aria-label="New Password"
-                  style={{ width: '100%' }}
+                  onChange={(e) => setNewPassword(e.target.value)}
                 />
               </div>
               <div className="d-flex justify-content-between align-items-center">

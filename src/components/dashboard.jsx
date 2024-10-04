@@ -13,6 +13,10 @@ const Dashboard = () => {
   const [showEditProject, setShowEditProject] = useState(false); // State untuk modal edit
   const [currentGuid, setCurrentGuid] = useState(''); // State untuk menyimpan guid proyek yang akan diedit
 
+  // State untuk pagination
+  const [currentPage, setCurrentPage] = useState(1); // Halaman saat ini
+  const [itemsPerPage] = useState(5); // Jumlah item per halaman
+
   const apiUrl = import.meta.env.VITE_API_URL; // Mengambil API_URL dari environment variables
 
   useEffect(() => {
@@ -84,6 +88,14 @@ const Dashboard = () => {
     }
   };
 
+  // Menghitung proyek yang ditampilkan berdasarkan pagination
+  const indexOfLastProject = currentPage * itemsPerPage;
+  const indexOfFirstProject = indexOfLastProject - itemsPerPage;
+  const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
+
+  // Fungsi untuk mengubah halaman
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div>
       <Navbar />
@@ -144,8 +156,8 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {projects.length > 0 ? (
-              projects.map((project) => (
+            {currentProjects.length > 0 ? (
+              currentProjects.map((project) => (
                 <tr key={project.guid}>
                   <td>{project.name}</td>
                   <td>{project.owner}</td>
@@ -166,6 +178,19 @@ const Dashboard = () => {
             )}
           </tbody>
         </table>
+
+        {/* Pagination controls */}
+        <nav>
+          <ul className="pagination justify-content-center">
+            {[...Array(Math.ceil(projects.length / itemsPerPage))].map((_, index) => (
+              <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
+                <button onClick={() => paginate(index + 1)} className="page-link">
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </div>
   );
