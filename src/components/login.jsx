@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LupaPassword from './lupapassword';
 import Dashboard from './dashboard';
+import './login.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -125,7 +126,7 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-                className="btn btn-primary w-100 mt-3"
+                className="btn btn-primary w-100 mt-3 beta"
                 style={{ borderRadius: '20px', padding: '10px 15px' }}
               >
                 Masuk
