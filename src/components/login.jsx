@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import LupaPassword from './lupapassword';
-import Dashboard from './dashboard';
-import './login.css';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import LupaPassword from "./lupapassword";
+import Dashboard from "./dashboard";
+import "./login.css";
 
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -16,14 +16,14 @@ const Login = () => {
     e.preventDefault();
 
     if (!username || !password) {
-      setError('Username dan Password wajib diisi');
+      setError("Username dan Password wajib diisi");
     } else {
-      setError('');
+      setError("");
 
       fetch(`${apiUrl}/auth/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username,
@@ -32,20 +32,20 @@ const Login = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error('Login failed');
+            throw new Error("Login failed");
           }
           return response.json();
         })
         .then((data) => {
           if (data.token) {
-            localStorage.setItem('token', data.token);
-            window.location.href = '/dashboard';
+            localStorage.setItem("token", data.token);
+            window.location.href = "/dashboard";
           } else {
-            setError('Invalid login response');
+            setError("Invalid login response");
           }
         })
         .catch((error) => {
-          setError('Invalid username or password');
+          setError("Invalid username or password");
         });
     }
   };
@@ -59,26 +59,28 @@ const Login = () => {
             className="h-100"
             style={{
               backgroundImage: "url('/Life_Cycle-Bg-02-1.png')",
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           ></div>
         </div>
 
         {/* Bagian kanan halaman dengan form login */}
         <div className="col-12 col-md-6 d-flex justify-content-center align-items-center bg-white form-container">
-          <div className="w-100 p-4 form-content" style={{ maxWidth: '500px' }}>
+          <div className="w-100 p-4 form-content" style={{ maxWidth: "500px" }}>
             {/* Tampilkan logo dan judul di atas form login dalam satu baris */}
             <div className="d-flex align-items-center mb-4 justify-content-center">
               <img
                 src="/Life_Cycle-01-1.png"
                 alt="Life Cycle Management Logo"
                 className="mb-2 me-2"
-                style={{ maxWidth: '80px', height: 'auto' }} // Responsif logo
+                style={{ maxWidth: "60rem", height: "auto" }} // Responsif logo
               />
               <div className="left">
-                <h2 style={{ color: '#226195' }}>FITZ</h2>
-                <h2 style={{ color: '#000', fontSize: '23px', margin: '0' }}>Integrated Service Operation Tool</h2>
+                <h2 style={{ color: "#226195" }}>FITZ</h2>
+                <h2 style={{ color: "#000", fontSize: "23px", margin: "0" }}>
+                  Integrated Service Operation Tool
+                </h2>
               </div>
             </div>
 
@@ -97,12 +99,12 @@ const Login = () => {
                 </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control rounded-pill"
                   id="username"
                   placeholder="Masukkan Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  style={{ width: '100%' }}
+                  style={{ width: "100%" }}
                 />
               </div>
               <div className="mb-3">
@@ -111,24 +113,29 @@ const Login = () => {
                 </label>
                 <input
                   type="password"
-                  className="form-control"
+                  className="form-control rounded-pill"
                   id="password"
                   placeholder="Masukkan Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  style={{ width: '100%' }}
+                  style={{ width: "100%" }}
                 />
               </div>
               <div className="d-flex justify-content-between align-items-center">
                 <span></span>
-                <a href="/lupapassword" className="text-muted" style={{ color: '#226195' }} onClick={LupaPassword}>
+                <a
+                  href="/lupapassword"
+                  className="text-muted"
+                  style={{ color: "#226195" }}
+                  onClick={LupaPassword}
+                >
                   Lupa Password?
                 </a>
               </div>
               <button
                 type="submit"
                 className="btn btn-primary w-100 mt-3 beta"
-                style={{ borderRadius: '20px', padding: '10px 15px' }}
+                style={{ borderRadius: "20px", padding: "10px 15px" }}
               >
                 Masuk
               </button>
