@@ -1,7 +1,7 @@
-import React from 'react';
-import Logout from './logout'; // Mengimport komponen log out
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Menggunakan FontAwesome untuk ikon
-import { faUser } from '@fortawesome/free-solid-svg-icons'; // Ikon profil
+import React from "react";
+import Logout from "./logout"; // Mengimport komponen log out
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Menggunakan FontAwesome untuk ikon
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons"; // Ikon profil
 
 const Navbar = () => {
   return (
@@ -18,21 +18,32 @@ const Navbar = () => {
           />
           <div>
             <h1 className="fs-5 text-primary m-0">FITZ</h1>
-            <h2 className="fs-6 text-dark m-0">Integrated Service Operation Tool</h2>
+            <h2 className="fs-6 text-dark m-0">
+              Integrated Service Operation Tool
+            </h2>
           </div>
         </div>
 
         {/* Navbar Toggle untuk layar kecil */}
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
 
         {/* Menu Collapse */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto d-flex align-items-center">
+          <ul className="navbar-nav ms-auto d-flex align-items-right">
             {/* Ikon Profil */}
-            <li className="nav-item me-3">
-              <FontAwesomeIcon icon={faUser} className="fs-4" /> {/* Ikon Profil */}
+            <li className="nav-item me-1">
+              <FontAwesomeIcon icon={faCircleUser} className="fs-1" />{" "}
+              {/* Ikon Profil */}
             </li>
 
             {/* Tombol Log Out */}
