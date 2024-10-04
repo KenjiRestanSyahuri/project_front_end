@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './navbar'; 
-import TambahProject from './tambahproject'; 
-import EditProject from './editproject'; 
-import './dashboard.css'; // Mengimpor CSS yang berisi style untuk modal
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Navbar from "./navbar";
+import TambahProject from "./tambahproject";
+import EditProject from "./editproject";
+import "./dashboard.css"; // Mengimpor CSS yang berisi style untuk modal
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]); // State untuk menyimpan daftar proyek
-  const [searchQuery, setSearchQuery] = useState(''); // State untuk menyimpan input pencarian
+  const [searchQuery, setSearchQuery] = useState(""); // State untuk menyimpan input pencarian
   const [showAddProject, setShowAddProject] = useState(false); // State untuk kontrol modal Tambah Project
   const [showEditProject, setShowEditProject] = useState(false); // State untuk modal edit
-  const [currentGuid, setCurrentGuid] = useState(''); // State untuk menyimpan guid proyek yang akan diedit
+  const [currentGuid, setCurrentGuid] = useState(""); // State untuk menyimpan guid proyek yang akan diedit
 
   const apiUrl = import.meta.env.VITE_API_URL; // Mengambil API_URL dari environment variables
 
@@ -33,7 +33,9 @@ const Dashboard = () => {
   const searchProjects = async () => {
     if (searchQuery) {
       try {
-        const response = await axios.get(`${apiUrl}/projects/search?name=${searchQuery}`);
+        const response = await axios.get(
+          `${apiUrl}/projects/search?name=${searchQuery}`
+        );
         setProjects(response.data); // Update state dengan hasil pencarian
       } catch (error) {
         console.error("Error searching projects:", error);
@@ -45,20 +47,20 @@ const Dashboard = () => {
 
   // Fungsi untuk memformat tanggal dalam format yang lebih ramah
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('id-ID', options); 
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString("id-ID", options);
   };
 
   // Fungsi untuk mengeksekusi pencarian saat tombol Enter ditekan
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      searchProjects(); 
+    if (event.key === "Enter") {
+      searchProjects();
     }
   };
 
   // Fungsi untuk menambah proyek baru ke dalam daftar
   const handleAddProject = (newProject) => {
-    setProjects([...projects, newProject]); 
+    setProjects([...projects, newProject]);
   };
 
   // Fungsi untuk mengedit proyek yang sudah ada
@@ -69,16 +71,19 @@ const Dashboard = () => {
 
   // Fungsi untuk memperbarui proyek yang sudah diedit
   const handleProjectUpdated = (updatedProject) => {
-    setProjects(projects.map(project => 
-      project.guid === updatedProject.guid ? updatedProject : project // Perbarui proyek yang diedit
-    ));
+    setProjects(
+      projects.map(
+        (project) =>
+          project.guid === updatedProject.guid ? updatedProject : project // Perbarui proyek yang diedit
+      )
+    );
   };
 
   // Fungsi untuk menghapus proyek berdasarkan guid
   const handleDeleteProject = async (guid) => {
     try {
       await axios.delete(`${apiUrl}/projects/${guid}`);
-      setProjects(projects.filter(project => project.guid !== guid)); // Hapus proyek dari state
+      setProjects(projects.filter((project) => project.guid !== guid)); // Hapus proyek dari state
     } catch (error) {
       console.error("Error deleting project:", error);
     }
@@ -94,31 +99,47 @@ const Dashboard = () => {
           {/* Input pencarian project */}
           <input
             type="text"
-            className="form-control"
+            className="form-control rounded-pill"
             placeholder="Cari project"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} 
-            onKeyPress={handleKeyPress} 
-            style={{ paddingLeft: '30px' }} 
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={handleKeyPress}
+            style={{ paddingLeft: "30px", marginRight: "20px" }}
           />
-          <button className="btn btn-primary" type="button" onClick={searchProjects}>
+          <button
+            className="btn btn-primary rounded-pill"
+            type="button"
+            onClick={searchProjects}
+            style={{ backgroundColor: "#226195", width: "80px" }}
+          >
             Cari
           </button>
 
           {/* Tombol untuk menampilkan modal Tambah Project */}
-          <button className="ms-3 btn btn-success" onClick={() => setShowAddProject(true)}>
+          <button
+            className="ms-3 btn btn-success rounded-pill"
+            onClick={() => setShowAddProject(true)}
+          >
             Tambah Project
           </button>
-          
+
           {/* Ikon pencarian di dalam input */}
-          <i className="bi bi-search position-absolute" style={{ left: '10px', top: '10px', fontSize: '20px', color: '#6c757d' }}></i>
+          <i
+            className="bi bi-search position-absolute"
+            style={{
+              left: "10px",
+              top: "10px",
+              fontSize: "20px",
+              color: "#6c757d",
+            }}
+          ></i>
         </div>
 
         {/* Modal Tambah Project */}
         {showAddProject && (
           <TambahProject
             onClose={() => setShowAddProject(false)}
-            onProjectAdded={handleAddProject} 
+            onProjectAdded={handleAddProject}
           />
         )}
 
@@ -154,14 +175,28 @@ const Dashboard = () => {
                   <td>{formatDate(project.startDate)}</td>
                   <td>
                     {/* Tombol untuk edit dan hapus project */}
-                    <button className="btn btn-info btn-sm me-1 rounded-5" onClick={() => handleEditProject(project.guid)}>Edit</button>
-                    <button className="btn btn-danger btn-sm rounded-5" onClick={() => handleDeleteProject(project.guid)}>Hapus</button>
+                    <button
+                      className="btn btn btn-sm me-1 rounded-5"
+                      onClick={() => handleEditProject(project.guid)}
+                      style={{ width: "80px", backgroundColor: "#D4E6E8" }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn btn-danger btn-sm rounded-5"
+                      onClick={() => handleDeleteProject(project.guid)}
+                      style={{ backgroundColor: "#FF4545", width: "80px" }}
+                    >
+                      Hapus
+                    </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="text-center">Tidak ada data</td>
+                <td colSpan="6" className="text-center">
+                  Tidak ada data
+                </td>
               </tr>
             )}
           </tbody>
