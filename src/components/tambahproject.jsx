@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import './tambahproject.css';
+import React, { useState } from "react";
+import "./tambahproject.css";
 
 function TambahProject({ onClose, onProjectAdded }) {
   const [projectData, setProjectData] = useState({
-    name: '',
-    owner: '',
-    startDate: '',
-    user: '',
-    lastUpdated: '',
-    gitRepository: '',
-    frontendUrl: '',
-    backendUrl: '',
-    androidAppLink: '',
-    iosAppLink: '',
-    windowsAppLink: '',
-    macAppLink: '',
-    description: '',
+    name: "",
+    owner: "",
+    startDate: "",
+    user: "",
+    lastUpdated: "",
+    gitRepository: "",
+    frontendUrl: "",
+    backendUrl: "",
+    androidAppLink: "",
+    iosAppLink: "",
+    windowsAppLink: "",
+    macAppLink: "",
+    description: "",
   });
 
   // Handle perubahan input
@@ -24,7 +24,10 @@ function TambahProject({ onClose, onProjectAdded }) {
       ...projectData,
       [e.target.name]: e.target.value,
     });
-    console.log("Updated projectData:", { ...projectData, [e.target.name]: e.target.value });
+    console.log("Updated projectData:", {
+      ...projectData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   // Fungsi untuk POST data ke backend menggunakan fetch
@@ -54,35 +57,38 @@ function TambahProject({ onClose, onProjectAdded }) {
 
       try {
         // Mengirim data ke server melalui POST request menggunakan fetch
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/projects`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(dataToSend),
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/projects`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataToSend),
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const result = await response.json();
-        console.log('Project added:', result);
+        console.log("Project added:", result);
         onProjectAdded(result); // Mengirim data project yang berhasil disimpan ke parent component
         onClose(); // Tutup modal setelah project berhasil ditambahkan
       } catch (error) {
-        console.error('Error adding project:', error);
+        console.error("Error adding project:", error);
         if (error.response) {
-          console.error('Response data:', error.response.data);
-          console.error('Response status:', error.response.status);
+          console.error("Response data:", error.response.data);
+          console.error("Response status:", error.response.status);
         } else if (error.request) {
-          console.error('Request data:', error.request);
+          console.error("Request data:", error.request);
         } else {
-          console.error('Error message:', error.message);
+          console.error("Error message:", error.message);
         }
       }
     } else {
-      alert('Harap isi field wajib!'); // Validasi input wajib
+      alert("Harap isi field wajib!"); // Validasi input wajib
     }
   };
 
@@ -94,8 +100,12 @@ function TambahProject({ onClose, onProjectAdded }) {
             <h2 className="h5">Tambah Projek</h2>
             <p className="text-muted small">Masukkan Detail Project</p>
           </div>
-          <button className="btn-close ms-auto" aria-label="Close" onClick={onClose}>
-            <i className="bi bi-x-circle" style={{ fontSize: '1.5rem' }}></i>
+          <button
+            className="btn-close ms-auto"
+            aria-label="Close"
+            onClick={onClose}
+          >
+            {/* <i className="bi bi-x" style={{ fontSize: "1.5rem" }}></i> */}
           </button>
         </div>
         <form onSubmit={handleSubmit}>
@@ -128,7 +138,9 @@ function TambahProject({ onClose, onProjectAdded }) {
             {/* Baris untuk Tanggal Mulai dan Pembaruan Terakhir */}
             <div className="row mb-3">
               <div className="col">
-                <label htmlFor="startDate" className="form-label">Tanggal Mulai</label>
+                <label htmlFor="startDate" className="form-label">
+                  Tanggal Mulai
+                </label>
                 <input
                   type="date"
                   className="form-control"
@@ -139,7 +151,9 @@ function TambahProject({ onClose, onProjectAdded }) {
                 />
               </div>
               <div className="col">
-                <label htmlFor="lastUpdated" className="form-label">Pembaruan Terakhir</label>
+                <label htmlFor="lastUpdated" className="form-label">
+                  Pembaruan Terakhir
+                </label>
                 <input
                   type="date"
                   className="form-control"
@@ -164,7 +178,7 @@ function TambahProject({ onClose, onProjectAdded }) {
             </div>
 
             <input
-              type="url"
+              type="text"
               className="form-control mb-3"
               name="gitRepository"
               placeholder="Git Repository"
@@ -174,7 +188,7 @@ function TambahProject({ onClose, onProjectAdded }) {
             <div className="row mb-3">
               <div className="col">
                 <input
-                  type="url"
+                  type="text"
                   className="form-control"
                   name="frontendUrl"
                   placeholder="URL Frontend"
@@ -184,7 +198,7 @@ function TambahProject({ onClose, onProjectAdded }) {
               </div>
               <div className="col">
                 <input
-                  type="url"
+                  type="text"
                   className="form-control"
                   name="backendUrl"
                   placeholder="URL Backend"
@@ -194,7 +208,7 @@ function TambahProject({ onClose, onProjectAdded }) {
               </div>
               <div className="col">
                 <input
-                  type="url"
+                  type="text"
                   className="form-control"
                   name="androidAppLink"
                   placeholder="Aplikasi Android"
@@ -206,7 +220,7 @@ function TambahProject({ onClose, onProjectAdded }) {
             <div className="row mb-3">
               <div className="col">
                 <input
-                  type="url"
+                  type="text"
                   className="form-control"
                   name="iosAppLink"
                   placeholder="Aplikasi IOS"
@@ -216,7 +230,7 @@ function TambahProject({ onClose, onProjectAdded }) {
               </div>
               <div className="col">
                 <input
-                  type="url"
+                  type="text"
                   className="form-control"
                   name="windowsAppLink"
                   placeholder="Aplikasi Windows"
@@ -226,7 +240,7 @@ function TambahProject({ onClose, onProjectAdded }) {
               </div>
               <div className="col">
                 <input
-                  type="url"
+                  type="text"
                   className="form-control"
                   name="macAppLink"
                   placeholder="Aplikasi Mac"
@@ -245,7 +259,12 @@ function TambahProject({ onClose, onProjectAdded }) {
             />
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary rounded-pill px-4 w-100">Tambah</button>
+            <button
+              type="submit"
+              className="btn btn-primary rounded-pill px-4 w-100"
+            >
+              Tambah
+            </button>
           </div>
         </form>
       </div>

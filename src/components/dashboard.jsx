@@ -5,6 +5,7 @@ import Navbar from "./navbar";
 import TambahProject from "./tambahproject";
 import EditProject from "./editproject";
 import "./dashboard.css"; // Mengimpor CSS yang berisi style untuk modal
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]); // State untuk menyimpan daftar proyek
@@ -96,7 +97,10 @@ const Dashboard = () => {
   // Menghitung proyek yang ditampilkan berdasarkan pagination
   const indexOfLastProject = currentPage * itemsPerPage;
   const indexOfFirstProject = indexOfLastProject - itemsPerPage;
-  const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
+  const currentProjects = projects.slice(
+    indexOfFirstProject,
+    indexOfLastProject
+  );
 
   // Fungsi untuk mengubah halaman
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -111,12 +115,12 @@ const Dashboard = () => {
           {/* Input pencarian project */}
           <input
             type="text"
-            className="form-control rounded-pill"
+            className="bi bi-search form-control rounded-pill"
             placeholder="Cari project"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyPress={handleKeyPress}
-            style={{ paddingLeft: "30px", marginRight: "20px" }}
+            style={{ paddingLeft: "40px", marginRight: "20px" }}
           />
           <button
             className="btn btn-primary rounded-pill"
@@ -129,18 +133,21 @@ const Dashboard = () => {
 
           {/* Tombol untuk menampilkan modal Tambah Project */}
           <button
-            className="ms-3 btn btn-success rounded-pill"
+            className="ms-3 btn btn rounded-pill"
             onClick={() => setShowAddProject(true)}
+            style={{ backgroundColor: "#fff", color: "#226195" }}
           >
+            <i className="bi bi-plus-circle-fill me-2"></i>
             Tambah Project
           </button>
 
-          {/* Ikon pencarian di dalam input */}
+          {/* Ikon search */}
           <i
             className="bi bi-search position-absolute"
             style={{
-              left: "10px",
-              top: "10px",
+              left: "15px",
+              top: "50%",
+              transform: "translateY(-50%)",
               fontSize: "20px",
               color: "#6c757d",
             }}
@@ -173,19 +180,21 @@ const Dashboard = () => {
               <th>User</th>
               <th>Deskripsi</th>
               <th>Tanggal Mulai</th>
-              <th>Aksi</th>
+              <th className="action-cell">Aksi</th>
             </tr>
           </thead>
           <tbody>
             {currentProjects.length > 0 ? (
               currentProjects.map((project) => (
                 <tr key={project.guid}>
-                  <td>{project.name}</td>
-                  <td>{project.owner}</td>
-                  <td>{project.user}</td>
-                  <td>{project.description}</td>
-                  <td>{formatDate(project.startDate)}</td>
-                  <td>
+                  <td className="same-width">{project.name}</td>
+                  <td className="same-width">{project.owner}</td>
+                  <td className="same-width">{project.user}</td>
+                  <td className="same-width">{project.description}</td>
+                  <td className="same-width">
+                    {formatDate(project.startDate)}
+                  </td>
+                  <td className="action-cell">
                     {/* Tombol untuk edit dan hapus project */}
                     <button
                       className="btn btn btn-sm me-1 rounded-5"
@@ -217,13 +226,23 @@ const Dashboard = () => {
         {/* Pagination controls */}
         <nav>
           <ul className="pagination justify-content-center">
-            {[...Array(Math.ceil(projects.length / itemsPerPage))].map((_, index) => (
-              <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
-                <button onClick={() => paginate(index + 1)} className="page-link">
-                  {index + 1}
-                </button>
-              </li>
-            ))}
+            {[...Array(Math.ceil(projects.length / itemsPerPage))].map(
+              (_, index) => (
+                <li
+                  key={index}
+                  className={`page-item ${
+                    index + 1 === currentPage ? "active" : ""
+                  }`}
+                >
+                  <button
+                    onClick={() => paginate(index + 1)}
+                    className="page-link"
+                  >
+                    {index + 1}
+                  </button>
+                </li>
+              )
+            )}
           </ul>
         </nav>
       </div>
