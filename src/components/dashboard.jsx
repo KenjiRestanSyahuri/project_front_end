@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [showEditProject, setShowEditProject] = useState(false);
   const [currentGuid, setCurrentGuid] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(10);
   const [message, setMessage] = useState(""); // State untuk menampilkan pesan notifikasi
 
   const apiUrl = import.meta.env.VITE_API_URL;
