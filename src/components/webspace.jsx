@@ -1,65 +1,116 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from './sidebar';
-import Navbar from './navbar'; // Import Navbar
+import Navbar from './navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TambahWebSpace from './tambahwebspace';
+import EditWebSpace from './editwebspace';
 
 const DetailProject = () => {
-  const { guid } = useParams(); // Mengambil guid dari URL
-  const [project, setProject] = useState(null); // State untuk menyimpan data proyek
-  const [webSpaces, setWebSpaces] = useState([]); // State untuk data web spaces
-  const apiUrl = import.meta.env.VITE_API_URL; // Mengambil API URL dari environment
+  const [project, setProject] = useState(null);
+  const [webSpaces, setWebSpaces] = useState([]);
+  const [showAddWebSpace, setShowAddWebSpace] = useState(false);
+  const [showEditWebSpace, setShowEditWebSpace] = useState(false);
+  const [currentWebSpace, setCurrentWebSpace] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
 
-  // Mengambil detail proyek berdasarkan projectGuid (guid dari URL)
   useEffect(() => {
     const fetchProjectDetails = async () => {
-      console.log(`Fetching project details for GUID: ${guid}`); // Log GUID yang sedang diambil
       try {
-        // Mengambil detail proyek
-        const projectResponse = await axios.get(`${apiUrl}/projects/${guid}`);
-        console.log('Project API Response:', projectResponse.data); // Log respons API untuk detail proyek
+        const projectGuid = localStorage.getItem('currentProjectGuid');
+        if (projectGuid) {
+          const projectResponse = await axios.get(`${apiUrl}/projects/${projectGuid}`);
+          setProject(projectResponse.data);
 
-        if (projectResponse.data) {
-          setProject(projectResponse.data); // Menyimpan data proyek ke state
-          const projectGuid = projectResponse.data.guid; // Ambil projectGuid dari data proyek
-          console.log(`Project GUID: ${projectGuid}`); // Log projectGuid yang digunakan untuk fetch web spaces
-
-          // Mengambil web spaces berdasarkan projectGuid
           const webSpacesResponse = await axios.get(`${apiUrl}/web-spaces/by-project/${projectGuid}`);
-          console.log('Web Spaces API Response:', webSpacesResponse.data); // Log respons API untuk web spaces
-
-          setWebSpaces(webSpacesResponse.data.webSpaces || []); // Sesuaikan dengan struktur yang diterima
-        } else {
-          console.warn('No project data returned from API'); // Log peringatan jika tidak ada data proyek
+          setWebSpaces(webSpacesResponse.data);
         }
       } catch (error) {
-        console.error("Error fetching project or web spaces:", error); // Log kesalahan jika terjadi
+        console.error("Error fetching project or web spaces:", error);
       }
     };
 
     fetchProjectDetails();
-  }, [guid, apiUrl]);
+  }, [apiUrl]);
+
+  const handleAddHost = () => {
+    navigate('/hostwebspace');
+  };
+
+  const handleAddWebSpace = (newWebSpace) => {
+    setWebSpaces((prevWebSpaces) => [...prevWebSpaces, newWebSpace]);
+    setShowAddWebSpace(false);
+  };
+
+  const handleEditWebSpace = (webSpace) => {
+    setCurrentWebSpace(webSpace);
+    setShowEditWebSpace(true);
+  };
+
+  const handleWebSpaceUpdated = (updatedWebSpace) => {
+    setWebSpaces((prevWebSpaces) =>
+      prevWebSpaces.map((webSpace) =>
+        webSpace.guid === updatedWebSpace.guid ? updatedWebSpace : webSpace
+      )
+    );
+    setShowEditWebSpace(false);
+  };
+
+  // Fungsi untuk menghapus web space
+  const handleDeleteWebSpace = async (webSpace) => {
+    const confirmDelete = window.confirm("Apakah anda yakin untuk menghapus data?");
+    if (confirmDelete) {
+      try {
+        const response = await axios.delete(`${apiUrl}/web-spaces/${webSpace.guid}`);
+        if (response.status === 200) {
+          setWebSpaces((prevWebSpaces) => prevWebSpaces.filter((ws) => ws.guid !== webSpace.guid));
+          alert("Web space berhasil dihapus!");
+        }
+      } catch (error) {
+        console.error("Error deleting web space:", error);
+        alert("Gagal menghapus web space.");
+      }
+    }
+  };
 
   if (!project) {
-    return <div>Loading...</div>; // Menampilkan loading saat data sedang diambil
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Navbar /> {/* Menambahkan Navbar di sini */}
+      <Navbar />
 
       <div className="d-flex flex-grow-1">
         <Sidebar />
 
-        {/* Detail Project Content */}
         <div className="flex-grow-1 p-4 bg-light">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Web Space untuk Proyek: {project.name}</h2> {/* Menampilkan nama proyek */}
-            <button className="btn btn-primary">
+            <h2>Web Space untuk Proyek: {project.name}</h2>
+            <button className="btn btn-primary" onClick={handleAddHost}>
+              <i className="fas fa-plus me-2"></i>Host
+            </button>
+            <button className="btn btn-primary" onClick={() => setShowAddWebSpace(true)}>
               <i className="fas fa-plus me-2"></i>Tambah Web Space
             </button>
           </div>
+
+          {showAddWebSpace && (
+            <TambahWebSpace
+              onClose={() => setShowAddWebSpace(false)}
+              onWebSpaceAdded={handleAddWebSpace}
+            />
+          )}
+
+          {showEditWebSpace && (
+            <EditWebSpace
+              webSpace={currentWebSpace}
+              onClose={() => setShowEditWebSpace(false)}
+              onWebSpaceUpdated={handleWebSpaceUpdated}
+            />
+          )}
 
           <div className="table-responsive">
             <table className="table table-bordered table-striped">
@@ -74,8 +125,8 @@ const DetailProject = () => {
               </thead>
               <tbody>
                 {webSpaces.length > 0 ? (
-                  webSpaces.map((webSpace, index) => (
-                    <tr key={index}>
+                  webSpaces.map((webSpace) => (
+                    <tr key={webSpace.guid}>
                       <td>{webSpace.host}</td>
                       <td>
                         <a href={webSpace.url} target="_blank" rel="noopener noreferrer">
@@ -85,14 +136,24 @@ const DetailProject = () => {
                       <td>{webSpace.directory}</td>
                       <td>{webSpace.language}</td>
                       <td>
-                        <button className="btn btn-success btn-sm me-2">Edit</button>
-                        <button className="btn btn-danger btn-sm">Hapus</button>
+                        <button 
+                          className="btn btn-success btn-sm me-2" 
+                          onClick={() => handleEditWebSpace(webSpace)}
+                        >
+                          Edit
+                        </button>
+                        <button 
+                          className="btn btn-danger btn-sm" 
+                          onClick={() => handleDeleteWebSpace(webSpace)} // Panggil handleDeleteWebSpace saat tombol diklik
+                        >
+                          Hapus
+                        </button>
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="text-center">Tidak ada data web space</td>
+                    <td colSpan="5" className="text-center">Tidak ada web space yang tersedia</td>
                   </tr>
                 )}
               </tbody>
