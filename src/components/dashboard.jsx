@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./navbar";
 import TambahProject from "./tambahproject";
@@ -22,6 +22,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchProjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchProjects = async () => {
@@ -38,7 +39,9 @@ const Dashboard = () => {
   const searchProjects = async () => {
     if (searchQuery) {
       try {
-        const response = await axios.get(`${apiUrl}/projects/search?name=${searchQuery}`);
+        const response = await axios.get(
+          `${apiUrl}/projects/search?name=${searchQuery}`
+        );
         setProjects(response.data);
       } catch (error) {
         console.error("Error searching projects:", error);
@@ -71,7 +74,11 @@ const Dashboard = () => {
   };
 
   const handleProjectUpdated = (updatedProject) => {
-    setProjects(projects.map((project) => (project.guid === updatedProject.guid ? updatedProject : project)));
+    setProjects(
+      projects.map((project) =>
+        project.guid === updatedProject.guid ? updatedProject : project
+      )
+    );
     setMessage("Proyek berhasil diperbarui."); // Set pesan sukses
   };
 
@@ -167,9 +174,10 @@ const Dashboard = () => {
               <th>Nama Projek</th>
               <th>Owner</th>
               <th>User</th>
-              <th>Deskripsi</th>
               <th>Tanggal Mulai</th>
               <th>Aksi</th> 
+              <th>Edit Terakhir</th>
+              <th className="action-cell">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -178,18 +186,24 @@ const Dashboard = () => {
                 <tr key={project.guid}>
                   {/* Bungkus row proyek dengan Link */}
                   <td>
-                    <Link to={`/project/${project.guid}`} className="text-decoration-none same-width">
+                    <Link
+                      to={`/project/${project.guid}`}
+                      className="text-decoration-none same-width"
+                    >
                       {project.name}
                     </Link>
                   </td>
                   <td className="same-width">{project.owner}</td>
                   <td className="same-width">{project.user}</td>
-                  <td className="same-width">{project.description}</td>
                   <td className="same-width">
                     {formatDate(project.startDate)}
                   </td>
-                  <td> 
-                    
+                  <td className="same-width">
+                    {formatDate(project.lastUpdated)}
+                  </td>
+                  <td className="action-cell">
+                    {/* Tombol untuk edit dan hapus project */}
+
                     <button
                       className="btn btn-sm me-1 rounded-5"
                       onClick={() => handleEditProject(project.guid)}
