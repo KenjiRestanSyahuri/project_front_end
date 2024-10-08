@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [showEditProject, setShowEditProject] = useState(false);
   const [currentGuid, setCurrentGuid] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(5);
   const [message, setMessage] = useState(""); // State untuk menampilkan pesan notifikasi
 
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -169,7 +169,7 @@ const Dashboard = () => {
               <th>User</th>
               <th>Deskripsi</th>
               <th>Tanggal Mulai</th>
-              <th className="action-cell">Aksi</th>
+              <th>Aksi</th> 
             </tr>
           </thead>
           <tbody>
@@ -188,21 +188,19 @@ const Dashboard = () => {
                   <td className="same-width">
                     {formatDate(project.startDate)}
                   </td>
-                  <td className="action-cell">
-                    {/* Tombol untuk edit dan hapus project */}
-
-
+                  <td> 
+                    
                     <button
-                      className="btn btn btn-sm me-1 rounded-5"
+                      className="btn btn-sm me-1 rounded-5"
                       onClick={() => handleEditProject(project.guid)}
-                      style={{ width: "80px", backgroundColor: "#D4E6E8" }}
+                      style={{ backgroundColor: "#D4E6E8", height: "100%" }} 
                     >
                       Edit
                     </button>
                     <button
                       className="btn btn-danger btn-sm rounded-5"
                       onClick={() => handleDeleteProject(project.guid)}
-                      style={{ backgroundColor: "#FF4545", width: "80px" }}
+                      style={{ backgroundColor: "#FF4545", height: "100%" }}  
                     >
                       Hapus
                     </button>

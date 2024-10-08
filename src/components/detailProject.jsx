@@ -39,8 +39,14 @@ const DetailProject = () => {
         <div className="flex-grow-1 p-4 bg-light">
           <div className="card shadow-sm">
             <div className="card-body">
-              <h2 className="mb-4">{project.name}</h2> {/* Menampilkan nama proyek dari data */}
 
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2 className='mb-0'>{project.name}</h2>
+                <button className="btn btn-primary">
+                  <i className="fas fa-edit me-2"></i>Edit Data Project
+                </button>
+              </div>
+              
               <div className="table-responsive">
                 <table className="table table-bordered table-striped">
                   <tbody>
@@ -116,11 +122,7 @@ const DetailProject = () => {
                 </table>
               </div>
 
-              <div className="mt-3 text-end">
-                <button className="btn btn-primary">
-                  <i className="fas fa-edit me-2"></i>Edit Data Project
-                </button>
-              </div>
+            
             </div>
           </div>
         </div>
