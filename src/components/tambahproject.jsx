@@ -7,6 +7,7 @@ function TambahProject({ onClose, onProjectAdded }) {
     owner: "",
     startDate: "",
     user: "",
+    lastVersion: "",
     lastUpdated: "",
     gitRepository: "",
     frontendUrl: "",
@@ -43,6 +44,7 @@ function TambahProject({ onClose, onProjectAdded }) {
         startDate: projectData.startDate,
         lastUpdated: new Date().toISOString(), // Format untuk tanggal pembaruan
         user: projectData.user,
+        lastVersion: projectData.lastVersion,
         gitRepository: projectData.gitRepository,
         frontendUrl: projectData.frontendUrl,
         backendUrl: projectData.backendUrl,
@@ -164,6 +166,7 @@ function TambahProject({ onClose, onProjectAdded }) {
               </div>
             </div>
 
+            {/* Baris untuk Tanggal Mulai dan Pembaruan Terakhir */}
             <div className="row mb-3">
               <div className="col">
                 <input
@@ -172,6 +175,16 @@ function TambahProject({ onClose, onProjectAdded }) {
                   name="user"
                   placeholder="User"
                   value={projectData.user}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="lastVersion"
+                  placeholder="Versi Terakhir"
+                  value={projectData.lastVersion}
                   onChange={handleChange}
                 />
               </div>

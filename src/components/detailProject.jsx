@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import Sidebar from './sidebar';
-import Navbar from './navbar'; // Import Navbar
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import Sidebar from "./sidebar";
+import Navbar from "./navbar"; // Import Navbar
+import "bootstrap/dist/css/bootstrap.min.css";
+import EditProject from "./editproject";
 
 const DetailProject = () => {
+  const [projects, setProjects] = useState([]);
   const { guid } = useParams(); // Mengambil guid dari URL
   const [project, setProject] = useState(null); // State untuk menyimpan data proyek
   const apiUrl = import.meta.env.VITE_API_URL; // Mengambil API URL dari environment
+  const [currentGuid, setCurrentGuid] = useState("");
+  const [showEditProject, setShowEditProject] = useState(false);
+  const [message, setMessage] = useState(""); // State untuk menampilkan pesan notifikasi
 
   // Mengambil detail proyek berdasarkan guid
   useEffect(() => {
@@ -24,6 +29,21 @@ const DetailProject = () => {
     fetchProject();
   }, [guid]);
 
+  const handleEditProject = (guid) => {
+    setCurrentGuid(guid);
+    setShowEditProject(true);
+  };
+
+  const handleProjectUpdated = (updatedProject) => {
+    setProject(
+      projects.map((project) =>
+        project.guid === updatedProject.guid ? updatedProject : project
+      )
+    );
+    setProject(updatedProject); // Update state project langsung
+    setMessage("Proyek berhasil diperbarui."); // Set pesan sukses
+  };
+
   if (!project) {
     return <div>Loading...</div>; // Menampilkan loading saat data sedang diambil
   }
@@ -31,22 +51,31 @@ const DetailProject = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar /> {/* Menambahkan Navbar di sini */}
-
       <div className="d-flex flex-grow-1">
         <Sidebar />
 
-        {/* Detail Project Content */}
+        {/* Konten Detail Proyek */}
         <div className="flex-grow-1 p-4 bg-light">
           <div className="card shadow-sm">
             <div className="card-body">
-
               <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2 className='mb-0'>{project.name}</h2>
-                <button className="btn btn-primary">
+                <h2 className="mb-0">{project.name}</h2>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => handleEditProject(project.guid)}
+                >
                   <i className="fas fa-edit me-2"></i>Edit Data Project
                 </button>
               </div>
-              
+
+              {showEditProject && (
+                <EditProject
+                  guid={currentGuid}
+                  onClose={() => setShowEditProject(false)}
+                  onProjectUpdated={handleProjectUpdated}
+                />
+              )}
+
               <div className="table-responsive">
                 <table className="table table-bordered table-striped">
                   <tbody>
@@ -60,20 +89,28 @@ const DetailProject = () => {
                     </tr>
                     <tr>
                       <td className="bg-light fw-bold">Tanggal Mulai</td>
-                      <td>{new Date(project.startDate).toLocaleDateString()}</td>
+                      <td>
+                        {new Date(project.startDate).toLocaleDateString()}
+                      </td>
                     </tr>
                     <tr>
                       <td className="bg-light fw-bold">Pembaruan Terakhir</td>
-                      <td>{new Date(project.lastUpdated).toLocaleDateString()}</td>
+                      <td>
+                        {new Date(project.lastUpdated).toLocaleDateString()}
+                      </td>
                     </tr>
                     <tr>
                       <td className="bg-light fw-bold">Versi Terakhir</td>
-                      <td>{project.version}</td>
+                      <td>{project.lastVersion}</td>
                     </tr>
                     <tr>
                       <td className="bg-light fw-bold">Git Repository</td>
                       <td>
-                        <a href={project.gitRepo} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={project.gitRepo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           {project.gitRepo}
                         </a>
                       </td>
@@ -81,7 +118,11 @@ const DetailProject = () => {
                     <tr>
                       <td className="bg-light fw-bold">URL Frontend</td>
                       <td>
-                        <a href={project.frontendUrl} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={project.frontendUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           {project.frontendUrl}
                         </a>
                       </td>
@@ -89,7 +130,11 @@ const DetailProject = () => {
                     <tr>
                       <td className="bg-light fw-bold">URL Backend</td>
                       <td>
-                        <a href={project.backendUrl} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={project.backendUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           {project.backendUrl}
                         </a>
                       </td>
@@ -97,22 +142,26 @@ const DetailProject = () => {
                     <tr>
                       <td className="bg-light fw-bold">Aplikasi Android</td>
                       <td>
-                        <a href={project.androidApp} target="_blank" rel="noopener noreferrer">
-                          {project.androidApp ? 'PlayStore' : '-'}
+                        <a
+                          href={project.androidApp}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {project.androidApp ? "PlayStore" : "-"}
                         </a>
                       </td>
                     </tr>
                     <tr>
                       <td className="bg-light fw-bold">Aplikasi iOS</td>
-                      <td>{project.iosApp || '-'}</td>
+                      <td>{project.iosApp || "-"}</td>
                     </tr>
                     <tr>
                       <td className="bg-light fw-bold">Aplikasi Windows</td>
-                      <td>{project.windowsApp || '-'}</td>
+                      <td>{project.windowsApp || "-"}</td>
                     </tr>
                     <tr>
                       <td className="bg-light fw-bold">Aplikasi Mac</td>
-                      <td>{project.macApp || '-'}</td>
+                      <td>{project.macApp || "-"}</td>
                     </tr>
                     <tr>
                       <td className="bg-light fw-bold">Deskripsi</td>
@@ -121,8 +170,6 @@ const DetailProject = () => {
                   </tbody>
                 </table>
               </div>
-
-            
             </div>
           </div>
         </div>

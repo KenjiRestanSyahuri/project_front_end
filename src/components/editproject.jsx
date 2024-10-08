@@ -64,6 +64,7 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
           </div>
         </div>
         <form onSubmit={handleSubmit}>
+          {/* Kolom Nama Projek dan Owner */}
           <div className="form-group row mb-3">
             <div className="col">
               <input
@@ -88,6 +89,8 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
               />
             </div>
           </div>
+
+          {/* Kolom Tanggal Mulai dan Pembaharuan Terakhir */}
           <div className="form-group row mb-3">
             <div className="col">
               <input
@@ -103,6 +106,21 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
             <div className="col">
               <input
                 type="text"
+                name="lastUpdated"
+                value={projectData.lastUpdated.substring(0, 10)} // Format tanggal YYYY-MM-DD
+                onChange={handleChange}
+                className="form-control"
+                placeholder="Pembaharuan Terakhir"
+                required
+              />
+            </div>
+          </div>
+
+          {/* Kolom User dan Versi Terakhir */}
+          <div className="form-group row mb-3">
+            <div className="col">
+              <input
+                type="text"
                 name="user"
                 value={projectData.user}
                 onChange={handleChange}
@@ -111,18 +129,20 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
                 required
               />
             </div>
+            <div className="col">
+              <input
+                type="text"
+                name="lastVersion"
+                value={projectData.lastVersion} // Versi Terakhir
+                onChange={handleChange}
+                className="form-control"
+                placeholder="Versi Terakhir"
+                required
+              />
+            </div>
           </div>
-          <div className="form-group mb-3">
-            <input
-              type="text"
-              name="lastUpdated"
-              value={projectData.lastUpdated.substring(0, 10)} // Format tanggal YYYY-MM-DD
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Pembaharuan Terakhir"
-              required
-            />
-          </div>
+
+          {/* Kolom Git Repository */}
           <div className="form-group mb-3">
             <input
               type="text"
@@ -133,6 +153,8 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
               placeholder="Git Repository"
             />
           </div>
+
+          {/* Kolom URL Frontend dan Backend */}
           <div className="form-group row mb-3">
             <div className="col">
               <input
@@ -155,6 +177,8 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
               />
             </div>
           </div>
+
+          {/* Kolom Aplikasi Android dan iOS */}
           <div className="form-group row mb-3">
             <div className="col">
               <input
@@ -173,10 +197,12 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
                 value={projectData.iosAppLink}
                 onChange={handleChange}
                 className="form-control"
-                placeholder="Aplikasi IOS"
+                placeholder="Aplikasi iOS"
               />
             </div>
           </div>
+
+          {/* Kolom Aplikasi Windows dan Mac */}
           <div className="form-group row mb-3">
             <div className="col">
               <input
@@ -199,6 +225,8 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
               />
             </div>
           </div>
+
+          {/* Kolom Deskripsi */}
           <div className="form-group mb-3">
             <textarea
               name="description"
@@ -209,6 +237,8 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
               rows="3"
             ></textarea>
           </div>
+
+          {/* Tombol Update */}
           <div className="button-container">
             <button type="submit" className="btn btn-primary rounded-pill px-4">Update</button>
           </div>
