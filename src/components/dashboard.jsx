@@ -175,6 +175,7 @@ const Dashboard = () => {
               <th>Owner</th>
               <th>User</th>
               <th>Tanggal Mulai</th>
+              <th>Aksi</th> 
               <th>Edit Terakhir</th>
               <th className="action-cell">Aksi</th>
             </tr>

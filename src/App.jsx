@@ -8,6 +8,7 @@ import ProtectedRoute from './components/protectedroute';
 import NotFound from './components/notfound';
 import Sidebar from './components/sidebar';
 import DetailProject from './components/detailProject';
+import Webspace from './components/webspace';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/project/:guid" element={<DetailProject />} />
         <Route path="*" element={<NotFound />} /> {/* Route fallback */}
+        <Route path="/webspace" element={<Webspace />} /> {/* Route fallback */}
       </Routes>
     </Router>
   );

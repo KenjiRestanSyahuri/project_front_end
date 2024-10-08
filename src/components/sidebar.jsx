@@ -1,12 +1,14 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Ganti useHistory dengan useNavigate
+import { useNavigate, Link } from "react-router-dom"; // Import Link and useNavigate from react-router-dom
 import { DashboardIcon } from "@radix-ui/react-icons"; // Import the Dashboard icon from Radix Icons
 import { Data } from "akar-icons"; // Import the Data icon from Akar Icons
 import { FaDatabase, FaClipboardCheck } from "react-icons/fa"; // Import the Database and Clipboard Check icons from react-icons
-import "bootstrap/dist/css/bootstrap.min.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-// import { IconDeviceTv } from "@tabler/icons-react";
-import { LogoutBroken } from "solar-icons"; // Import the Logout Broken icon from Solar Icons
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+//import { IconDeviceTv } from '@tabler/icons-react';
+import { LogoutBroken } from 'solar-icons'; // Import the Logout Broken icon from Solar Icons
+
+
 
 const Sidebar = () => {
   const navigate = useNavigate(); // Gunakan useNavigate untuk navigasi
@@ -52,10 +54,10 @@ const Sidebar = () => {
       <div className="p-4">
         <ul className="list-unstyled">
           <li className="mb-3">
-            <a href="#" style={linkStyle}>
+            <Link to="/webspace" style={linkStyle}> {/* Link to WebSpace page */}
               <DashboardIcon style={iconStyle} />
               Web Space
-            </a>
+            </Link>
           </li>
           <li className="mb-3">
             <a href="#" style={linkStyle}>
