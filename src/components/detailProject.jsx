@@ -21,6 +21,7 @@ const DetailProject = () => {
       try {
         const response = await axios.get(`${apiUrl}/projects/${guid}`);
         setProject(response.data); // Menyimpan data proyek ke state
+        localStorage.setItem('currentProjectGuid', response.data.guid);
       } catch (error) {
         console.error("Error fetching project details:", error);
       }

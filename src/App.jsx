@@ -9,6 +9,7 @@ import NotFound from './components/notfound';
 import Sidebar from './components/sidebar';
 import DetailProject from './components/detailProject';
 import Webspace from './components/webspace';
+import HostWebSpace from './components/hostwebspace';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/project/:guid" element={<DetailProject />} />
         <Route path="*" element={<NotFound />} /> {/* Route fallback */}
         <Route path="/webspace" element={<Webspace />} /> {/* Route fallback */}
+        <Route path="/hostwebspace" element={<HostWebSpace />} /> {/* Route fallback */}
       </Routes>
     </Router>
   );
