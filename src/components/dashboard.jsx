@@ -202,21 +202,22 @@ const Dashboard = () => {
                   </td>
                   <td className="action-cell">
                     {/* Tombol untuk edit dan hapus project */}
-
-                    <button
-                      className="btn btn btn-sm me-1 rounded-5"
-                      onClick={() => handleEditProject(project.guid)}
-                      style={{ width: "80px", backgroundColor: "#D4E6E8" }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-danger btn-sm rounded-5"
-                      onClick={() => handleDeleteProject(project.guid)}
-                      style={{ backgroundColor: "#FF4545", width: "80px" }}
-                    >
-                      Hapus
-                    </button>
+                    <div className="d-grid gap-2 d-md-block">
+                      <button
+                        className="btn btn btn-sm me-1 rounded-5"
+                        onClick={() => handleEditProject(project.guid)}
+                        style={{ width: "80px", backgroundColor: "#D4E6E8" }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-danger btn-sm rounded-5"
+                        onClick={() => handleDeleteProject(project.guid)}
+                        style={{ backgroundColor: "#FF4545", width: "80px" }}
+                      >
+                        Hapus
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))
