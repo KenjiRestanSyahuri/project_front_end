@@ -16,7 +16,8 @@ const Navbar = () => {
             width="40"
             className="me-2"
           />
-          <div>
+          {/* Tulisan hanya tampil di layar besar */}
+          <div className="d-none d-lg-block">
             <h1 className="fs-5 text-primary m-0">FITZ</h1>
             <h2 className="fs-6 text-dark m-0">
               Integrated Service Operation Tool
@@ -24,29 +25,23 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Navbar Toggle untuk layar kecil */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+        {/* Tombol Log Out untuk layar kecil */}
+        <div className="d-lg-none ms-auto">
+          <Logout /> {/* Komponen Log Out */}
+        </div>
 
-        {/* Menu Collapse */}
-        <div className="collapse navbar-collapse" id="navbarNav">
+        {/* Menu Collapse untuk layar besar */}
+        <div
+          className="collapse navbar-collapse d-none d-lg-flex"
+          id="navbarNav"
+        >
           <ul className="navbar-nav ms-auto d-flex align-items-right">
-            {/* Ikon Profil */}
+            {/* Ikon Profil hanya tampil di layar besar */}
             <li className="nav-item me-1">
-              <FontAwesomeIcon icon={faCircleUser} className="fs-1" />{" "}
-              {/* Ikon Profil */}
+              <FontAwesomeIcon icon={faCircleUser} className="fs-1" />
             </li>
 
-            {/* Tombol Log Out */}
+            {/* Tombol Log Out untuk layar besar */}
             <li className="nav-item">
               <Logout /> {/* Komponen Log Out */}
             </li>
