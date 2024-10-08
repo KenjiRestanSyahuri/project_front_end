@@ -64,7 +64,7 @@ const DetailProject = () => {
                     </tr>
                     <tr>
                       <td className="bg-light fw-bold">Pembaruan Terakhir</td>
-                      <td>{new Date(project.updatedAt).toLocaleDateString()}</td>
+                      <td>{new Date(project.lastUpdated).toLocaleDateString()}</td>
                     </tr>
                     <tr>
                       <td className="bg-light fw-bold">Versi Terakhir</td>
