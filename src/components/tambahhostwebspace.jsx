@@ -12,6 +12,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
     databaseType: "",
   });
 
+  // Mengambil currentProjectGuid dari localStorage
+  const currentProjectGuid = localStorage.getItem("currentProjectGuid");
+
   // Handle perubahan input
   const handleChange = (e) => {
     setHostData({
@@ -23,25 +26,31 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
   // Fungsi untuk POST data ke backend menggunakan fetch
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with data:", hostData); // Log data sebelum pengiriman
+    console.log("Form submitted with data:", hostData);
+
+    // Validasi currentProjectGuid
+    if (!currentProjectGuid || typeof currentProjectGuid !== "string") {
+      alert("currentProjectGuid tidak valid! Harap hubungi administrator.");
+      return;
+    }
+
     if (hostData.hostName && hostData.url && hostData.ipAddress) {
-      // Menyiapkan data untuk dikirim
       const dataToSend = {
-        hostName: hostData.hostName,
+        projectGuid: currentProjectGuid, // Gunakan currentProjectGuid dari localStorage
+        name: hostData.hostName,
         url: hostData.url,
         ipAddress: hostData.ipAddress,
-        adminUsername: hostData.adminUsername,
-        adminPassword: hostData.adminPassword,
+        username: hostData.adminUsername,
+        password: hostData.adminPassword,
         os: hostData.os,
-        databaseType: hostData.databaseType,
+        serverType: hostData.databaseType,
       };
 
-      console.log("Data to send to the server:", dataToSend); // Log data yang akan dikirim
+      console.log("Data to send to the server:", dataToSend);
 
       try {
-        // Mengirim data ke server melalui POST request menggunakan fetch
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/hosts`, // Ubah URL endpoint sesuai kebutuhan
+          `${import.meta.env.VITE_API_URL}/host-webspace`, 
           {
             method: "POST",
             headers: {
@@ -51,7 +60,7 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
           }
         );
 
-        console.log("Response status:", response.status); // Log status respons
+        console.log("Response status:", response.status);
 
         if (!response.ok) {
           const errorResponse = await response.json();
@@ -59,15 +68,15 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
         }
 
         const result = await response.json();
-        console.log("Response data from server:", result); // Log data yang diterima dari server
+        console.log("Response data from server:", result);
 
-        onHostAdded(result); // Mengirim data host yang berhasil disimpan ke parent component
+        onHostAdded(result); // Kirim data host ke parent component
         onClose(); // Tutup modal setelah host berhasil ditambahkan
       } catch (error) {
-        console.error("Error adding host:", error.message); // Log kesalahan
+        console.error("Error adding host:", error.message);
       }
     } else {
-      alert("Harap isi field wajib!"); // Validasi input wajib
+      alert("Harap isi field wajib!");
     }
   };
 
@@ -80,13 +89,14 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
             className="btn-close ms-auto" 
             aria-label="Close" 
             onClick={onClose}
-            style={{ border: 'none', background: 'transparent', fontSize: '1.5rem' }} // Mengubah gaya tombol X
+            style={{ border: 'none', background: 'transparent', fontSize: '1.5rem' }}
           >
-            &times; {/* Simbol X untuk tombol tutup */}
+            &times;
           </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
+            {/* Field form sama seperti sebelumnya */}
             <div className="mb-3">
               <label htmlFor="hostName" className="form-label">Nama Host</label>
               <input

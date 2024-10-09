@@ -5,7 +5,7 @@ import Sidebar from './sidebar';
 import Navbar from './navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TambahHostWebSpace from './tambahhostwebspace';
-//import EditHostWebSpace from './edithostwebspace';
+import EditHostWebSpace from './edithostwebspace';
 
 const HostWebSpace = () => {
   const [hosts, setHosts] = useState([]);
@@ -76,13 +76,15 @@ const HostWebSpace = () => {
 
         <div className="flex-grow-1 p-4 bg-light">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Web Space Hosts</h2>
-            <button className="btn btn-primary" onClick={() => setShowAddHost(true)}>
-              <i className="fas fa-plus me-2"></i>Tambah Host
-            </button>
-            <button className="btn btn-secondary" onClick={handleBackToWebSpace}>
-              Kembali ke Web Space
-            </button>
+            <h2>Host</h2>
+            <div>
+              <button className="btn btn-primary me-2" onClick={() => setShowAddHost(true)}>
+                <i className="fas fa-plus me-2"></i>Host
+              </button>
+              <button className="btn btn-secondary" onClick={handleBackToWebSpace}>
+                Web Space
+              </button>
+            </div>
           </div>
 
           {showAddHost && (
@@ -104,7 +106,7 @@ const HostWebSpace = () => {
             <table className="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>Web Space</th>
+                  <th>Host</th>
                   <th>IP Address</th>
                   <th>URL</th>
                   <th>Username</th>
@@ -118,7 +120,7 @@ const HostWebSpace = () => {
                 {hosts.length > 0 ? (
                   hosts.map((host) => (
                     <tr key={host.guid}>
-                      <td>{host.webSpace}</td>
+                      <td>{host.name}</td>
                       <td>{host.ipAddress}</td>
                       <td>
                         <a href={host.url} target="_blank" rel="noopener noreferrer">

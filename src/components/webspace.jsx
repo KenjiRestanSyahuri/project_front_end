@@ -58,7 +58,6 @@ const DetailProject = () => {
     setShowEditWebSpace(false);
   };
 
-  // Fungsi untuk menghapus web space
   const handleDeleteWebSpace = async (webSpace) => {
     const confirmDelete = window.confirm("Apakah anda yakin untuk menghapus data?");
     if (confirmDelete) {
@@ -89,12 +88,14 @@ const DetailProject = () => {
         <div className="flex-grow-1 p-4 bg-light">
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h2>Web Space untuk Proyek: {project.name}</h2>
-            <button className="btn btn-primary" onClick={handleAddHost}>
-              <i className="fas fa-plus me-2"></i>Host
-            </button>
-            <button className="btn btn-primary" onClick={() => setShowAddWebSpace(true)}>
-              <i className="fas fa-plus me-2"></i>Tambah Web Space
-            </button>
+            <div>
+              <button className="btn btn-primary me-2" onClick={handleAddHost}>
+                <i className="fas fa-plus me-1"></i>Host
+              </button>
+              <button className="btn btn-primary" onClick={() => setShowAddWebSpace(true)}>
+                <i className="fas fa-plus me-1"></i>Tambah Web Space
+              </button>
+            </div>
           </div>
 
           {showAddWebSpace && (
@@ -144,7 +145,7 @@ const DetailProject = () => {
                         </button>
                         <button 
                           className="btn btn-danger btn-sm" 
-                          onClick={() => handleDeleteWebSpace(webSpace)} // Panggil handleDeleteWebSpace saat tombol diklik
+                          onClick={() => handleDeleteWebSpace(webSpace)}
                         >
                           Hapus
                         </button>
