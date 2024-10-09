@@ -21,7 +21,7 @@ const DetailProject = () => {
       try {
         const response = await axios.get(`${apiUrl}/projects/${guid}`);
         setProject(response.data); // Menyimpan data proyek ke state
-        localStorage.setItem('currentProjectGuid', response.data.guid);
+        localStorage.setItem("currentProjectGuid", response.data.guid);
       } catch (error) {
         console.error("Error fetching project details:", error);
       }
@@ -62,8 +62,13 @@ const DetailProject = () => {
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2 className="mb-0">{project.name}</h2>
                 <button
-                  className="btn btn-primary"
+                  className="btn"
                   onClick={() => handleEditProject(project.guid)}
+                  style={{
+                    backgroundColor: "white",
+                    color: "#226195",
+                    fontFamily: "sans-serif",
+                  }}
                 >
                   <i className="fas fa-edit me-2"></i>Edit Data Project
                 </button>

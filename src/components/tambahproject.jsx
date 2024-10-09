@@ -98,21 +98,19 @@ function TambahProject({ onClose, onProjectAdded }) {
   return (
     <div className="modal-container">
       <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+        >
+          <FaTimes />
+          {/* <i className="bi bi-x" style={{ fontSize: "1.5rem" }}></i> */}
+        </button>
         <div className="modal-header">
           <div>
             <h2 className="h5">Tambah Projek</h2>
             <p className="text-muted small">Masukkan Detail Project</p>
           </div>
-          <div className="close" onClick={onClose}>
-            <FaTimes />
-          </div>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-          >
-            {/* <i className="bi bi-x" style={{ fontSize: "1.5rem" }}></i> */}
-          </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">

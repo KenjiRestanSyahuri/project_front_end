@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { FaTimes } from 'react-icons/fa';
-import axios from 'axios';
-import './editproject.css';
+import React, { useEffect, useState } from "react";
+import { FaTimes } from "react-icons/fa";
+import axios from "axios";
+import "./editproject.css";
 
 const EditProject = ({ guid, onClose, onProjectUpdated }) => {
   const [projectData, setProjectData] = useState(null); // State untuk menyimpan data proyek
@@ -54,13 +54,17 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
   return (
     <div className="modal-container">
       <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+        >
+          <FaTimes />
+        </button>
         <div className="header">
           <div>
             <h2 className="h4">Edit Projek</h2>
             <p className="text-muted small mb-0">Masukkan Detail Project</p>
-          </div>
-          <div className="close" onClick={onClose}>
-            <FaTimes />
           </div>
         </div>
         <form onSubmit={handleSubmit}>
@@ -240,7 +244,9 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
 
           {/* Tombol Update */}
           <div className="button-container">
-            <button type="submit" className="btn btn-primary rounded-pill px-4">Update</button>
+            <button type="submit" className="btn btn-primary rounded-pill px-4">
+              Update
+            </button>
           </div>
         </form>
       </div>

@@ -1,14 +1,15 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom"; // Import Link and useNavigate from react-router-dom
-import { DashboardIcon } from "@radix-ui/react-icons"; // Import the Dashboard icon from Radix Icons
-import { Data } from "akar-icons"; // Import the Data icon from Akar Icons
-import { FaDatabase, FaClipboardCheck } from "react-icons/fa"; // Import the Database and Clipboard Check icons from react-icons
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-//import { IconDeviceTv } from '@tabler/icons-react';
-import { LogoutBroken } from 'solar-icons'; // Import the Logout Broken icon from Solar Icons
-
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import {
+  IconLayoutDashboard,
+  IconDatabase,
+  IconServer,
+  IconDeviceTv,
+  IconLicense,
+} from "@tabler/icons-react";
+import { LogoutBroken } from "solar-icons";
 
 const Sidebar = () => {
   const navigate = useNavigate(); // Gunakan useNavigate untuk navigasi
@@ -54,34 +55,36 @@ const Sidebar = () => {
       <div className="p-4">
         <ul className="list-unstyled">
           <li className="mb-3">
-            <Link to="/webspace" style={linkStyle}> {/* Link to WebSpace page */}
-              <DashboardIcon style={iconStyle} />
+            <Link to="/webspace" style={linkStyle}>
+              {" "}
+              {/* Link to WebSpace page */}
+              <IconLayoutDashboard style={iconStyle} />
               Web Space
             </Link>
           </li>
           <li className="mb-3">
             <a href="#" style={linkStyle}>
-              <Data style={iconStyle} />{" "}
+              <IconDatabase style={iconStyle} />{" "}
               {/* Use the Data icon from Akar Icons */}
               Database
             </a>
           </li>
           <li className="mb-3">
             <a href="#" style={linkStyle}>
-              <FaDatabase style={iconStyle} />{" "}
+              <IconServer style={iconStyle} />{" "}
               {/* Use the Database icon from react-icons */}
               Storage
             </a>
           </li>
           <li className="mb-3">
             <a href="#" style={linkStyle}>
-              {/* <IconDeviceTv stroke={2} style={iconStyle} /> */}
+              <IconDeviceTv stroke={2} style={iconStyle} />
               Message Broker
             </a>
           </li>
           <li className="mb-3">
             <a href="#" style={linkStyle}>
-              <FaClipboardCheck style={iconStyle} />{" "}
+              <IconLicense style={iconStyle} />{" "}
               {/* Use the Clipboard Check icon as a substitute for License */}
               Worker
             </a>
