@@ -63,11 +63,11 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="mb-3">
-            <a href="#" style={linkStyle}>
+            <Link to={"/database"} style={linkStyle}>
               <IconDatabase style={iconStyle} />{" "}
               {/* Use the Data icon from Akar Icons */}
               Database
-            </a>
+            </Link>
           </li>
           <li className="mb-3">
             <a href="#" style={linkStyle}>
