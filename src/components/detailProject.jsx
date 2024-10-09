@@ -6,6 +6,7 @@ import Navbar from "./navbar"; // Import Navbar
 import "bootstrap/dist/css/bootstrap.min.css";
 import EditProject from "./editproject";
 import Swal from "sweetalert2"; // Import SweetAlert2
+import { TailSpin } from "react-loader-spinner";
 
 const DetailProject = () => {
   const [projects, setProjects] = useState([]);
@@ -48,7 +49,14 @@ const DetailProject = () => {
   };
 
   if (!project) {
-    return <div>Loading...</div>; // Menampilkan loading saat data sedang diambil
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+      </div>
+    );
   }
 
   return (

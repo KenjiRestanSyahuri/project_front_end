@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./editwebspace.css";
+import Swal from "sweetalert2";
 
 function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
   const [webSpaceData, setWebSpaceData] = useState({ ...webSpace });
@@ -28,8 +29,18 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
 
       if (!response.ok) {
         const errorResponse = await response.json();
-        throw new Error(`HTTP error! status: ${response.status}, message: ${errorResponse.message}`);
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${errorResponse.message}`
+        );
       }
+
+      // SweetAlert success notification
+      Swal.fire({
+        title: "Success",
+        text: "Web space berhasil diperbarui!",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
 
       const result = await response.json();
       console.log("Updated web space data from server:", result);
@@ -37,6 +48,12 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
       onClose();
     } catch (error) {
       console.error("Error updating web space:", error.message);
+      Swal.fire({
+        title: "Error",
+        text: "Gagal memperbarui web space!",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
@@ -45,9 +62,9 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
           <h2 className="h5">Edit Web Space</h2>
-          <button 
-            className="btn-close ms-auto" 
-            aria-label="Close" 
+          <button
+            className="btn-close ms-auto"
+            aria-label="Close"
             onClick={onClose}
           >
             &times;
@@ -56,7 +73,9 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
             <div className="mb-3">
-              <label htmlFor="host" className="form-label">Host</label>
+              <label htmlFor="host" className="form-label">
+                Host
+              </label>
               <select
                 className="form-select"
                 name="host"
@@ -69,7 +88,9 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
               </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="url" className="form-label">URL</label>
+              <label htmlFor="url" className="form-label">
+                URL
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -80,7 +101,9 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="directory" className="form-label">Directory</label>
+              <label htmlFor="directory" className="form-label">
+                Directory
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -91,7 +114,9 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="language" className="form-label">Bahasa</label>
+              <label htmlFor="language" className="form-label">
+                Bahasa
+              </label>
               <select
                 className="form-select"
                 name="language"
@@ -104,7 +129,10 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
             </div>
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary rounded-pill px-4 w-100">
+            <button
+              type="submit"
+              className="btn btn-primary rounded-pill px-4 w-100"
+            >
               Update
             </button>
           </div>

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './edithostwebspace.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./edithostwebspace.css";
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
   const [hostData, setHostData] = useState({ ...host });
@@ -17,14 +18,30 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
   // Fungsi untuk memperbarui data host
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-      const response = await axios.put(`${apiUrl}/host-webspace/${host.guid}`, hostData);
+      const response = await axios.put(
+        `${apiUrl}/host-webspace/${host.guid}`,
+        hostData
+      );
       onHostUpdated(response.data); // Kirim data host yang telah diperbarui ke parent component
+      // SweetAlert success notification
+      Swal.fire({
+        title: "Success",
+        text: "Web space berhasil diperbarui!",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
       onClose(); // Tutup modal setelah host berhasil diperbarui
     } catch (error) {
       console.error("Error updating host:", error);
-      alert("Gagal memperbarui host.");
+      // SweetAlert error notification
+      Swal.fire({
+        title: "Error",
+        text: "Gagal memperbarui web space!",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
@@ -33,11 +50,15 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
           <h2 className="h5">Edit Host</h2>
-          <button 
-            className="btn-close ms-auto" 
-            aria-label="Close" 
+          <button
+            className="btn-close ms-auto"
+            aria-label="Close"
             onClick={onClose}
-            style={{ border: 'none', background: 'transparent', fontSize: '1.5rem' }}
+            style={{
+              border: "none",
+              background: "transparent",
+              fontSize: "1.5rem",
+            }}
           >
             &times;
           </button>
@@ -45,7 +66,9 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
             <div className="mb-3">
-              <label htmlFor="name" className="form-label">Nama Host</label>
+              <label htmlFor="name" className="form-label">
+                Nama Host
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -56,7 +79,9 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="url" className="form-label">URL</label>
+              <label htmlFor="url" className="form-label">
+                URL
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -67,7 +92,9 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="ipAddress" className="form-label">IP Address</label>
+              <label htmlFor="ipAddress" className="form-label">
+                IP Address
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -78,7 +105,9 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="username" className="form-label">Username</label>
+              <label htmlFor="username" className="form-label">
+                Username
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -89,7 +118,9 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">Password</label>
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
               <input
                 type="password"
                 className="form-control"
@@ -100,7 +131,9 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="os" className="form-label">OS</label>
+              <label htmlFor="os" className="form-label">
+                OS
+              </label>
               <select
                 className="form-select"
                 name="os"
@@ -115,7 +148,9 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
               </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="serverType" className="form-label">Jenis Server</label>
+              <label htmlFor="serverType" className="form-label">
+                Jenis Server
+              </label>
               <select
                 className="form-select"
                 name="serverType"
@@ -131,7 +166,10 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
             </div>
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary rounded-pill px-4 w-100">
+            <button
+              type="submit"
+              className="btn btn-primary rounded-pill px-4 w-100"
+            >
               Perbarui
             </button>
           </div>

@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import Sidebar from './sidebar';
-import Navbar from './navbar';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import TambahWebSpace from './tambahwebspace';
-import EditWebSpace from './editwebspace';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "./sidebar";
+import Navbar from "./navbar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import TambahWebSpace from "./tambahwebspace";
+import EditWebSpace from "./editwebspace";
+import { TailSpin } from "react-loader-spinner";
+import Swal from "sweetalert2";
 
 const DetailProject = () => {
   const [project, setProject] = useState(null);
@@ -19,12 +21,16 @@ const DetailProject = () => {
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
-        const projectGuid = localStorage.getItem('currentProjectGuid');
+        const projectGuid = localStorage.getItem("currentProjectGuid");
         if (projectGuid) {
-          const projectResponse = await axios.get(`${apiUrl}/projects/${projectGuid}`);
+          const projectResponse = await axios.get(
+            `${apiUrl}/projects/${projectGuid}`
+          );
           setProject(projectResponse.data);
 
-          const webSpacesResponse = await axios.get(`${apiUrl}/web-spaces/by-project/${projectGuid}`);
+          const webSpacesResponse = await axios.get(
+            `${apiUrl}/web-spaces/by-project/${projectGuid}`
+          );
           setWebSpaces(webSpacesResponse.data);
         }
       } catch (error) {
@@ -36,12 +42,13 @@ const DetailProject = () => {
   }, [apiUrl]);
 
   const handleAddHost = () => {
-    navigate('/hostwebspace');
+    navigate("/hostwebspace");
   };
 
   const handleAddWebSpace = (newWebSpace) => {
     setWebSpaces((prevWebSpaces) => [...prevWebSpaces, newWebSpace]);
     setShowAddWebSpace(false);
+    Swal.fire("Sukses", "Web space berhasil ditambahkan!", "success");
   };
 
   const handleEditWebSpace = (webSpace) => {
@@ -59,23 +66,44 @@ const DetailProject = () => {
   };
 
   const handleDeleteWebSpace = async (webSpace) => {
-    const confirmDelete = window.confirm("Apakah anda yakin untuk menghapus data?");
-    if (confirmDelete) {
+    const confirmDelete = await Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Data ini akan dihapus secara permanen!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    });
+
+    if (confirmDelete.isConfirmed) {
       try {
-        const response = await axios.delete(`${apiUrl}/web-spaces/${webSpace.guid}`);
+        const response = await axios.delete(
+          `${apiUrl}/web-spaces/${webSpace.guid}`
+        );
         if (response.status === 200) {
-          setWebSpaces((prevWebSpaces) => prevWebSpaces.filter((ws) => ws.guid !== webSpace.guid));
-          alert("Web space berhasil dihapus!");
+          setWebSpaces((prevWebSpaces) =>
+            prevWebSpaces.filter((ws) => ws.guid !== webSpace.guid)
+          );
+          Swal.fire("Terhapus!", "Web space berhasil dihapus.", "success");
         }
       } catch (error) {
         console.error("Error deleting web space:", error);
-        alert("Gagal menghapus web space.");
+        Swal.fire("Gagal", "Gagal menghapus web space.", "error");
       }
     }
   };
 
   if (!project) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+      </div>
+    );
   }
 
   return (
@@ -90,9 +118,12 @@ const DetailProject = () => {
             <h2>Web Space untuk Proyek: {project.name}</h2>
             <div>
               <button className="btn btn-primary me-2" onClick={handleAddHost}>
-                <i className="fas fa-plus me-1"></i>Host
+                <i className="fas me-1"></i>Host
               </button>
-              <button className="btn btn-primary" onClick={() => setShowAddWebSpace(true)}>
+              <button
+                className="btn btn-primary"
+                onClick={() => setShowAddWebSpace(true)}
+              >
                 <i className="fas fa-plus me-1"></i>Tambah Web Space
               </button>
             </div>
@@ -129,22 +160,33 @@ const DetailProject = () => {
                   webSpaces.map((webSpace) => (
                     <tr key={webSpace.guid}>
                       <td>{webSpace.host}</td>
-                      <td>
-                        <a href={webSpace.url} target="_blank" rel="noopener noreferrer">
+                      <td
+                        style={{
+                          maxWidth: "20rem",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        <a
+                          href={webSpace.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           {webSpace.url}
                         </a>
                       </td>
                       <td>{webSpace.directory}</td>
                       <td>{webSpace.language}</td>
                       <td>
-                        <button 
-                          className="btn btn-success btn-sm me-2" 
+                        <button
+                          className="btn btn-success btn-sm me-2"
                           onClick={() => handleEditWebSpace(webSpace)}
                         >
                           Edit
                         </button>
-                        <button 
-                          className="btn btn-danger btn-sm" 
+                        <button
+                          className="btn btn-danger btn-sm"
                           onClick={() => handleDeleteWebSpace(webSpace)}
                         >
                           Hapus
@@ -154,7 +196,9 @@ const DetailProject = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="text-center">Tidak ada web space yang tersedia</td>
+                    <td colSpan="5" className="text-center">
+                      Tidak ada web space yang tersedia
+                    </td>
                   </tr>
                 )}
               </tbody>
