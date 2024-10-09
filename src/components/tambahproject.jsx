@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./tambahproject.css";
+import { FaTimes } from "react-icons/fa";
 
 function TambahProject({ onClose, onProjectAdded }) {
   const [projectData, setProjectData] = useState({
@@ -95,12 +96,15 @@ function TambahProject({ onClose, onProjectAdded }) {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
         <div className="modal-header">
           <div>
             <h2 className="h5">Tambah Projek</h2>
             <p className="text-muted small">Masukkan Detail Project</p>
+          </div>
+          <div className="close" onClick={onClose}>
+            <FaTimes />
           </div>
           <button
             className="btn-close ms-auto"
