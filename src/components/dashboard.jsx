@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2"; // Import SweetAlert2
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./navbar";
 import TambahProject from "./tambahproject";
@@ -22,7 +23,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchProjects();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchProjects = async () => {
@@ -32,7 +32,7 @@ const Dashboard = () => {
       setMessage(""); // Reset pesan saat data berhasil diambil
     } catch (error) {
       console.error("Error fetching projects:", error);
-      setMessage("Gagal memuat data proyek."); // Set pesan error
+      Swal.fire("Gagal memuat data proyek", "", "error"); // Notifikasi error
     }
   };
 
@@ -45,7 +45,7 @@ const Dashboard = () => {
         setProjects(response.data);
       } catch (error) {
         console.error("Error searching projects:", error);
-        setMessage("Gagal melakukan pencarian."); // Set pesan error
+        Swal.fire("Gagal melakukan pencarian", "", "error"); // Notifikasi error
       }
     } else {
       fetchProjects();
@@ -65,7 +65,7 @@ const Dashboard = () => {
 
   const handleAddProject = (newProject) => {
     setProjects([...projects, newProject]);
-    setMessage("Proyek berhasil ditambahkan."); // Set pesan sukses
+    Swal.fire("Proyek berhasil ditambahkan", "", "success"); // Notifikasi sukses
   };
 
   const handleEditProject = (guid) => {
@@ -79,20 +79,32 @@ const Dashboard = () => {
         project.guid === updatedProject.guid ? updatedProject : project
       )
     );
-    setMessage("Proyek berhasil diperbarui."); // Set pesan sukses
+    Swal.fire("Proyek berhasil diperbarui", "", "success"); // Notifikasi sukses
   };
 
   const handleDeleteProject = async (guid) => {
-    if (window.confirm("Apakah Anda yakin ingin menghapus proyek ini?")) {
-      try {
-        await axios.delete(`${apiUrl}/projects/${guid}`);
-        setProjects(projects.filter((project) => project.guid !== guid));
-        setMessage("Proyek berhasil dihapus."); // Set pesan sukses
-      } catch (error) {
-        console.error("Error deleting project:", error);
-        setMessage("Gagal menghapus proyek."); // Set pesan error
+    // Ganti window.confirm dengan Swal untuk konfirmasi
+    Swal.fire({
+      title: "Apakah Anda yakin?",
+      text: "Proyek ini akan dihapus!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`${apiUrl}/projects/${guid}`);
+          setProjects(projects.filter((project) => project.guid !== guid));
+          Swal.fire("Proyek berhasil dihapus", "", "success"); // Notifikasi sukses
+        } catch (error) {
+          console.error("Error deleting project:", error);
+          Swal.fire("Gagal menghapus proyek", "", "error"); // Notifikasi error
+        }
       }
-    }
+    });
   };
 
   const indexOfLastProject = currentPage * itemsPerPage;
@@ -109,9 +121,6 @@ const Dashboard = () => {
       <Navbar />
       <div className="container mt-3">
         <h2>List Project Terdaftar</h2>
-
-        {/* Notifikasi Pesan */}
-        {message && <div className="alert alert-info">{message}</div>}
 
         <div className="input-group mb-3 position-relative">
           <input
@@ -183,7 +192,6 @@ const Dashboard = () => {
             {currentProjects.length > 0 ? (
               currentProjects.map((project) => (
                 <tr key={project.guid}>
-                  {/* Bungkus row proyek dengan Link */}
                   <td>
                     <Link
                       to={`/project/${project.guid}`}
@@ -201,7 +209,6 @@ const Dashboard = () => {
                     {formatDate(project.lastUpdated)}
                   </td>
                   <td className="action-cell">
-                    {/* Tombol untuk edit dan hapus project */}
                     <div className="d-grid gap-2 d-md-block">
                       <button
                         className="btn btn btn-sm me-1 rounded-5"

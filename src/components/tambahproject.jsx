@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./tambahproject.css";
 import { FaTimes } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 function TambahProject({ onClose, onProjectAdded }) {
   const [projectData, setProjectData] = useState({
@@ -79,6 +80,15 @@ function TambahProject({ onClose, onProjectAdded }) {
         console.log("Project added:", result);
         onProjectAdded(result); // Mengirim data project yang berhasil disimpan ke parent component
         onClose(); // Tutup modal setelah project berhasil ditambahkan
+
+        // Tampilkan SweetAlert sukses
+        Swal.fire({
+          icon: "success",
+          title: "Project Ditambahkan",
+          text: "Project berhasil ditambahkan ke database",
+          timer: 3000,
+          showConfirmButton: false,
+        });
       } catch (error) {
         console.error("Error adding project:", error);
         if (error.response) {
@@ -89,9 +99,21 @@ function TambahProject({ onClose, onProjectAdded }) {
         } else {
           console.error("Error message:", error.message);
         }
+
+        // Tampilkan SweetAlert error
+        Swal.fire({
+          icon: "error",
+          title: "Terjadi Kesalahan",
+          text: "Gagal menambahkan project. Silakan coba lagi.",
+        });
       }
     } else {
-      alert("Harap isi field wajib!"); // Validasi input wajib
+      // Validasi input wajib dengan SweetAlert
+      Swal.fire({
+        icon: "warning",
+        title: "Field Wajib Kosong",
+        text: "Harap isi semua field yang wajib diisi!",
+      });
     }
   };
 
@@ -108,7 +130,7 @@ function TambahProject({ onClose, onProjectAdded }) {
         </button>
         <div className="modal-header">
           <div>
-            <h2 className="h5">Tambah Projek</h2>
+            <h2 className="h5">Tambah Project</h2>
             <p className="text-muted small">Masukkan Detail Project</p>
           </div>
         </div>

@@ -5,6 +5,7 @@ import Sidebar from "./sidebar";
 import Navbar from "./navbar"; // Import Navbar
 import "bootstrap/dist/css/bootstrap.min.css";
 import EditProject from "./editproject";
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 const DetailProject = () => {
   const [projects, setProjects] = useState([]);
@@ -43,6 +44,7 @@ const DetailProject = () => {
     );
     setProject(updatedProject); // Update state project langsung
     setMessage("Proyek berhasil diperbarui."); // Set pesan sukses
+    Swal.fire("Proyek berhasil diperbarui", "", "success"); // Notifikasi sukses
   };
 
   if (!project) {

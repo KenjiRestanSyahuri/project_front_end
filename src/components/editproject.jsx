@@ -48,7 +48,7 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
   }
 
   if (!projectData) {
-    return <div>Error: Data proyek tidak ditemukan.</div>; // Menangani jika data tidak ada
+    return <div>Error: Data project tidak ditemukan.</div>; // Menangani jika data tidak ada
   }
 
   return (
@@ -63,7 +63,7 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
         </button>
         <div className="header">
           <div>
-            <h2 className="h4">Edit Projek</h2>
+            <h2 className="h4">Edit Project</h2>
             <p className="text-muted small mb-0">Masukkan Detail Project</p>
           </div>
         </div>
