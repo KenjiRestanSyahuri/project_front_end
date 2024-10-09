@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import Sidebar from './sidebar';
-import Navbar from './navbar';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import TambahHostWebSpace from './tambahhostwebspace';
-import EditHostWebSpace from './edithostwebspace';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "./sidebar";
+import Navbar from "./navbar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import TambahHostWebSpace from "./tambahhostwebspace";
+import EditHostWebSpace from "./edithostwebspace";
+import Swal from "sweetalert2";
 
 const HostWebSpace = () => {
   const [hosts, setHosts] = useState([]);
@@ -29,12 +30,13 @@ const HostWebSpace = () => {
   }, [apiUrl]);
 
   const handleBackToWebSpace = () => {
-    navigate('/webspace');
+    navigate("/webspace");
   };
 
   const handleAddHost = (newHost) => {
     setHosts((prevHosts) => [...prevHosts, newHost]);
     setShowAddHost(false);
+    Swal.fire("Sukses", "Host Web space berhasil ditambahkan!", "success");
   };
 
   const handleEditHost = (host) => {
@@ -52,17 +54,30 @@ const HostWebSpace = () => {
   };
 
   const handleDeleteHost = async (host) => {
-    const confirmDelete = window.confirm("Apakah anda yakin untuk menghapus data?");
-    if (confirmDelete) {
+    // SweetAlert2 confirmation dialog
+    const result = await Swal.fire({
+      title: "Apakah Anda yakin?",
+      text: "Data ini akan dihapus secara permanen!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    });
+
+    if (result.isConfirmed) {
       try {
-        const response = await axios.delete(`${apiUrl}/host-webspace/${host.guid}`);
+        const response = await axios.delete(
+          `${apiUrl}/host-webspace/${host.guid}`
+        );
         if (response.status === 200) {
-          setHosts((prevHosts) => prevHosts.filter((h) => h.guid !== host.guid));
-          alert("Host berhasil dihapus!");
+          setHosts((prevHosts) =>
+            prevHosts.filter((h) => h.guid !== host.guid)
+          );
+          Swal.fire("Dihapus!", "Host berhasil dihapus!", "success");
         }
       } catch (error) {
         console.error("Error deleting host:", error);
-        alert("Gagal menghapus host.");
+        Swal.fire("Gagal!", "Gagal menghapus host.", "error");
       }
     }
   };
@@ -78,11 +93,17 @@ const HostWebSpace = () => {
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h2>Host</h2>
             <div>
-              <button className="btn btn-primary me-2" onClick={() => setShowAddHost(true)}>
-                <i className="fas fa-plus me-2"></i>Host
-              </button>
-              <button className="btn btn-secondary" onClick={handleBackToWebSpace}>
+              <button
+                className="btn btn-secondary me-2"
+                onClick={handleBackToWebSpace}
+              >
                 Web Space
+              </button>
+              <button
+                className="btn btn-primary "
+                onClick={() => setShowAddHost(true)}
+              >
+                <i className="fas fa-plus me-2"></i>Host
               </button>
             </div>
           </div>
@@ -122,8 +143,19 @@ const HostWebSpace = () => {
                     <tr key={host.guid}>
                       <td>{host.name}</td>
                       <td>{host.ipAddress}</td>
-                      <td>
-                        <a href={host.url} target="_blank" rel="noopener noreferrer">
+                      <td
+                        style={{
+                          maxWidth: "20rem",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        <a
+                          href={host.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           {host.url}
                         </a>
                       </td>
@@ -132,14 +164,14 @@ const HostWebSpace = () => {
                       <td>{host.os}</td>
                       <td>{host.serverType}</td>
                       <td>
-                        <button 
-                          className="btn btn-success btn-sm me-2" 
+                        <button
+                          className="btn btn-success btn-sm me-2"
                           onClick={() => handleEditHost(host)}
                         >
                           Edit
                         </button>
-                        <button 
-                          className="btn btn-danger btn-sm" 
+                        <button
+                          className="btn btn-danger btn-sm"
                           onClick={() => handleDeleteHost(host)}
                         >
                           Hapus
@@ -149,7 +181,9 @@ const HostWebSpace = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="8" className="text-center">Tidak ada data host yang tersedia</td>
+                    <td colSpan="8" className="text-center">
+                      Tidak ada data host yang tersedia
+                    </td>
                   </tr>
                 )}
               </tbody>

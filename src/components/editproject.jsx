@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import axios from "axios";
+import { TailSpin } from "react-loader-spinner"; // Import TailSpin dari react-loader-spinner
 import "./editproject.css";
 
 const EditProject = ({ guid, onClose, onProjectUpdated }) => {
-  const [projectData, setProjectData] = useState(null); // State untuk menyimpan data proyek
-  const [loading, setLoading] = useState(true); // State untuk loading
+  const [projectData, setProjectData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const apiUrl = import.meta.env.VITE_API_URL; // Mengambil API_URL dari environment variables
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchProjectData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/projects/${guid}`); // Gunakan apiUrl di sini
-        setProjectData(response.data); // Menyimpan data proyek yang diambil
+        const response = await axios.get(`${apiUrl}/projects/${guid}`);
+        setProjectData(response.data);
       } catch (error) {
         console.error("Error fetching project data:", error);
       } finally {
@@ -22,7 +23,7 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
     };
 
     fetchProjectData();
-  }, [guid, apiUrl]); // Mengambil data proyek saat guid berubah
+  }, [guid, apiUrl]);
 
   const handleChange = (e) => {
     setProjectData({
@@ -34,21 +35,32 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Kirim data proyek yang telah diperbarui ke API
-      await axios.put(`${apiUrl}/projects/${guid}`, projectData); // Gunakan apiUrl di sini
-      onProjectUpdated(projectData); // Mengirim data proyek yang telah diperbarui ke parent component
-      onClose(); // Menutup modal setelah memperbarui
+      await axios.put(`${apiUrl}/projects/${guid}`, projectData);
+      onProjectUpdated(projectData);
+      onClose();
     } catch (error) {
       console.error("Error updating project data:", error);
     }
   };
 
+  // Ganti teks Loading dengan TailSpin
   if (loading) {
-    return <div>Loading...</div>; // Menampilkan loading saat data diambil
+    return (
+      <div className="modal-container">
+        <div className="spinner-overlay">
+          <TailSpin
+            height="60"
+            width="60"
+            color="#226195"
+            ariaLabel="loading"
+          />
+        </div>
+      </div>
+    );
   }
 
   if (!projectData) {
-    return <div>Error: Data project tidak ditemukan.</div>; // Menangani jika data tidak ada
+    return <div>Error: Data project tidak ditemukan.</div>;
   }
 
   return (
@@ -100,7 +112,7 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
               <input
                 type="text"
                 name="startDate"
-                value={projectData.startDate.substring(0, 10)} // Format tanggal YYYY-MM-DD
+                value={projectData.startDate.substring(0, 10)}
                 onChange={handleChange}
                 className="form-control"
                 placeholder="Tanggal Mulai"
@@ -111,7 +123,7 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
               <input
                 type="text"
                 name="lastUpdated"
-                value={projectData.lastUpdated.substring(0, 10)} // Format tanggal YYYY-MM-DD
+                value={projectData.lastUpdated.substring(0, 10)}
                 onChange={handleChange}
                 className="form-control"
                 placeholder="Pembaharuan Terakhir"
@@ -137,7 +149,7 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
               <input
                 type="text"
                 name="lastVersion"
-                value={projectData.lastVersion} // Versi Terakhir
+                value={projectData.lastVersion}
                 onChange={handleChange}
                 className="form-control"
                 placeholder="Versi Terakhir"

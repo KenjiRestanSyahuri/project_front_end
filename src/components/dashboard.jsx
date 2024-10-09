@@ -8,6 +8,7 @@ import TambahProject from "./tambahproject";
 import EditProject from "./editproject";
 import "./dashboard.css"; // Mengimpor CSS yang berisi style untuk modal
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { TailSpin } from "react-loader-spinner";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -18,6 +19,7 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [message, setMessage] = useState(""); // State untuk menampilkan pesan notifikasi
+  const [loading, setLoading] = useState(false);
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -26,6 +28,7 @@ const Dashboard = () => {
   }, []);
 
   const fetchProjects = async () => {
+    setLoading(true); // Set loading ke true saat data sedang dimuat
     try {
       const response = await axios.get(`${apiUrl}/projects`);
       setProjects(response.data);
@@ -33,6 +36,8 @@ const Dashboard = () => {
     } catch (error) {
       console.error("Error fetching projects:", error);
       Swal.fire("Gagal memuat data proyek", "", "error"); // Notifikasi error
+    } finally {
+      setLoading(false); // Set loading ke false setelah data dimuat
     }
   };
 
@@ -122,143 +127,162 @@ const Dashboard = () => {
       <div className="container mt-3">
         <h2>List Project Terdaftar</h2>
 
-        <div className="input-group mb-3 position-relative">
-          <input
-            type="text"
-            className="bi bi-search form-control rounded-pill"
-            placeholder="Cari project"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyPress={handleKeyPress}
-            style={{ paddingLeft: "40px", marginRight: "20px" }}
-          />
-          <button
-            className="btn btn-primary rounded-pill"
-            type="button"
-            onClick={searchProjects}
-            style={{ backgroundColor: "#226195", width: "80px" }}
-          >
-            Cari
-          </button>
+        {loading ? (
+          <div className="spinner-overlay">
+            <TailSpin
+              height="60"
+              width="60"
+              color="#226195"
+              ariaLabel="loading"
+            />
+          </div>
+        ) : (
+          <>
+            <div className="input-group mb-3 position-relative">
+              <input
+                type="text"
+                className="bi bi-search form-control rounded-pill"
+                placeholder="Cari project"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={handleKeyPress}
+                style={{ paddingLeft: "40px", marginRight: "20px" }}
+              />
+              <button
+                className="btn btn-primary rounded-pill"
+                type="button"
+                onClick={searchProjects}
+                style={{ backgroundColor: "#226195", width: "80px" }}
+              >
+                Cari
+              </button>
 
-          <button
-            className="ms-3 btn btn rounded-pill"
-            onClick={() => setShowAddProject(true)}
-            style={{ backgroundColor: "#fff", color: "#226195" }}
-          >
-            <i className="bi bi-plus-circle-fill me-2"></i>
-            Tambah Project
-          </button>
+              <button
+                className="ms-3 btn btn rounded-pill"
+                onClick={() => setShowAddProject(true)}
+                style={{ backgroundColor: "#fff", color: "#226195" }}
+              >
+                <i className="bi bi-plus-circle-fill me-2"></i>
+                Tambah Project
+              </button>
 
-          <i
-            className="bi bi-search position-absolute"
-            style={{
-              left: "15px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              fontSize: "20px",
-              color: "#6c757d",
-            }}
-          ></i>
-        </div>
+              <i
+                className="bi bi-search position-absolute"
+                style={{
+                  left: "15px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  fontSize: "20px",
+                  color: "#6c757d",
+                }}
+              ></i>
+            </div>
 
-        {showAddProject && (
-          <TambahProject
-            onClose={() => setShowAddProject(false)}
-            onProjectAdded={handleAddProject}
-          />
-        )}
+            {showAddProject && (
+              <TambahProject
+                onClose={() => setShowAddProject(false)}
+                onProjectAdded={handleAddProject}
+              />
+            )}
 
-        {showEditProject && (
-          <EditProject
-            guid={currentGuid}
-            onClose={() => setShowEditProject(false)}
-            onProjectUpdated={handleProjectUpdated}
-          />
-        )}
+            {showEditProject && (
+              <EditProject
+                guid={currentGuid}
+                onClose={() => setShowEditProject(false)}
+                onProjectUpdated={handleProjectUpdated}
+              />
+            )}
 
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Nama Projek</th>
-              <th>Owner</th>
-              <th>User</th>
-              <th>Tanggal Mulai</th>
-              <th>Edit Terakhir</th>
-              <th className="action-cell">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentProjects.length > 0 ? (
-              currentProjects.map((project) => (
-                <tr key={project.guid}>
-                  <td>
-                    <Link
-                      to={`/project/${project.guid}`}
-                      className="text-decoration-none same-width"
-                    >
-                      {project.name}
-                    </Link>
-                  </td>
-                  <td className="same-width">{project.owner}</td>
-                  <td className="same-width">{project.user}</td>
-                  <td className="same-width">
-                    {formatDate(project.startDate)}
-                  </td>
-                  <td className="same-width">
-                    {formatDate(project.lastUpdated)}
-                  </td>
-                  <td className="action-cell">
-                    <div className="d-grid gap-2 d-md-block">
-                      <button
-                        className="btn btn btn-sm me-1 rounded-5"
-                        onClick={() => handleEditProject(project.guid)}
-                        style={{ width: "80px", backgroundColor: "#D4E6E8" }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-danger btn-sm rounded-5"
-                        onClick={() => handleDeleteProject(project.guid)}
-                        style={{ backgroundColor: "#FF4545", width: "80px" }}
-                      >
-                        Hapus
-                      </button>
-                    </div>
-                  </td>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nama Projek</th>
+                  <th>Owner</th>
+                  <th>User</th>
+                  <th>Tanggal Mulai</th>
+                  <th>Edit Terakhir</th>
+                  <th className="action-cell">Aksi</th>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6" className="text-center">
-                  Tidak ada data
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {currentProjects.length > 0 ? (
+                  currentProjects.map((project) => (
+                    <tr key={project.guid}>
+                      <td>
+                        <Link
+                          to={`/project/${project.guid}`}
+                          className="text-decoration-none same-width"
+                        >
+                          {project.name}
+                        </Link>
+                      </td>
+                      <td className="same-width">{project.owner}</td>
+                      <td className="same-width">{project.user}</td>
+                      <td className="same-width">
+                        {formatDate(project.startDate)}
+                      </td>
+                      <td className="same-width">
+                        {formatDate(project.lastUpdated)}
+                      </td>
+                      <td className="action-cell">
+                        <div className="d-grid gap-2 d-md-block">
+                          <button
+                            className="btn btn btn-sm me-1 rounded-5"
+                            onClick={() => handleEditProject(project.guid)}
+                            style={{
+                              width: "80px",
+                              backgroundColor: "#D4E6E8",
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="btn btn-danger btn-sm rounded-5"
+                            onClick={() => handleDeleteProject(project.guid)}
+                            style={{
+                              backgroundColor: "#FF4545",
+                              width: "80px",
+                            }}
+                          >
+                            Hapus
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="text-center">
+                      Tidak ada data
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
 
-        <nav>
-          <ul className="pagination justify-content-center">
-            {[...Array(Math.ceil(projects.length / itemsPerPage))].map(
-              (_, index) => (
-                <li
-                  key={index}
-                  className={`page-item ${
-                    index + 1 === currentPage ? "active" : ""
-                  }`}
-                >
-                  <button
-                    onClick={() => paginate(index + 1)}
-                    className="page-link"
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              )
-            )}
-          </ul>
-        </nav>
+            <nav>
+              <ul className="pagination justify-content-center">
+                {[...Array(Math.ceil(projects.length / itemsPerPage))].map(
+                  (_, index) => (
+                    <li
+                      key={index}
+                      className={`page-item ${
+                        index + 1 === currentPage ? "active" : ""
+                      }`}
+                    >
+                      <button
+                        onClick={() => paginate(index + 1)}
+                        className="page-link"
+                      >
+                        {index + 1}
+                      </button>
+                    </li>
+                  )
+                )}
+              </ul>
+            </nav>
+          </>
+        )}
       </div>
     </div>
   );

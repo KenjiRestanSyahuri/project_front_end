@@ -36,3 +36,20 @@
 .button-container {
   text-align: center;
 }
+
+.spinner-overlay {
+  position: fixed; /* Gunakan fixed agar menutupi seluruh halaman */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Tutupi seluruh lebar viewport */
+  height: 100vh; /* Tutupi seluruh tinggi viewport */
+  background-color: rgba(255, 255, 255, 0.1); /* Background semi-transparan */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100; /* Pastikan z-index cukup tinggi untuk menutupi elemen lain */
+}
+
+.modal-content {
+  position: relative;
+}
