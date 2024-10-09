@@ -19,7 +19,8 @@ const HostWebSpace = () => {
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/host-webspace`);
+        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const response = await axios.get(`${apiUrl}/host-webspace/by-project/${projectGuid}`);
         setHosts(response.data);
       } catch (error) {
         console.error("Error fetching hosts:", error);
