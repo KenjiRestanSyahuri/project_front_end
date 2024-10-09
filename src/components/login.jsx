@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LupaPassword from "./lupapassword";
-import Dashboard from "./dashboard";
+import Swal from "sweetalert2";
 import "./login.css";
-
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -16,10 +14,14 @@ const Login = () => {
     e.preventDefault();
 
     if (!username || !password) {
-      setError("Username dan Password wajib diisi");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Username dan Password wajib diisi",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#226195",
+      });
     } else {
-      setError("");
-
       fetch(`${apiUrl}/auth/login`, {
         method: "POST",
         headers: {
@@ -41,11 +43,23 @@ const Login = () => {
             localStorage.setItem("token", data.token);
             window.location.href = "/dashboard";
           } else {
-            setError("Invalid login response");
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Invalid login response",
+              confirmButtonText: "OK",
+              confirmButtonColor: "#226195",
+            });
           }
         })
-        .catch((error) => {
-          setError("Invalid username or password");
+        .catch(() => {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Invalid username or password",
+            confirmButtonText: "OK",
+            confirmButtonColor: "#226195",
+          });
         });
     }
   };
@@ -83,13 +97,6 @@ const Login = () => {
                 </h2>
               </div>
             </div>
-
-            {/* Tampilkan pesan error */}
-            {error && (
-              <div className="alert alert-danger" role="alert">
-                {error}
-              </div>
-            )}
 
             {/* Form login */}
             <form onSubmit={handleSubmit}>

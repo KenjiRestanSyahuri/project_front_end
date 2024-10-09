@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { FaTimes } from 'react-icons/fa';
-import axios from 'axios';
-import './editproject.css';
+import React, { useEffect, useState } from "react";
+import { FaTimes } from "react-icons/fa";
+import axios from "axios";
+import "./editproject.css";
 
 const EditProject = ({ guid, onClose, onProjectUpdated }) => {
   const [projectData, setProjectData] = useState(null); // State untuk menyimpan data proyek
@@ -48,7 +48,7 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
   }
 
   if (!projectData) {
-    return <div>Error: Data proyek tidak ditemukan.</div>; // Menangani jika data tidak ada
+    return <div>Error: Data project tidak ditemukan.</div>; // Menangani jika data tidak ada
   }
 
   return (
@@ -56,7 +56,7 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
       <div className="modal-content">
         <div className="header">
           <div>
-            <h2 className="h4">Edit Projek</h2>
+            <h2 className="h4">Edit Project</h2>
             <p className="text-muted small mb-0">Masukkan Detail Project</p>
           </div>
           <div className="close" onClick={onClose}>
@@ -240,7 +240,9 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
 
           {/* Tombol Update */}
           <div className="button-container">
-            <button type="submit" className="btn btn-primary rounded-pill px-4">Update</button>
+            <button type="submit" className="btn btn-primary rounded-pill px-4">
+              Update
+            </button>
           </div>
         </form>
       </div>
