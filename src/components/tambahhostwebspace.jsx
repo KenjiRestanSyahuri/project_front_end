@@ -168,7 +168,7 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="databaseType" className="form-label">Jenis Database Server</label>
+              <label htmlFor="databaseType" className="form-label">Jenis Server</label>
               <select
                 className="form-select"
                 name="databaseType"
