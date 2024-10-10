@@ -11,7 +11,6 @@ import EditDatabase from "./editdatabase";
 const Database = () => {
   const [project, setProject] = useState(null);
   const [database, setDatabase] = useState([]);
-  const [hosts, setHosts] = useState([]);
   const [showAddDatabase, setShowAddDatabase] = useState(false);
   const [showEditDatabase, setShowEditDatabase] = useState(false);
   const [currentDatabase, setCurrentDatabase] = useState(null);
@@ -33,8 +32,6 @@ const Database = () => {
           );
           setDatabase(databaseResponse.data);
 
-          const hostResponse = await axios.get(`${apiUrl}/host-database`);
-          setHosts(hostResponse.data);
         }
       } catch (error) {
         console.error("Error fetching project or database:", error);
@@ -135,7 +132,6 @@ const Database = () => {
 
               {showAddDatabase && (
                 <TambahDatabase
-                  host={hosts} //Kirim data host sebagai props
                   onClose={() => setShowAddDatabase(false)}
                   onDatabaseAdded={handleAddDatabase}
                 />

@@ -1,15 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //import "./tambahwebspace.css";
 import { CloseOutline } from "@carbon/icons-react";
 import { FaTimes } from "react-icons/fa";
+import axios from "axios";
 
-function TambahDatabase({ onClose, onDatabaseAdded, hosts = [] }) {
+function TambahDatabase({ onClose, onDatabaseAdded }) {
   const [databaseData, setDatabaseData] = useState({
     host: "",
     username: "",
     password: "",
     databaseName: "",
   });
+
+  const [hosts, setHosts] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    const fetchHosts = async () => {
+      try {
+        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const response = await axios.get(
+          `${apiUrl}/host-database/by-project/${projectGuid}`
+        );
+        setHosts(response.data);
+      } catch (error) {
+        console.error("Error fetching hosts:", error);
+      }
+    };
+
+    fetchHosts();
+  }, [apiUrl]);
 
   // Handle perubahan input
   const handleChange = (e) => {
@@ -107,15 +127,11 @@ function TambahDatabase({ onClose, onDatabaseAdded, hosts = [] }) {
                 required
               >
                 <option value="">Pilih Host</option>
-                {hosts.length > 0 ? (
-                  hosts.map((host) => (
-                    <option key={host.guid} value={host.name}>
-                      {host.name}
-                    </option>
-                  ))
-                ) : (
-                  <option disabled>Loading Hosts...</option>
-                )}
+                  {hosts.map((host) => (
+                  <option key={host.guid} value={host.name}>
+                    {host.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="mb-3">
