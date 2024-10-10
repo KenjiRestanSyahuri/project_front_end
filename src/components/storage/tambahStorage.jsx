@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./tambahstorage.css";
+import axios from "axios";
 
 function TambahStorage({ onClose, onStorageAdded }) {
   const [storageData, setStorageData] = useState({
@@ -8,6 +9,26 @@ function TambahStorage({ onClose, onStorageAdded }) {
     password: "",
     directoryName: "",
   });
+
+  const [hosts, setHosts] = useState([]); // State untuk menyimpan daftar host
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  // Mengambil daftar host dari backend
+  useEffect(() => {
+    const fetchHosts = async () => {
+      try {
+        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const response = await axios.get(
+          `${apiUrl}/host-storage/by-project/${projectGuid}`
+        );
+        setHosts(response.data);
+      } catch (error) {
+        console.error("Error fetching hosts:", error);
+      }
+    };
+
+    fetchHosts();
+  }, [apiUrl]);
 
   // Handle perubahan input
   const handleChange = (e) => {
@@ -105,9 +126,11 @@ function TambahStorage({ onClose, onStorageAdded }) {
                 required
               >
                 <option value="">Pilih Host</option>
-                <option value="Nginx">Nginx</option>{" "}
-                {/* todo: mengambil dari list host */}
-                <option value="Apache">Apache</option>
+                {hosts.map((host) => (
+                  <option key={host.guid} value={host.name}>
+                    {host.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="mb-3">
