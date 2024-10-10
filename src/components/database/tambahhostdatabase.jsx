@@ -206,9 +206,9 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
                 <option value="MySQL">MySQL</option>
                 <option value="PostgreSQL">PostgreSQL</option>
                 <option value="MongoDB">MongoDB</option>
-                <option value="MongoDB">MariaDB</option>
-                <option value="MongoDB">ArangooDB</option>
-                <option value="MongoDB">Neo4j</option>
+                <option value="MariaDB">MariaDB</option>
+                <option value="ArangooDB">ArangooDB</option>
+                <option value="Neo4j">Neo4j</option>
               </select>
             </div>
           </div>

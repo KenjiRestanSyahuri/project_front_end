@@ -4,77 +4,99 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
+import TambahMessageBroker from "./tambahmessagebroker"; // Component for adding a message broker
+import EditMessageBroker from "./editmessagebroker"; // Component for editing a message broker
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
-import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 const MessageBroker = () => {
+  const [project, setProject] = useState(null);
   const [messageBrokers, setMessageBrokers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [showAddMessageBroker, setShowAddMessageBroker] = useState(false);
+  const [showEditMessageBroker, setShowEditMessageBroker] = useState(false);
+  const [currentMessageBroker, setCurrentMessageBroker] = useState(null);
   const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMessageBrokers = async () => {
+    const fetchProjectDetails = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid"); // Ambil projectGuid dari localStorage
+        const projectGuid = localStorage.getItem("currentProjectGuid");
         if (projectGuid) {
-          const response = await axios.get(
-            `${apiUrl}/host-webspace/by-project/${projectGuid}`
+          const projectResponse = await axios.get(
+            `${apiUrl}/projects/${projectGuid}`
           );
-          setMessageBrokers(response.data); // Simpan data yang diambil
-          setLoading(false); // Set loading ke false setelah data berhasil diambil
+          setProject(projectResponse.data);
+
+          const messageBrokersResponse = await axios.get(
+            `${apiUrl}/message-brokers/by-project/${projectGuid}`
+          );
+          setMessageBrokers(messageBrokersResponse.data);
         }
       } catch (error) {
-        console.error("Error fetching message brokers:", error);
-        Swal.fire("Gagal", "Terjadi kesalahan saat mengambil data.", "error");
+        console.error("Error fetching project or message brokers:", error);
       }
     };
 
-    fetchMessageBrokers();
+    fetchProjectDetails();
   }, [apiUrl]);
 
-  // Fungsi untuk menambah Message Broker
-  const handleAddMessageBroker = () => {
-    navigate("/tambahmessagebroker");
+  const handleAddMessageBroker = (newMessageBroker) => {
+    setMessageBrokers((prevMessageBrokers) => [...prevMessageBrokers, newMessageBroker]);
+    setShowAddMessageBroker(false);
+    Swal.fire("Success", "Message broker added successfully!", "success");
   };
 
-  // Fungsi untuk mengedit Message Broker
-  const handleEditMessageBroker = (broker) => {
-    navigate(`/editmessagebroker/${broker.projectGuid}`);
+  const handleEditMessageBroker = (messageBroker) => {
+    setCurrentMessageBroker(messageBroker);
+    setShowEditMessageBroker(true);
   };
 
-  // Fungsi untuk menghapus Message Broker
-  const handleDeleteMessageBroker = async (broker) => {
+  const handleMessageBrokerUpdated = (updatedMessageBroker) => {
+    setMessageBrokers((prevMessageBrokers) =>
+      prevMessageBrokers.map((mb) =>
+        mb.guid === updatedMessageBroker.guid ? updatedMessageBroker : mb
+      )
+    );
+    setShowEditMessageBroker(false);
+  };
+
+  const handleDeleteMessageBroker = async (messageBroker) => {
     const confirmDelete = await Swal.fire({
-      title: "Apakah Anda yakin?",
-      text: "Data ini akan dihapus secara permanen!",
+      title: "Are you sure?",
+      text: "This data will be permanently deleted!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Ya, hapus!",
-      cancelButtonText: "Batal",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
     });
 
     if (confirmDelete.isConfirmed) {
       try {
-        const response = await axios.delete(`${apiUrl}/host-webspace/${broker.projectGuid}`);
+        const response = await axios.delete(
+          `${apiUrl}/message-brokers/${messageBroker.guid}`
+        );
         if (response.status === 200) {
-          setMessageBrokers((prev) => prev.filter((item) => item.projectGuid !== broker.projectGuid));
-          Swal.fire("Terhapus!", "Data berhasil dihapus.", "success");
+          setMessageBrokers((prevMessageBrokers) =>
+            prevMessageBrokers.filter((mb) => mb.guid !== messageBroker.guid)
+          );
+          Swal.fire("Deleted!", "Message broker has been deleted.", "success");
         }
       } catch (error) {
-        console.error("Error deleting broker:", error);
-        Swal.fire("Gagal", "Gagal menghapus data.", "error");
+        console.error("Error deleting message broker:", error);
+        Swal.fire("Failed", "Failed to delete message broker.", "error");
       }
     }
   };
 
-  // Tampilkan loading spinner jika masih mengambil data
-  if (loading) {
+  if (!project) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
         <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
       </div>
     );
@@ -83,70 +105,84 @@ const MessageBroker = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
+
       <div className="d-flex flex-grow-1">
         <Sidebar />
+
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="card shadow-sm">
-            <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>Message Broker</h2>
-                <button
-                  className="btn btn-primary"
-                  onClick={handleAddMessageBroker}
-                >
-                  <IconCirclePlusFilled /> Tambah Message Broker
-                </button>
-              </div>
-              <div className="table-responsive">
-                <table className="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Host</th>
-                      <th>Virtual Host</th>
-                      <th>Username</th>
-                      <th>Password</th>
-                      <th>Topic</th>
-                      <th>Queue</th>
-                      <th className="action-cell">Aksi</th>
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2>Message Brokers: {project.name}</h2>
+            <button
+              className="btn btn-primary"
+              onClick={() => setShowAddMessageBroker(true)}
+            >
+              <i className="fas fa-plus me-1"></i>Add Message Broker
+            </button>
+          </div>
+
+          {showAddMessageBroker && (
+            <TambahMessageBroker
+              onClose={() => setShowAddMessageBroker(false)}
+              onMessageBrokerAdded={handleAddMessageBroker}
+            />
+          )}
+
+          {showEditMessageBroker && (
+            <EditMessageBroker
+              messageBroker={currentMessageBroker}
+              onClose={() => setShowEditMessageBroker(false)}
+              onMessageBrokerUpdated={handleMessageBrokerUpdated}
+            />
+          )}
+
+          <div className="table-responsive">
+            <table className="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Host</th>
+                  <th>Virtual Host</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                  <th>Topic</th>
+                  <th>Queue</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {messageBrokers.length > 0 ? (
+                  messageBrokers.map((mb) => (
+                    <tr key={mb.guid}>
+                      <td>{mb.host}</td>
+                      <td>{mb.virtualHost}</td>
+                      <td>{mb.username}</td>
+                      <td>{mb.password}</td>
+                      <td>{mb.topic}</td>
+                      <td>{mb.queue}</td>
+                      <td>
+                        <button
+                          className="btn btn-success btn-sm me-2"
+                          onClick={() => handleEditMessageBroker(mb)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDeleteMessageBroker(mb)}
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {messageBrokers.length > 0 ? (
-                      messageBrokers.map((broker) => (
-                        <tr key={broker.projectGuid}>
-                          <td>{broker.host}</td>
-                          <td>{broker.virtualHost}</td>
-                          <td>{broker.username}</td>
-                          <td>{broker.password}</td>
-                          <td>{broker.topic || '-'}</td>
-                          <td>{broker.queue || '-'}</td>
-                          <td className="action-cell">
-                            <button
-                              className="btn btn-sm btn-info me-2"
-                              onClick={() => handleEditMessageBroker(broker)}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              className="btn btn-sm btn-danger"
-                              onClick={() => handleDeleteMessageBroker(broker)}
-                            >
-                              Hapus
-                            </button>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="7" className="text-center">
-                          Tidak ada data Message Broker yang tersedia
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="text-center">
+                      No message brokers available
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
