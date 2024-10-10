@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./sidebar";
-import Navbar from "./navbar";
+import Sidebar from "../sidebar/sidebar";
+import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconCirclePlusFilled } from "@tabler/icons-react";
 import TambahDatabase from "./tambahdatabase";

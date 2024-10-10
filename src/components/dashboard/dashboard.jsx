@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2"; // Import SweetAlert2
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "./navbar";
+import Navbar from "../navbar/navbar";
 import TambahProject from "./tambahproject";
 import EditProject from "./editproject";
 import "./dashboard.css"; // Mengimpor CSS yang berisi style untuk modal

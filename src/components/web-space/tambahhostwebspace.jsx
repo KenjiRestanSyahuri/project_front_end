@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-// import "./tambahhostwebspace.css";
-import { FaTimes } from "react-icons/fa";
+import "./tambahhostwebspace.css";
 
-function TambahHostDatabase({ onClose, onHostAdded }) {
+function TambahHostWebSpace({ onClose, onHostAdded }) {
   const [hostData, setHostData] = useState({
     hostName: "",
     url: "",
@@ -10,7 +9,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
     adminUsername: "",
     adminPassword: "",
     os: "",
-    databaseType: "",
+    serverType: "",
   });
 
   // Mengambil currentProjectGuid dari localStorage
@@ -44,14 +43,14 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
         username: hostData.adminUsername,
         password: hostData.adminPassword,
         os: hostData.os,
-        databaseType: hostData.databaseType,
+        serverType: hostData.serverType,
       };
 
       console.log("Data to send to the server:", dataToSend);
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/host-database`,
+          `${import.meta.env.VITE_API_URL}/host-webspace`, 
           {
             method: "POST",
             headers: {
@@ -65,9 +64,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
 
         if (!response.ok) {
           const errorResponse = await response.json();
-          throw new Error(
-            `HTTP error! status: ${response.status}, message: ${errorResponse.message}`
-          );
+          throw new Error(`HTTP error! status: ${response.status}, message: ${errorResponse.message}`);
         }
 
         const result = await response.json();
@@ -87,32 +84,21 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
     <div className="modal-backdrop d-flex justify-content-center align-items-center">
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
-          <div>
-            <h2 className="h5">Tambah Host</h2>
-            <p className="text-muted small">
-              Masukkan Detail Host Database Untuk Menambahkan
-            </p>
-          </div>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
+          <h2 className="h5">Tambah Host</h2>
+          <button 
+            className="btn-close ms-auto" 
+            aria-label="Close" 
             onClick={onClose}
-            style={{
-              border: "none",
-              background: "transparent",
-              fontSize: "1.5rem",
-            }}
+            style={{ border: 'none', background: 'transparent', fontSize: '1.5rem' }}
           >
-            <FaTimes />
+            &times;
           </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
             {/* Field form sama seperti sebelumnya */}
             <div className="mb-3">
-              <label htmlFor="hostName" className="form-label">
-                Nama Host
-              </label>
+              <label htmlFor="hostName" className="form-label">Nama Host</label>
               <input
                 type="text"
                 className="form-control"
@@ -123,9 +109,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="url" className="form-label">
-                URL
-              </label>
+              <label htmlFor="url" className="form-label">URL</label>
               <input
                 type="text"
                 className="form-control"
@@ -136,9 +120,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="ipAddress" className="form-label">
-                IP Address
-              </label>
+              <label htmlFor="ipAddress" className="form-label">IP Address</label>
               <input
                 type="text"
                 className="form-control"
@@ -149,9 +131,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="adminUsername" className="form-label">
-                Admin Username
-              </label>
+              <label htmlFor="adminUsername" className="form-label">Admin Username</label>
               <input
                 type="text"
                 className="form-control"
@@ -162,9 +142,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="adminPassword" className="form-label">
-                Admin Password
-              </label>
+              <label htmlFor="adminPassword" className="form-label">Admin Password</label>
               <input
                 type="password"
                 className="form-control"
@@ -175,9 +153,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="os" className="form-label">
-                OS
-              </label>
+              <label htmlFor="os" className="form-label">OS</label>
               <select
                 className="form-select"
                 name="os"
@@ -192,28 +168,23 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
               </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="databaseType" className="form-label">
-                Jenis Database Server
-              </label>
+              <label htmlFor="serverType" className="form-label">Jenis Server</label>
               <select
                 className="form-select"
-                name="databaseType"
-                value={hostData.databaseType}
+                name="serverType"
+                value={hostData.serverType}
                 onChange={handleChange}
                 required
               >
-                <option value="">Pilih Jenis Database</option>
-                <option value="MySQL">MySQL</option>
-                <option value="PostgreSQL">PostgreSQL</option>
-                <option value="MongoDB">MongoDB</option>
+                <option value="">Pilih Jenis Server</option>
+                <option value="IIS">IIS</option>
+                <option value="Apache">Apache</option>
+                <option value="NGINX">NGINX</option>
               </select>
             </div>
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button
-              type="submit"
-              className="btn btn-primary rounded-pill px-4 w-100"
-            >
+            <button type="submit" className="btn btn-primary rounded-pill px-4 w-100">
               Tambah
             </button>
           </div>
@@ -223,4 +194,4 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
   );
 }
 
-export default TambahHostDatabase;
+export default TambahHostWebSpace;

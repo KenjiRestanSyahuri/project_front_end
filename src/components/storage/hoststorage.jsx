@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../sidebar";
-import Navbar from "../navbar";
+import Sidebar from "../sidebar/sidebar";
+import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TambahHostStorage from "./tambahhoststorage"; // Komponen untuk menambah host storage
 import EditHostStorage from "./edithoststorage"; // Komponen untuk mengedit host storage

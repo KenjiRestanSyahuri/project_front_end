@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import "./tambahhostwebspace.css";
+// import "./tambahhostwebspace.css";
+import { FaTimes } from "react-icons/fa";
 
-function TambahHostWebSpace({ onClose, onHostAdded }) {
+function TambahHostDatabase({ onClose, onHostAdded }) {
   const [hostData, setHostData] = useState({
     hostName: "",
     url: "",
@@ -43,14 +44,14 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
         username: hostData.adminUsername,
         password: hostData.adminPassword,
         os: hostData.os,
-        serverType: hostData.databaseType,
+        databaseType: hostData.databaseType,
       };
 
       console.log("Data to send to the server:", dataToSend);
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/host-webspace`, 
+          `${import.meta.env.VITE_API_URL}/host-database`,
           {
             method: "POST",
             headers: {
@@ -64,7 +65,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
 
         if (!response.ok) {
           const errorResponse = await response.json();
-          throw new Error(`HTTP error! status: ${response.status}, message: ${errorResponse.message}`);
+          throw new Error(
+            `HTTP error! status: ${response.status}, message: ${errorResponse.message}`
+          );
         }
 
         const result = await response.json();
@@ -84,21 +87,32 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
     <div className="modal-backdrop d-flex justify-content-center align-items-center">
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
-          <h2 className="h5">Tambah Host</h2>
-          <button 
-            className="btn-close ms-auto" 
-            aria-label="Close" 
+          <div>
+            <h2 className="h5">Tambah Host</h2>
+            <p className="text-muted small">
+              Masukkan Detail Host Database Untuk Menambahkan
+            </p>
+          </div>
+          <button
+            className="btn-close ms-auto"
+            aria-label="Close"
             onClick={onClose}
-            style={{ border: 'none', background: 'transparent', fontSize: '1.5rem' }}
+            style={{
+              border: "none",
+              background: "transparent",
+              fontSize: "1.5rem",
+            }}
           >
-            &times;
+            <FaTimes />
           </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
             {/* Field form sama seperti sebelumnya */}
             <div className="mb-3">
-              <label htmlFor="hostName" className="form-label">Nama Host</label>
+              <label htmlFor="hostName" className="form-label">
+                Nama Host
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -109,7 +123,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="url" className="form-label">URL</label>
+              <label htmlFor="url" className="form-label">
+                URL
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -120,7 +136,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="ipAddress" className="form-label">IP Address</label>
+              <label htmlFor="ipAddress" className="form-label">
+                IP Address
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -131,7 +149,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="adminUsername" className="form-label">Admin Username</label>
+              <label htmlFor="adminUsername" className="form-label">
+                Admin Username
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -142,7 +162,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="adminPassword" className="form-label">Admin Password</label>
+              <label htmlFor="adminPassword" className="form-label">
+                Admin Password
+              </label>
               <input
                 type="password"
                 className="form-control"
@@ -153,7 +175,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="os" className="form-label">OS</label>
+              <label htmlFor="os" className="form-label">
+                OS
+              </label>
               <select
                 className="form-select"
                 name="os"
@@ -168,7 +192,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="databaseType" className="form-label">Jenis Server</label>
+              <label htmlFor="databaseType" className="form-label">
+                Jenis Database Server
+              </label>
               <select
                 className="form-select"
                 name="databaseType"
@@ -180,11 +206,17 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
                 <option value="MySQL">MySQL</option>
                 <option value="PostgreSQL">PostgreSQL</option>
                 <option value="MongoDB">MongoDB</option>
+                <option value="MongoDB">MariaDB</option>
+                <option value="MongoDB">ArangooDB</option>
+                <option value="MongoDB">Neo4j</option>
               </select>
             </div>
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary rounded-pill px-4 w-100">
+            <button
+              type="submit"
+              className="btn btn-primary rounded-pill px-4 w-100"
+            >
               Tambah
             </button>
           </div>
@@ -194,4 +226,4 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
   );
 }
 
-export default TambahHostWebSpace;
+export default TambahHostDatabase;

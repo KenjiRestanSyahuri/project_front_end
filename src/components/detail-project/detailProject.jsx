@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "./sidebar";
-import Navbar from "./navbar"; // Import Navbar
+import Sidebar from "../sidebar/sidebar";
+import Navbar from "../navbar/navbar"; // Import Navbar
 import "bootstrap/dist/css/bootstrap.min.css";
-import EditProject from "./editproject";
+import EditProject from "../dashboard/editproject";
 import Swal from "sweetalert2"; // Import SweetAlert2
 import { TailSpin } from "react-loader-spinner";
 

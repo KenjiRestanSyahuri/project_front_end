@@ -1,5 +1,5 @@
 import React from "react";
-import Logout from "./logout"; // Mengimport komponen log out
+import Logout from "../auth/logout"; // Mengimport komponen log out
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Menggunakan FontAwesome untuk ikon
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons"; // Ikon profil
 
