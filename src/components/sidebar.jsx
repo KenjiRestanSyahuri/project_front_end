@@ -93,9 +93,9 @@ const Sidebar = () => {
           </li>
           <li className="mb-3">
             <Link
-              to="/message-broker"
+              to="/messagebroker"
               style={
-                location.pathname === "/message-broker"
+                location.pathname === "/messagebroker"
                   ? activeLinkStyle
                   : linkStyle
               } // Cek jika path aktif adalah "/message-broker"

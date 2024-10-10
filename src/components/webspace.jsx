@@ -8,6 +8,7 @@ import TambahWebSpace from "./tambahwebspace";
 import EditWebSpace from "./editwebspace";
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
+import {IconCirclePlusFilled } from "@tabler/icons-react";
 
 const DetailProject = () => {
   const [project, setProject] = useState(null);
@@ -114,18 +115,126 @@ const DetailProject = () => {
         <Sidebar />
 
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Web Space : {project.name}</h2>
-            <div>
-              <button className="btn btn-primary me-2" onClick={handleAddHost}>
-                <i className="fas me-1"></i>Host
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={() => setShowAddWebSpace(true)}
-              >
-                <i className="fas fa-plus me-1"></i>Tambah Web Space
-              </button>
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2>Web Space untuk Proyek: {project.name}</h2>
+                <div>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={handleAddHost}
+                    style={{
+                      backgroundColor: "#AFD0ED",
+                      color: "#1168E7",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      width: "150px",
+                    }}
+                  >
+                    <i className="fas me-1"></i>Host Web Space
+                  </button>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={() => setShowAddWebSpace(true)}
+                    style={{
+                      backgroundColor: "transparent",
+                      width: "170px",
+                      color: "#226195",
+                      fontFamily: "sans-serif",
+                    }}
+                  >
+                    {/* <i className="fas fa-plus me-1"></i> */}
+                    <IconCirclePlusFilled />
+                  Tambah Web Space
+                  </button>
+                </div>
+              </div>
+
+              {showAddWebSpace && (
+                <TambahWebSpace
+                  onClose={() => setShowAddWebSpace(false)}
+                  onWebSpaceAdded={handleAddWebSpace}
+                />
+              )}
+
+              {showEditWebSpace && (
+                <EditWebSpace
+                  webSpace={currentWebSpace}
+                  onClose={() => setShowEditWebSpace(false)}
+                  onWebSpaceUpdated={handleWebSpaceUpdated}
+                />
+              )}
+
+              <div className="table-responsive">
+                <table className="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Host</th>
+                      <th>URL</th>
+                      <th>Directory</th>
+                      <th>Bahasa</th>
+                      <th className="action-cell">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {webSpaces.length > 0 ? (
+                      webSpaces.map((webSpace) => (
+                        <tr key={webSpace.guid}>
+                          <td>{webSpace.host}</td>
+                          <td
+                            style={{
+                              maxWidth: "20rem",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            <a
+                              href={webSpace.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {webSpace.url}
+                            </a>
+                          </td>
+                          <td>{webSpace.directory}</td>
+                          <td>{webSpace.language}</td>
+                          <td className="action-cell">
+                            <div className="d-grid gap-2 d-md-block">
+                              <button
+                                className="btn btn btn-sm me-1 rounded-5"
+                                onClick={() => handleEditWebSpace(webSpace)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#D4E6E8",
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm rounded-5"
+                                onClick={() => handleDeleteWebSpace(webSpace)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#FF4545",
+                                }}
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5" className="text-center">
+                          Tidak ada web space yang tersedia
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 

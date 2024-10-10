@@ -11,6 +11,7 @@ import DetailProject from "./components/detailProject";
 import Webspace from "./components/webspace";
 import HostWebSpace from "./components/hostwebspace";
 import Database from "./components/database";
+import MessageBroker from "./components/messagebroker";
 import Storage from "./components/storage/storage";
 import HostStorage from "./components/storage/hoststorage";
 import HostDatabase from "./components/hostdatabase";
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/hostwebspace" element={<HostWebSpace />} />{" "}
         <Route path="/hoststorage" element={<HostStorage />} />{" "}
         <Route path="/database" element={<Database />} />
+        <Route path="/messagebroker" element={<MessageBroker/>}/>
         <Route path="/storage" element={<Storage />} />
         <Route path="/hostdatabase" element={<HostDatabase />} />
       </Routes>
