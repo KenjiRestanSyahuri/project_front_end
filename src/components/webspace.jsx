@@ -112,50 +112,85 @@ const DetailProject = () => {
       <div className="d-flex flex-grow-1">
         <Sidebar />
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="card shadow-sm">
-            <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>Web Space untuk Proyek: {project.name}</h2>
-                <div>
-                  <button
-                    className="btn btn-primary me-2"
-                    onClick={handleAddHost}
-                  >
-                    <i className="fas me-1"></i>Host
-                  </button>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => setShowAddWebSpace(true)}
-                  >
-                    <i className="fas fa-plus me-1"></i>Tambah Web Space
-                  </button>
-                </div>
-              </div>
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2>Web Space : {project.name}</h2>
+            <div>
+              <button className="btn btn-primary me-2" onClick={handleAddHost}>
+                <i className="fas me-1"></i>Host
+              </button>
+              <button
+                className="btn btn-primary"
+                onClick={() => setShowAddWebSpace(true)}
+              >
+                <i className="fas fa-plus me-1"></i>Tambah Web Space
+              </button>
+            </div>
+          </div>
 
-              {showAddWebSpace && (
-                <TambahWebSpace
-                  onClose={() => setShowAddWebSpace(false)}
-                  onWebSpaceAdded={handleAddWebSpace}
-                />
-              )}
+          {showAddWebSpace && (
+            <TambahWebSpace
+              onClose={() => setShowAddWebSpace(false)}
+              onWebSpaceAdded={handleAddWebSpace}
+            />
+          )}
 
-              {showEditWebSpace && (
-                <EditWebSpace
-                  webSpace={currentWebSpace}
-                  onClose={() => setShowEditWebSpace(false)}
-                  onWebSpaceUpdated={handleWebSpaceUpdated}
-                />
-              )}
+          {showEditWebSpace && (
+            <EditWebSpace
+              webSpace={currentWebSpace}
+              onClose={() => setShowEditWebSpace(false)}
+              onWebSpaceUpdated={handleWebSpaceUpdated}
+            />
+          )}
 
-              <div className="table-responsive">
-                <table className="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Host</th>
-                      <th>URL</th>
-                      <th>Directory</th>
-                      <th>Bahasa</th>
-                      <th className="action-cell">Aksi</th>
+          <div className="table-responsive">
+            <table className="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Host</th>
+                  <th>URL</th>
+                  <th>Directory</th>
+                  <th>Bahasa</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {webSpaces.length > 0 ? (
+                  webSpaces.map((webSpace) => (
+                    <tr key={webSpace.guid}>
+                      <td>{webSpace.host}</td>
+                      <td
+                        style={{
+                          maxWidth: "20rem",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        <a
+                          href={webSpace.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {webSpace.url}
+                        </a>
+                      </td>
+                      <td>{webSpace.directory}</td>
+                      <td>{webSpace.language}</td>
+                      <td>
+                        <button
+                          className="btn btn-success btn-sm me-2"
+                          onClick={() => handleEditWebSpace(webSpace)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDeleteWebSpace(webSpace)}
+                        >
+                          Hapus
+                        </button>
+                      </td>
+
                     </tr>
                   </thead>
                   <tbody>
