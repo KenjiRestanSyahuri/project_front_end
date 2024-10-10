@@ -115,7 +115,7 @@ const DetailProject = () => {
 
         <div className="flex-grow-1 p-4 bg-light">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Web Space untuk Proyek: {project.name}</h2>
+            <h2>Web Space : {project.name}</h2>
             <div>
               <button className="btn btn-primary me-2" onClick={handleAddHost}>
                 <i className="fas me-1"></i>Host
