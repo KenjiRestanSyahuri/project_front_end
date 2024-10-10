@@ -19,10 +19,19 @@ const HostStorage = () => {
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/host-storage`);
+        const projectGuid = localStorage.getItem("currentProjectGuid"); // Ambil projectGuid dari localStorage
+        if (!projectGuid) {
+          Swal.fire("Error", "Project GUID tidak ditemukan!", "error");
+          return;
+        }
+
+        const response = await axios.get(
+          `${apiUrl}/host-storage/by-project/${projectGuid}` // Mengambil host berdasarkan project GUID
+        );
         setHosts(response.data);
       } catch (error) {
         console.error("Error fetching hosts:", error);
+        Swal.fire("Error", "Gagal mengambil data host storage.", "error");
       }
     };
 
