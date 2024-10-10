@@ -7,6 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import TambahHostWebSpace from "./tambahhostwebspace";
 import EditHostWebSpace from "./edithostwebspace";
 import Swal from "sweetalert2";
+import {IconCirclePlusFilled } from "@tabler/icons-react";
+
 
 const HostWebSpace = () => {
   const [hosts, setHosts] = useState([]);
@@ -92,19 +94,34 @@ const HostWebSpace = () => {
 
         <div className="flex-grow-1 p-4 bg-light">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Host</h2>
+            <h2>Host Web Space</h2>
             <div>
               <button
-                className="btn btn-secondary me-2"
+                className="btn btn btn-sm me-1 rounded-5"
                 onClick={handleBackToWebSpace}
+                style={{
+                  backgroundColor: "#AFD0ED",
+                  color: "#1168E7",
+                  fontFamily: "sans-serif",
+                  fontWeight: "bold",
+                  width: "200px",
+                }}
               >
-                Web Space
+                Kembali ke Web Space
               </button>
               <button
-                className="btn btn-primary "
+                className="btn btn btn-sm me-1 rounded-5"
                 onClick={() => setShowAddHost(true)}
+                style={{
+                  backgroundColor: "transparent",
+                  width: "170px",
+                  color: "#226195",
+                  fontFamily: "sans-serif",
+                }}
               >
-                <i className="fas fa-plus me-2"></i>Host
+                {/* <i className="fas fa-plus me-1"></i> */}
+                <IconCirclePlusFilled />
+                Host Web Space
               </button>
             </div>
           </div>
@@ -166,14 +183,22 @@ const HostWebSpace = () => {
                       <td>{host.serverType}</td>
                       <td>
                         <button
-                          className="btn btn-success btn-sm me-2"
-                          onClick={() => handleEditHost(host)}
+                          className="btn btn btn-sm me-1 rounded-5"
+                          onClick={() => handleEditWebSpace(webSpace)}
+                          style={{
+                            width: "80px",
+                            backgroundColor: "#D4E6E8",
+                          }}
                         >
                           Edit
                         </button>
                         <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDeleteHost(host)}
+                          className="btn btn-danger btn-sm rounded-5"
+                          onClick={() => handleDeleteWebSpace(webSpace)}
+                          style={{
+                            width: "80px",
+                            backgroundColor: "#FF4545",
+                          }}
                         >
                           Hapus
                         </button>

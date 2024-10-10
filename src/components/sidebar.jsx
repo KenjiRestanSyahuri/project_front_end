@@ -77,10 +77,10 @@ const Sidebar = () => {
             </a>
           </li>
           <li className="mb-3">
-            <a href="#" style={linkStyle}>
-              <IconDeviceTv stroke={2} style={iconStyle} />
+            <Link to={"/messagebroker"}style={linkStyle}>
+              <IconDeviceTv stroke={2} style={iconStyle} />{" "}
               Message Broker
-            </a>
+            </Link>
           </li>
           <li className="mb-3">
             <a href="#" style={linkStyle}>

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./tambahwebspace.css";
+import axios from "axios"; // Tambahkan axios untuk mengambil data dari API
 
 function TambahWebSpace({ onClose, onWebSpaceAdded }) {
   const [webSpaceData, setWebSpaceData] = useState({
@@ -8,6 +9,24 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
     directory: "",
     language: "",
   });
+  
+  const [hosts, setHosts] = useState([]); // State untuk menyimpan daftar host
+  const apiUrl = import.meta.env.VITE_API_URL; // API URL
+
+  // Ambil daftar host dari API ketika komponen di-mount
+  useEffect(() => {
+    const fetchHosts = async () => {
+      try {
+        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const response = await axios.get(`${apiUrl}/host-webspace/by-project/${projectGuid}`);
+        setHosts(response.data); // Simpan data host ke dalam state
+      } catch (error) {
+        console.error("Error fetching hosts:", error);
+      }
+    };
+
+    fetchHosts();
+  }, [apiUrl]);
 
   // Handle perubahan input
   const handleChange = (e) => {
@@ -92,8 +111,12 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
                 required
               >
                 <option value="">Pilih Host</option>
-                <option value="Nginx">Nginx</option> {/* todo mengambil dari list host */}
-                <option value="Apache">Apache</option>
+                {/* Render daftar host dari state */}
+                {hosts.map((host) => (
+                  <option key={host.guid} value={host.name}>
+                    {host.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="mb-3">

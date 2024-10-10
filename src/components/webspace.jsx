@@ -8,6 +8,7 @@ import TambahWebSpace from "./tambahwebspace";
 import EditWebSpace from "./editwebspace";
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
+import {IconCirclePlusFilled } from "@tabler/icons-react";
 
 const DetailProject = () => {
   const [project, setProject] = useState(null);
@@ -118,16 +119,31 @@ const DetailProject = () => {
                 <h2>Web Space untuk Proyek: {project.name}</h2>
                 <div>
                   <button
-                    className="btn btn-primary me-2"
+                    className="btn btn btn-sm me-1 rounded-5"
                     onClick={handleAddHost}
+                    style={{
+                      backgroundColor: "#AFD0ED",
+                      color: "#1168E7",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      width: "150px",
+                    }}
                   >
-                    <i className="fas me-1"></i>Host
+                    <i className="fas me-1"></i>Host Web Space
                   </button>
                   <button
-                    className="btn btn-primary"
+                    className="btn btn btn-sm me-1 rounded-5"
                     onClick={() => setShowAddWebSpace(true)}
+                    style={{
+                      backgroundColor: "transparent",
+                      width: "170px",
+                      color: "#226195",
+                      fontFamily: "sans-serif",
+                    }}
                   >
-                    <i className="fas fa-plus me-1"></i>Tambah Web Space
+                    {/* <i className="fas fa-plus me-1"></i> */}
+                    <IconCirclePlusFilled />
+                  Tambah Web Space
                   </button>
                 </div>
               </div>

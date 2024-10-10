@@ -11,6 +11,7 @@ import DetailProject from "./components/detailProject";
 import Webspace from "./components/webspace";
 import HostWebSpace from "./components/hostwebspace";
 import Database from "./components/database";
+import MessageBroker from "./components/messagebroker";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/webspace" element={<Webspace />} />
         <Route path="/hostwebspace" element={<HostWebSpace />} />{" "}
         <Route path="/database" element={<Database />} />
+        <Route path="/messagebroker" element={<MessageBroker/>}/>
       </Routes>
     </Router>
   );
