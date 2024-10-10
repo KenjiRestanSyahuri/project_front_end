@@ -22,25 +22,44 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/lupapassword" element={<LupaPassword />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              {" "}
-              <Dashboard />{" "}
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/dashboard" element={<ProtectedRoute>
+          {" "}
+          <Dashboard />{" "}
+        </ProtectedRoute>} />
         <Route path="/sidebar" element={<Sidebar />} />
-        <Route path="/project/:guid" element={<DetailProject />} />
+        <Route path="/project/:guid" element={<ProtectedRoute>
+          {" "}
+          <DetailProject />{" "}
+        </ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/webspace" element={<Webspace />} />
-        <Route path="/hostwebspace" element={<HostWebSpace />} />{" "}
-        <Route path="/hoststorage" element={<HostStorage />} />{" "}
-        <Route path="/database" element={<Database />} />
-        <Route path="/messagebroker" element={<MessageBroker/>}/>
-        <Route path="/storage" element={<Storage />} />
-        <Route path="/hostdatabase" element={<HostDatabase />} />
+        <Route path="/webspace" element={<ProtectedRoute>
+          {" "}
+          <Webspace />{" "}
+        </ProtectedRoute>} />
+        <Route path="/hostwebspace" element={<ProtectedRoute>
+          {" "}
+          <HostWebSpace />{" "}
+        </ProtectedRoute>} />
+        <Route path="/hoststorage" element={<ProtectedRoute>
+          {" "}
+          <HostStorage />{" "}
+        </ProtectedRoute>} />
+        <Route path="/database" element={<ProtectedRoute>
+          {" "}
+          <Database />{" "}
+        </ProtectedRoute>} />
+        <Route path="/messagebroker" element={<ProtectedRoute>
+          {" "}
+          <MessageBroker />{" "}
+        </ProtectedRoute>} />
+        <Route path="/storage" element={<ProtectedRoute>
+          {" "}
+          <Storage />{" "}
+        </ProtectedRoute>} />
+        <Route path="/hostdatabase" element={<ProtectedRoute>
+          {" "}
+          <HostDatabase />{" "}
+        </ProtectedRoute>} />
       </Routes>
     </Router>
   );

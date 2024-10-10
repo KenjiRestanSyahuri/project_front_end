@@ -6,7 +6,7 @@ import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconCirclePlusFilled } from "@tabler/icons-react";
 import TambahHostDatabase from "./tambahhostdatabase";
-// import EditHostWebSpace from "./edithostwebspace";
+import EditHostDatabase from "./edithostdatabase";
 import Swal from "sweetalert2";
 
 const HostDatabase = () => {
@@ -24,6 +24,7 @@ const HostDatabase = () => {
         const response = await axios.get(
           `${apiUrl}/host-database/by-project/${projectGuid}`
         );
+        console.log(response.data);
         setHosts(response.data);
       } catch (error) {
         console.error("Error fetching hosts:", error);
@@ -134,7 +135,7 @@ const HostDatabase = () => {
           )}
 
           {showEditHost && (
-            <EditHostWebSpace
+            <EditHostDatabase
               host={currentHost}
               onClose={() => setShowEditHost(false)}
               onHostUpdated={handleHostUpdated}
@@ -180,7 +181,7 @@ const HostDatabase = () => {
                       <td>{host.username}</td>
                       <td>{host.password}</td>
                       <td>{host.os}</td>
-                      <td>{host.serverType}</td>
+                      <td>{host.databaseType}</td>
                       <td>
                         <button
                           className="btn btn-success btn-sm me-2"

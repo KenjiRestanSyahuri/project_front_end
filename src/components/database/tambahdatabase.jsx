@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { CloseOutline } from "@carbon/icons-react";
 import { FaTimes } from "react-icons/fa";
 
-function TambahDatabase({ onClose, onDatabaseAdded }) {
+function TambahDatabase({ onClose, onDatabaseAdded, hosts = [] }) {
   const [databaseData, setDatabaseData] = useState({
     host: "",
     username: "",
@@ -107,9 +107,15 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
                 required
               >
                 <option value="">Pilih Host</option>
-                <option value="Nginx">Nginx</option>{" "}
-                {/* todo mengambil dari list host */}
-                <option value="Apache">Apache</option>
+                {hosts.length > 0 ? (
+                  hosts.map((host) => (
+                    <option key={host.guid} value={host.name}>
+                      {host.name}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled>Loading Hosts...</option>
+                )}
               </select>
             </div>
             <div className="mb-3">
