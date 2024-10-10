@@ -15,6 +15,8 @@ import MessageBroker from "./components/message-broker/messagebroker";
 import Storage from "./components/storage/storage";
 import HostStorage from "./components/storage/hoststorage";
 import HostDatabase from "./components/database/hostdatabase";
+import Worker from "./components/worker/worker";
+import HostWorker from "./components/worker/hostWorker"
 
 const App = () => {
   return (
@@ -38,9 +40,11 @@ const App = () => {
         <Route path="/hostwebspace" element={<HostWebSpace />} />{" "}
         <Route path="/hoststorage" element={<HostStorage />} />{" "}
         <Route path="/database" element={<Database />} />
-        <Route path="/messagebroker" element={<MessageBroker/>}/>
+        <Route path="/messagebroker" element={<MessageBroker />} />
         <Route path="/storage" element={<Storage />} />
         <Route path="/hostdatabase" element={<HostDatabase />} />
+        <Route path="/worker" element={<Worker />} />
+        <Route path="/hostworker" element={<HostWorker />} />
       </Routes>
     </Router>
   );
