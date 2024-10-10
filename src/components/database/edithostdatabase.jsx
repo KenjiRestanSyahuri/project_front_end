@@ -1,20 +1,10 @@
-import React, { useState } from "react";
-// import "./tambahhostwebspace.css";
-import { FaTimes } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Swal from "sweetalert2"; // Import SweetAlert2
 
-function TambahHostDatabase({ onClose, onHostAdded }) {
-  const [hostData, setHostData] = useState({
-    hostName: "",
-    url: "",
-    ipAddress: "",
-    adminUsername: "",
-    adminPassword: "",
-    os: "",
-    databaseType: "",
-  });
-
-  // Mengambil currentProjectGuid dari localStorage
-  const currentProjectGuid = localStorage.getItem("currentProjectGuid");
+const EditHostDatabase = ({ host, onClose, onHostUpdated }) => {
+  const [hostData, setHostData] = useState({ ...host });
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // Handle perubahan input
   const handleChange = (e) => {
@@ -24,62 +14,33 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
     });
   };
 
-  // Fungsi untuk POST data ke backend menggunakan fetch
+  // Fungsi untuk memperbarui data host
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with data:", hostData);
 
-    // Validasi currentProjectGuid
-    if (!currentProjectGuid || typeof currentProjectGuid !== "string") {
-      alert("currentProjectGuid tidak valid! Harap hubungi administrator.");
-      return;
-    }
-
-    if (hostData.hostName && hostData.url && hostData.ipAddress) {
-      const dataToSend = {
-        projectGuid: currentProjectGuid, // Gunakan currentProjectGuid dari localStorage
-        name: hostData.hostName,
-        url: hostData.url,
-        ipAddress: hostData.ipAddress,
-        username: hostData.adminUsername,
-        password: hostData.adminPassword,
-        os: hostData.os,
-        databaseType: hostData.databaseType,
-      };
-
-      console.log("Data to send to the server:", dataToSend);
-
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/host-database`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(dataToSend),
-          }
-        );
-
-        console.log("Response status:", response.status);
-
-        if (!response.ok) {
-          const errorResponse = await response.json();
-          throw new Error(
-            `HTTP error! status: ${response.status}, message: ${errorResponse.message}`
-          );
-        }
-
-        const result = await response.json();
-        console.log("Response data from server:", result);
-
-        onHostAdded(result); // Kirim data host ke parent component
-        onClose(); // Tutup modal setelah host berhasil ditambahkan
-      } catch (error) {
-        console.error("Error adding host:", error.message);
-      }
-    } else {
-      alert("Harap isi field wajib!");
+    try {
+      const response = await axios.put(
+        `${apiUrl}/host-database/${host.guid}`,
+        hostData
+      );
+      onHostUpdated(response.data); // Kirim data host yang telah diperbarui ke parent component
+      // SweetAlert success notification
+      Swal.fire({
+        title: "Success",
+        text: "Database berhasil diperbarui!",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+      onClose(); // Tutup modal setelah host berhasil diperbarui
+    } catch (error) {
+      console.error("Error updating host:", error);
+      // SweetAlert error notification
+      Swal.fire({
+        title: "Error",
+        text: "Gagal memperbarui database!",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
@@ -87,12 +48,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
     <div className="modal-backdrop d-flex justify-content-center align-items-center">
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
-          <div>
-            <h2 className="h5">Tambah Host</h2>
-            <p className="text-muted small">
-              Masukkan Detail Host Database Untuk Menambahkan
-            </p>
-          </div>
+          <h2 className="h5">Edit Host</h2>
           <button
             className="btn-close ms-auto"
             aria-label="Close"
@@ -103,21 +59,20 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
               fontSize: "1.5rem",
             }}
           >
-            <FaTimes />
+            &times;
           </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
-            {/* Field form sama seperti sebelumnya */}
             <div className="mb-3">
-              <label htmlFor="hostName" className="form-label">
+              <label htmlFor="name" className="form-label">
                 Nama Host
               </label>
               <input
                 type="text"
                 className="form-control"
-                name="hostName"
-                value={hostData.hostName}
+                name="name"
+                value={hostData.name}
                 onChange={handleChange}
                 required
               />
@@ -149,27 +104,27 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="adminUsername" className="form-label">
+              <label htmlFor="username" className="form-label">
                 Admin Username
               </label>
               <input
                 type="text"
                 className="form-control"
-                name="adminUsername"
-                value={hostData.adminUsername}
+                name="usernameAdmin"
+                value={hostData.username}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="adminPassword" className="form-label">
+              <label htmlFor="password" className="form-label">
                 Admin Password
               </label>
               <input
                 type="password"
                 className="form-control"
-                name="adminPassword"
-                value={hostData.adminPassword}
+                name="password"
+                value={hostData.passwordn}
                 onChange={handleChange}
                 required
               />
@@ -217,13 +172,13 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
               type="submit"
               className="btn btn-primary rounded-pill px-4 w-100"
             >
-              Tambah
+              Perbarui
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
-export default TambahHostDatabase;
+export default EditHostDatabase;
