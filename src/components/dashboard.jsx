@@ -193,72 +193,74 @@ const Dashboard = () => {
               />
             )}
 
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Nama Projek</th>
-                  <th>Owner</th>
-                  <th>User</th>
-                  <th>Tanggal Mulai</th>
-                  <th>Edit Terakhir</th>
-                  <th className="action-cell">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentProjects.length > 0 ? (
-                  currentProjects.map((project) => (
-                    <tr key={project.guid}>
-                      <td>
-                        <Link
-                          to={`/project/${project.guid}`}
-                          className="text-decoration-none same-width"
-                        >
-                          {project.name}
-                        </Link>
-                      </td>
-                      <td className="same-width">{project.owner}</td>
-                      <td className="same-width">{project.user}</td>
-                      <td className="same-width">
-                        {formatDate(project.startDate)}
-                      </td>
-                      <td className="same-width">
-                        {formatDate(project.lastUpdated)}
-                      </td>
-                      <td className="action-cell">
-                        <div className="d-grid gap-2 d-md-block">
-                          <button
-                            className="btn btn btn-sm me-1 rounded-5"
-                            onClick={() => handleEditProject(project.guid)}
-                            style={{
-                              width: "80px",
-                              backgroundColor: "#D4E6E8",
-                            }}
+            <div className="table-responsive">
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nama Projek</th>
+                    <th>Owner</th>
+                    <th>User</th>
+                    <th>Tanggal Mulai</th>
+                    <th>Edit Terakhir</th>
+                    <th className="action-cell">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentProjects.length > 0 ? (
+                    currentProjects.map((project) => (
+                      <tr key={project.guid}>
+                        <td>
+                          <Link
+                            to={`/project/${project.guid}`}
+                            className="text-decoration-none same-width"
                           >
-                            Edit
-                          </button>
-                          <button
-                            className="btn btn-danger btn-sm rounded-5"
-                            onClick={() => handleDeleteProject(project.guid)}
-                            style={{
-                              backgroundColor: "#FF4545",
-                              width: "80px",
-                            }}
-                          >
-                            Hapus
-                          </button>
-                        </div>
+                            {project.name}
+                          </Link>
+                        </td>
+                        <td className="same-width">{project.owner}</td>
+                        <td className="same-width">{project.user}</td>
+                        <td className="same-width">
+                          {formatDate(project.startDate)}
+                        </td>
+                        <td className="same-width">
+                          {formatDate(project.lastUpdated)}
+                        </td>
+                        <td className="action-cell">
+                          <div className="d-grid gap-2 d-md-block">
+                            <button
+                              className="btn btn btn-sm me-1 rounded-5"
+                              onClick={() => handleEditProject(project.guid)}
+                              style={{
+                                width: "80px",
+                                backgroundColor: "#D4E6E8",
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="btn btn-danger btn-sm rounded-5"
+                              onClick={() => handleDeleteProject(project.guid)}
+                              style={{
+                                backgroundColor: "#FF4545",
+                                width: "80px",
+                              }}
+                            >
+                              Hapus
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="6" className="text-center">
+                        Tidak ada data
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="6" className="text-center">
-                      Tidak ada data
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  )}
+                </tbody>
+              </table>
+            </div>
 
             <nav>
               <ul className="pagination justify-content-center">

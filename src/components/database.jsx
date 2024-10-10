@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "./sidebar";
 import Navbar from "./navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import TambahWebSpace from "./tambahwebspace";
+import { IconCirclePlus, IconCirclePlusFilled } from "@tabler/icons-react";
+import TambahDatabase from "./tambahdatabase";
 // import EditWebSpace from "./editwebspace";
 
 const Database = () => {
@@ -55,8 +56,8 @@ const Database = () => {
 
   const handleDatabaseUpdated = (updatedDatabase) => {
     setDatabase((prevDatabase) =>
-      prevDatabase.map((database) =>
-        database.guid === updatedDatabase.guid ? updatedDatabase : database
+      prevDatabase.map((db) =>
+        db.guid === updatedDatabase.guid ? updatedDatabase : db
       )
     );
     setShowEditDatabase(false);
@@ -73,7 +74,7 @@ const Database = () => {
         );
         if (response.status === 200) {
           setDatabase((prevDatabase) =>
-            prevDatabase.filter((ws) => ws.guid !== database.guid)
+            prevDatabase.filter((db) => db.guid !== database.guid)
           );
           alert("Database berhasil dihapus!");
         }
@@ -91,85 +92,115 @@ const Database = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
-
       <div className="d-flex flex-grow-1">
         <Sidebar />
-
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Database Project: {project.name}</h2>
-            <div>
-              <button className="btn btn-primary me-2" onClick={handleAddHost}>
-                <i className="fas fa-plus me-1"></i>Host
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={() => setShowAddDatabase(true)}
-              >
-                <i className="fas fa-plus me-1"></i>Tambah Database
-              </button>
-            </div>
-          </div>
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2>Database Project: {project.name}</h2>
+                <div>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={handleAddHost}
+                    style={{
+                      backgroundColor: "#AFD0ED",
+                      color: "#1168E7",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      width: "80px",
+                    }}
+                  >
+                    Host
+                  </button>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={() => setShowAddDatabase(true)}
+                    style={{
+                      backgroundColor: "white",
+                      width: "170px",
+                      color: "#226195",
+                      fontFamily: "sans-serif",
+                    }}
+                  >
+                    {/* <i className="fas fa-plus me-1"></i> */}
+                    <IconCirclePlusFilled />
+                    Tambah Database
+                  </button>
+                </div>
+              </div>
 
-          {showAddDatabase && (
-            <TambahDatabase
-              onClose={() => setShowAddDatabase(false)}
-              onDatabaseAdded={handleAddDatabase}
-            />
-          )}
+              {showAddDatabase && (
+                <TambahDatabase
+                  onClose={() => setShowAddDatabase(false)}
+                  onDatabaseAdded={handleAddDatabase}
+                />
+              )}
 
-          {showEditDatabase && (
-            <EditDatabase
-              database={currentDatabase}
-              onClose={() => setShowEditDatabase(false)}
-              onWebSpaceUpdated={handleDatabaseUpdated}
-            />
-          )}
+              {showEditDatabase && (
+                <EditDatabase
+                  database={currentDatabase}
+                  onClose={() => setShowEditDatabase(false)}
+                  onDatabaseUpdated={handleDatabaseUpdated}
+                />
+              )}
 
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Host</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>Nama Database</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {database.length > 0 ? (
-                  database.map((database) => (
-                    <tr key={database.guid}>
-                      <td>{database.host}</td>
-                      <td>{database.username}</td>
-                      <td>{database.password}</td>
-                      <td>{database.databaseName}</td>
-                      <td>
-                        <button
-                          className="btn btn-success btn-sm me-2"
-                          onClick={() => handleEditDatabase(database)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDeleteDatabase(database)}
-                        >
-                          Hapus
-                        </button>
-                      </td>
+              <div className="table-responsive">
+                <table className="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Host</th>
+                      <th>Username</th>
+                      <th>Password</th>
+                      <th>Nama Database</th>
+                      <th className="action-cell">Aksi</th>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="5" className="text-center">
-                      Tidak ada database yang tersedia
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    {database.length > 0 ? (
+                      database.map((db) => (
+                        <tr key={db.guid}>
+                          <td>{db.host}</td>
+                          <td>{db.username}</td>
+                          <td>{db.password}</td>
+                          <td>{db.databaseName}</td>
+                          <td className="action-cell">
+                            <div className="d-grid gap-2 d-md-block">
+                              <button
+                                className="btn btn btn-sm me-1 rounded-5"
+                                onClick={() => handleEditDatabase(db)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#D4E6E8",
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm rounded-5"
+                                onClick={() => handleDeleteDatabase(db)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#FF4545",
+                                }}
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5" className="text-center">
+                          Tidak ada database yang tersedia
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
