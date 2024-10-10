@@ -13,6 +13,7 @@ import HostWebSpace from "./components/hostwebspace";
 import Database from "./components/database";
 import Storage from "./components/storage/storage";
 import HostStorage from "./components/storage/hoststorage";
+import HostDatabase from "./components/hostdatabase";
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/hoststorage" element={<HostStorage />} />{" "}
         <Route path="/database" element={<Database />} />
         <Route path="/storage" element={<Storage />} />
+        <Route path="/hostdatabase" element={<HostDatabase />} />
       </Routes>
     </Router>
   );

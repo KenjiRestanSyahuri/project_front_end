@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "./sidebar";
 import Navbar from "./navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { IconCirclePlus, IconCirclePlusFilled } from "@tabler/icons-react";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 import TambahDatabase from "./tambahdatabase";
-// import EditWebSpace from "./editwebspace";
+import EditDatabase from "./editdatabase";
 
 const Database = () => {
   const [project, setProject] = useState(null);
@@ -108,10 +108,10 @@ const Database = () => {
                       color: "#1168E7",
                       fontFamily: "sans-serif",
                       fontWeight: "bold",
-                      width: "80px",
+                      width: "130px",
                     }}
                   >
-                    Host
+                    Host Database
                   </button>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
@@ -123,7 +123,6 @@ const Database = () => {
                       fontFamily: "sans-serif",
                     }}
                   >
-                    {/* <i className="fas fa-plus me-1"></i> */}
                     <IconCirclePlusFilled />
                     Tambah Database
                   </button>
