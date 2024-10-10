@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 //import "./tambahwebspace.css";
+import { CloseOutline } from "@carbon/icons-react";
+import { FaTimes } from "react-icons/fa";
 
 function TambahDatabase({ onClose, onDatabaseAdded }) {
   const [databaseData, setDatabaseData] = useState({
@@ -72,7 +74,12 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
     <div className="modal-backdrop d-flex justify-content-center align-items-center">
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
-          <h2 className="h5">Tambah Database</h2>
+          <div>
+            <h2 className="h5">Tambah Database</h2>
+            <p className="text-muted small">
+              Masukkan Detail Database Untuk Menambahkan
+            </p>
+          </div>
           <button
             className="btn-close ms-auto"
             aria-label="Close"
@@ -81,9 +88,9 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
               border: "none",
               background: "transparent",
               fontSize: "1.5rem",
-            }} // Mengubah gaya tombol X
+            }}
           >
-            &times; {/* Simbol X untuk tombol tutup */}
+            <FaTimes />
           </button>
         </div>
         <form onSubmit={handleSubmit}>
@@ -136,7 +143,8 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
                 Nama Database
               </label>
               <input
-                className="form-select"
+                type="text"
+                className="form-control"
                 name="databaseName"
                 value={databaseData.databaseName}
                 onChange={handleChange}
