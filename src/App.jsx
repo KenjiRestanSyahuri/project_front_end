@@ -12,6 +12,9 @@ import Webspace from "./components/webspace";
 import HostWebSpace from "./components/hostwebspace";
 import Database from "./components/database";
 import MessageBroker from "./components/messagebroker";
+import Storage from "./components/storage/storage";
+import HostStorage from "./components/storage/hoststorage";
+import HostDatabase from "./components/hostdatabase";
 
 const App = () => {
   return (
@@ -33,8 +36,11 @@ const App = () => {
         <Route path="*" element={<NotFound />} />
         <Route path="/webspace" element={<Webspace />} />
         <Route path="/hostwebspace" element={<HostWebSpace />} />{" "}
+        <Route path="/hoststorage" element={<HostStorage />} />{" "}
         <Route path="/database" element={<Database />} />
         <Route path="/messagebroker" element={<MessageBroker/>}/>
+        <Route path="/storage" element={<Storage />} />
+        <Route path="/hostdatabase" element={<HostDatabase />} />
       </Routes>
     </Router>
   );

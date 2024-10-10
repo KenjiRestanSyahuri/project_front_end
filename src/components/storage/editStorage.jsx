@@ -1,30 +1,46 @@
-import React, { useState } from "react";
-// import "./editwebspace.css";
+import React, { useState, useEffect } from "react";
+import "./editstorage.css";
 import Swal from "sweetalert2";
-import { FaTimes } from "react-icons/fa";
 
-function EditDatabase({ database, onClose, onDatabaseUpdated }) {
-  const [databaseData, setDatabaseData] = useState({ ...database });
+function EditStorage({ storage, onClose, onStorageUpdated }) {
+  const [storageData, setStorageData] = useState({ ...storage });
+
+  useEffect(() => {
+    if (!storage.guid) {
+      console.error("GUID is missing from the storage data:", storage);
+    }
+  }, [storage]);
 
   const handleChange = (e) => {
-    setDatabaseData({
-      ...databaseData,
+    setStorageData({
+      ...storageData,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with updated data:", databaseData);
+    console.log("Form submitted with updated data:", storageData);
+
+    if (!storageData.guid) {
+      Swal.fire({
+        title: "Error",
+        text: "GUID tidak ditemukan, tidak dapat memperbarui storage!",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/databases/${database.guid}`,
+        `${import.meta.env.VITE_API_URL}/storages/${storageData.guid}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(databaseData),
+          body: JSON.stringify(storageData),
         }
       );
 
@@ -38,20 +54,20 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
       // SweetAlert success notification
       Swal.fire({
         title: "Success",
-        text: "Database berhasil diperbarui!",
+        text: "Storage berhasil diperbarui!",
         icon: "success",
         confirmButtonText: "OK",
       });
 
       const result = await response.json();
-      console.log("Updated database data from server:", result);
-      onDatabaseUpdated(result);
+      console.log("Updated storage data from server:", result);
+      onStorageUpdated(result);
       onClose();
     } catch (error) {
-      console.error("Error updating database:", error.message);
+      console.error("Error updating storage:", error.message);
       Swal.fire({
         title: "Error",
-        text: "Gagal memperbarui database!",
+        text: "Gagal memperbarui storage!",
         icon: "error",
         confirmButtonText: "OK",
       });
@@ -62,18 +78,13 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
     <div className="modal-backdrop d-flex justify-content-center align-items-center">
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
-          <div>
-            <h2 className="h5">Edit Database</h2>
-            <p className="text-muted small">
-              Masukkan Detail Database Untuk Perbarui Data
-            </p>
-          </div>
+          <h2 className="h5">Edit Storage</h2>
           <button
             className="btn-close ms-auto"
             aria-label="Close"
             onClick={onClose}
           >
-            <FaTimes />
+            &times;
           </button>
         </div>
         <form onSubmit={handleSubmit}>
@@ -85,7 +96,7 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
               <select
                 className="form-select"
                 name="host"
-                value={databaseData.host}
+                value={storageData.host}
                 onChange={handleChange}
                 required
               >
@@ -101,7 +112,7 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
                 type="text"
                 className="form-control"
                 name="username"
-                value={databaseData.username}
+                value={storageData.username}
                 onChange={handleChange}
                 required
               />
@@ -111,22 +122,23 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
                 Password
               </label>
               <input
-                type="text"
+                type="password"
                 className="form-control"
-                name="directory"
-                value={databaseData.password}
+                name="password"
+                value={storageData.password}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="databaseName" className="form-label">
-                Nama Database
+              <label htmlFor="directoryName" className="form-label">
+                Nama Directory
               </label>
               <input
+                type="text"
                 className="form-control"
-                name="databaseName"
-                value={databaseData.databaseName}
+                name="directoryName"
+                value={storageData.directoryName}
                 onChange={handleChange}
                 required
               />
@@ -137,7 +149,7 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
               type="submit"
               className="btn btn-primary rounded-pill px-4 w-100"
             >
-              Simpan
+              Update
             </button>
           </div>
         </form>
@@ -146,4 +158,4 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
   );
 }
 
-export default EditDatabase;
+export default EditStorage;

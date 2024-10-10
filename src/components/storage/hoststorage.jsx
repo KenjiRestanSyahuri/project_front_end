@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./sidebar";
-import Navbar from "./navbar";
+import Sidebar from "../sidebar";
+import Navbar from "../navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { IconCirclePlusFilled } from "@tabler/icons-react";
-import TambahHostDatabase from "./tambahhostdatabase";
-// import EditHostWebSpace from "./edithostwebspace";
+import TambahHostStorage from "./tambahhoststorage"; // Komponen untuk menambah host storage
+import EditHostStorage from "./edithoststorage"; // Komponen untuk mengedit host storage
 import Swal from "sweetalert2";
 
-const HostDatabase = () => {
+const HostStorage = () => {
   const [hosts, setHosts] = useState([]);
   const [showAddHost, setShowAddHost] = useState(false);
   const [showEditHost, setShowEditHost] = useState(false);
@@ -20,10 +19,7 @@ const HostDatabase = () => {
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
-        const response = await axios.get(
-          `${apiUrl}/host-database/by-project/${projectGuid}`
-        );
+        const response = await axios.get(`${apiUrl}/host-storage`);
         setHosts(response.data);
       } catch (error) {
         console.error("Error fetching hosts:", error);
@@ -33,14 +29,14 @@ const HostDatabase = () => {
     fetchHosts();
   }, [apiUrl]);
 
-  const handleBackToDatabase = () => {
-    navigate("/database");
+  const handleBackToStorage = () => {
+    navigate("/storage");
   };
 
   const handleAddHost = (newHost) => {
     setHosts((prevHosts) => [...prevHosts, newHost]);
     setShowAddHost(false);
-    Swal.fire("Sukses", "Host Database berhasil ditambahkan!", "success");
+    Swal.fire("Sukses", "Host storage berhasil ditambahkan!", "success");
   };
 
   const handleEditHost = (host) => {
@@ -58,7 +54,6 @@ const HostDatabase = () => {
   };
 
   const handleDeleteHost = async (host) => {
-    // SweetAlert2 confirmation dialog
     const result = await Swal.fire({
       title: "Apakah Anda yakin?",
       text: "Data ini akan dihapus secara permanen!",
@@ -71,7 +66,7 @@ const HostDatabase = () => {
     if (result.isConfirmed) {
       try {
         const response = await axios.delete(
-          `${apiUrl}/host-database/${host.guid}`
+          `${apiUrl}/host-storage/${host.guid}`
         );
         if (response.status === 200) {
           setHosts((prevHosts) =>
@@ -95,46 +90,32 @@ const HostDatabase = () => {
 
         <div className="flex-grow-1 p-4 bg-light">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Host</h2>
+            <h2>Host Storage</h2>
             <div>
               <button
-                className="btn btn btn-sm me-1 rounded-5"
-                onClick={handleBackToDatabase}
-                style={{
-                  backgroundColor: "#AFD0ED",
-                  color: "#1168E7",
-                  fontFamily: "sans-serif",
-                  fontWeight: "bold",
-                  width: "95px",
-                }}
+                className="btn btn-secondary me-2"
+                onClick={handleBackToStorage}
               >
-                Database
+                Storage
               </button>
               <button
-                className="btn btn btn-sm me-1 rounded-5"
+                className="btn btn-primary"
                 onClick={() => setShowAddHost(true)}
-                style={{
-                  backgroundColor: "white",
-                  width: "170px",
-                  color: "#226195",
-                  fontFamily: "sans-serif",
-                }}
               >
-                <IconCirclePlusFilled />
-                Tambah Host
+                <i className="fas fa-plus me-2"></i>Tambah Host
               </button>
             </div>
           </div>
 
           {showAddHost && (
-            <TambahHostDatabase
+            <TambahHostStorage
               onClose={() => setShowAddHost(false)}
               onHostAdded={handleAddHost}
             />
           )}
 
           {showEditHost && (
-            <EditHostWebSpace
+            <EditHostStorage
               host={currentHost}
               onClose={() => setShowEditHost(false)}
               onHostUpdated={handleHostUpdated}
@@ -142,7 +123,7 @@ const HostDatabase = () => {
           )}
 
           <div className="table-responsive">
-            <table className="table table-striped">
+            <table className="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th>Host</th>
@@ -151,8 +132,8 @@ const HostDatabase = () => {
                   <th>Username</th>
                   <th>Password</th>
                   <th>OS</th>
-                  <th>Database Server Type</th>
-                  <th className="action-cell">Aksi</th>
+                  <th>FTP Server Type</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -180,7 +161,7 @@ const HostDatabase = () => {
                       <td>{host.username}</td>
                       <td>{host.password}</td>
                       <td>{host.os}</td>
-                      <td>{host.serverType}</td>
+                      <td>{host.ftpType}</td>
                       <td>
                         <button
                           className="btn btn-success btn-sm me-2"
@@ -213,4 +194,4 @@ const HostDatabase = () => {
   );
 };
 
-export default HostDatabase;
+export default HostStorage;

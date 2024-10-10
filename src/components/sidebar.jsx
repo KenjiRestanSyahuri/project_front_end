@@ -1,25 +1,24 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link and useNavigate from react-router-dom
+import { useNavigate, useLocation, Link } from "react-router-dom"; // Tambahkan useLocation
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import {
-  IconLayoutDashboard,
-  IconDatabase,
-  IconServer,
-  IconDeviceTv,
-  IconLicense,
-} from "@tabler/icons-react";
+// import {
+//   IconLayoutDashboard,
+//   IconDatabase,
+//   IconServer,
+//   IconDeviceTv,
+//   IconLicense,
+// } from "@tabler/icons-react";
 import { LogoutBroken } from "solar-icons";
 
 const Sidebar = () => {
-  const navigate = useNavigate(); // Gunakan useNavigate untuk navigasi
+  const navigate = useNavigate();
+  const location = useLocation(); // Gunakan useLocation untuk mendapatkan path saat ini
 
   const sidebarStyle = {
     minWidth: "250px",
     height: "100vh",
     backgroundColor: "white",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    border: "1px solid #ddd",
   };
 
   const linkStyle = {
@@ -29,25 +28,30 @@ const Sidebar = () => {
     textDecoration: "none",
     display: "flex",
     alignItems: "center",
-    padding: "12px 16px", // Uniform padding for all menu items
-    borderRadius: "4px", // Optional: Add some border radius for hover effect
-    transition: "background-color 0.2s ease", // Smooth background transition on hover
-    fontSize: "14px", // Set a consistent font size for the icons
+    padding: "12px 16px",
+    borderRadius: "4px",
+    transition: "background-color 0.2s ease",
+    fontSize: "14px",
+  };
+
+  const activeLinkStyle = {
+    ...linkStyle,
+    backgroundColor: "#AFD0ED", // Warna background saat aktif
+    color: "black", // Warna teks saat aktif
   };
 
   const iconStyle = {
-    width: "20px", // Set a consistent width for icons
-    height: "20px", // Set a consistent height for icons
-    marginRight: "10px", // Space between icon and text
-    flexShrink: 0, // Prevents the icon from shrinking
-    display: "inline-flex", // Ensures consistent alignment with text
-    alignItems: "center", // Center align the icon
+    width: "20px",
+    height: "20px",
+    marginRight: "10px",
+    flexShrink: 0,
+    display: "inline-flex",
+    alignItems: "center",
   };
 
-  // Function to handle navigation back to the dashboard
   const handleBackToMenu = () => {
-    console.log("Navigating back to Dashboard"); // Log for debugging
-    navigate("/dashboard"); // Ganti history.push dengan navigate
+    console.log("Navigating back to Dashboard");
+    navigate("/dashboard");
   };
 
   return (
@@ -55,49 +59,71 @@ const Sidebar = () => {
       <div className="p-4">
         <ul className="list-unstyled">
           <li className="mb-3">
-            <Link to="/webspace" style={linkStyle}>
-              {" "}
-              {/* Link to WebSpace page */}
-              <IconLayoutDashboard style={iconStyle} />
+            <Link
+              to="/webspace"
+              style={
+                location.pathname === "/webspace" ? activeLinkStyle : linkStyle
+              } // Cek jika path aktif adalah "/webspace"
+            >
+              {/* <IconLayoutDashboard style={iconStyle} /> */}
               Web Space
             </Link>
           </li>
           <li className="mb-3">
-            <Link to={"/database"} style={linkStyle}>
-              <IconDatabase style={iconStyle} />{" "}
-              {/* Use the Data icon from Akar Icons */}
+            <Link
+              to="/database"
+              style={
+                location.pathname === "/database" ? activeLinkStyle : linkStyle
+              } // Cek jika path aktif adalah "/database"
+            >
+              {/* <IconDatabase style={iconStyle} /> */}
               Database
             </Link>
           </li>
           <li className="mb-3">
-            <a href="#" style={linkStyle}>
-              <IconServer style={iconStyle} />{" "}
-              {/* Use the Database icon from react-icons */}
+            <Link
+              to="/storage"
+              style={
+                location.pathname === "/storage" ? activeLinkStyle : linkStyle
+              } // Cek jika path aktif adalah "/storage"
+            >
+              {/* <IconServer style={iconStyle} /> */}
               Storage
-            </a>
+            </Link>
           </li>
           <li className="mb-3">
-            <Link to={"/messagebroker"}style={linkStyle}>
-              <IconDeviceTv stroke={2} style={iconStyle} />{" "}
+            <Link
+              to="/messagebroker"
+              style={
+                location.pathname === "/messagebroker"
+                  ? activeLinkStyle
+                  : linkStyle
+              } // Cek jika path aktif adalah "/message-broker"
+            >
+              {/* <IconDeviceTv stroke={2} style={iconStyle} /> */}
               Message Broker
             </Link>
           </li>
           <li className="mb-3">
-            <a href="#" style={linkStyle}>
-              <IconLicense style={iconStyle} />{" "}
-              {/* Use the Clipboard Check icon as a substitute for License */}
+            <Link
+              to="/worker"
+              style={
+                location.pathname === "/worker" ? activeLinkStyle : linkStyle
+              } // Cek jika path aktif adalah "/worker"
+            >
+              {/* <IconLicense style={iconStyle} /> */}
               Worker
-            </a>
+            </Link>
           </li>
         </ul>
         <a
           href="#"
           style={{ ...linkStyle, color: "blue" }}
-          className="mt-5"
-          onClick={handleBackToMenu} // Call the function on click
+          className="mt-1"
+          onClick={handleBackToMenu}
         >
-          <LogoutBroken style={{ ...iconStyle, transform: "scaleX(-1)" }} />{" "}
-          Kembali Ke Menu {/* Mirrored icon */}
+          <LogoutBroken style={{ ...iconStyle, transform: "scaleX(-1)" }} />
+          Kembali Ke Menu
         </a>
       </div>
     </div>

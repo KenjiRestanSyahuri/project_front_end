@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-//import "./tambahwebspace.css";
-import { CloseOutline } from "@carbon/icons-react";
-import { FaTimes } from "react-icons/fa";
+import "./tambahstorage.css";
 
-function TambahDatabase({ onClose, onDatabaseAdded }) {
-  const [databaseData, setDatabaseData] = useState({
+function TambahStorage({ onClose, onStorageAdded }) {
+  const [storageData, setStorageData] = useState({
     host: "",
     username: "",
     password: "",
-    databaseName: "",
+    directoryName: "",
   });
 
   // Handle perubahan input
   const handleChange = (e) => {
-    setDatabaseData({
-      ...databaseData,
+    setStorageData({
+      ...storageData,
       [e.target.name]: e.target.value,
     });
   };
@@ -22,14 +20,19 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
   // Fungsi untuk POST data ke backend menggunakan fetch
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with data:", databaseData); // Log data sebelum pengiriman
-    if (databaseData.host && databaseData.username && databaseData.password) {
+    console.log("Form submitted with data:", storageData); // Log data sebelum pengiriman
+    if (
+      storageData.host &&
+      storageData.username &&
+      storageData.password &&
+      storageData.directoryName
+    ) {
       // Menyiapkan data untuk dikirim
       const dataToSend = {
-        host: databaseData.host,
-        username: databaseData.username,
-        password: databaseData.password,
-        databaseName: databaseData.databaseName,
+        host: storageData.host,
+        username: storageData.username,
+        password: storageData.password,
+        directoryName: storageData.directoryName,
         projectGuid: localStorage.getItem("currentProjectGuid"), // Mengambil projectGuid dari localStorage
       };
 
@@ -38,7 +41,7 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
       try {
         // Mengirim data ke server melalui POST request menggunakan fetch
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/databases`, // Mengubah URL endpoint
+          `${import.meta.env.VITE_API_URL}/storages`, // Mengubah URL endpoint
           {
             method: "POST",
             headers: {
@@ -60,13 +63,13 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
         const result = await response.json();
         console.log("Response data from server:", result); // Log data yang diterima dari server
 
-        onDatabaseAdded(result); // Mengirim data database yang berhasil disimpan ke parent component
-        onClose(); // Tutup modal setelah database berhasil ditambahkan
+        onStorageAdded(result); // Mengirim data storage yang berhasil disimpan ke parent component
+        onClose(); // Tutup modal setelah storage berhasil ditambahkan
       } catch (error) {
-        console.error("Error adding database:", error.message); // Log kesalahan
+        console.error("Error adding storage:", error.message); // Log kesalahan
       }
     } else {
-      alert("Harap isi field wajib!"); // Validasi input wajib
+      alert("Harap isi semua field!"); // Validasi input wajib
     }
   };
 
@@ -74,12 +77,7 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
     <div className="modal-backdrop d-flex justify-content-center align-items-center">
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
-          <div>
-            <h2 className="h5">Tambah Database</h2>
-            <p className="text-muted small">
-              Masukkan Detail Database Untuk Menambahkan
-            </p>
-          </div>
+          <h2 className="h5">Tambah Storage</h2>
           <button
             className="btn-close ms-auto"
             aria-label="Close"
@@ -88,9 +86,9 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
               border: "none",
               background: "transparent",
               fontSize: "1.5rem",
-            }}
+            }} // Mengubah gaya tombol X
           >
-            <FaTimes />
+            &times; {/* Simbol X untuk tombol tutup */}
           </button>
         </div>
         <form onSubmit={handleSubmit}>
@@ -102,13 +100,13 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
               <select
                 className="form-select"
                 name="host"
-                value={databaseData.host}
+                value={storageData.host}
                 onChange={handleChange}
                 required
               >
                 <option value="">Pilih Host</option>
                 <option value="Nginx">Nginx</option>{" "}
-                {/* todo mengambil dari list host */}
+                {/* todo: mengambil dari list host */}
                 <option value="Apache">Apache</option>
               </select>
             </div>
@@ -120,33 +118,33 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
                 type="text"
                 className="form-control"
                 name="username"
-                value={databaseData.username}
+                value={storageData.username}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="Password" className="form-label">
+              <label htmlFor="password" className="form-label">
                 Password
               </label>
               <input
-                type="text"
+                type="password"
                 className="form-control"
                 name="password"
-                value={databaseData.password}
+                value={storageData.password}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="databaseName" className="form-label">
-                Nama Database
+              <label htmlFor="directoryName" className="form-label">
+                Nama Directory
               </label>
               <input
                 type="text"
                 className="form-control"
-                name="databaseName"
-                value={databaseData.databaseName}
+                name="directoryName"
+                value={storageData.directoryName}
                 onChange={handleChange}
                 required
               />
@@ -166,4 +164,4 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
   );
 }
 
-export default TambahDatabase;
+export default TambahStorage;

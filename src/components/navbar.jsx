@@ -5,7 +5,10 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons"; // Ikon profil
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav
+      className="navbar navbar-expand-lg navbar-light bg-white"
+      style={{ border: "1px solid #ddd" }}
+    >
       <div className="container-fluid">
         {/* Menampilkan Gambar Logo dan Tulisan Dua Baris */}
         <div className="navbar-brand d-flex align-items-center">
