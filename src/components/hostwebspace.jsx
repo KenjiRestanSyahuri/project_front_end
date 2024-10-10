@@ -184,7 +184,7 @@ const HostWebSpace = () => {
                       <td>
                         <button
                           className="btn btn btn-sm me-1 rounded-5"
-                          onClick={() => handleEditWebSpace(webSpace)}
+                          onClick={() => handleEditHost(host)}
                           style={{
                             width: "80px",
                             backgroundColor: "#D4E6E8",
@@ -194,7 +194,7 @@ const HostWebSpace = () => {
                         </button>
                         <button
                           className="btn btn-danger btn-sm rounded-5"
-                          onClick={() => handleDeleteWebSpace(webSpace)}
+                          onClick={() => handleDeleteHost(host)}
                           style={{
                             width: "80px",
                             backgroundColor: "#FF4545",

@@ -118,7 +118,7 @@ const DetailProject = () => {
           <div className="card shadow-sm">
             <div className="card-body">
               <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>Web Space untuk Proyek: {project.name}</h2>
+                <h2>Web Space: {project.name}</h2>
                 <div>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
@@ -252,67 +252,6 @@ const DetailProject = () => {
               onWebSpaceUpdated={handleWebSpaceUpdated}
             />
           )}
-
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Host</th>
-                  <th>URL</th>
-                  <th>Directory</th>
-                  <th>Bahasa</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {webSpaces.length > 0 ? (
-                  webSpaces.map((webSpace) => (
-                    <tr key={webSpace.guid}>
-                      <td>{webSpace.host}</td>
-                      <td
-                        style={{
-                          maxWidth: "20rem",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        <a
-                          href={webSpace.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {webSpace.url}
-                        </a>
-                      </td>
-                      <td>{webSpace.directory}</td>
-                      <td>{webSpace.language}</td>
-                      <td>
-                        <button
-                          className="btn btn-success btn-sm me-2"
-                          onClick={() => handleEditWebSpace(webSpace)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDeleteWebSpace(webSpace)}
-                        >
-                          Hapus
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="5" className="text-center">
-                      Tidak ada web space yang tersedia
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
         </div>
       </div>
     </div>
