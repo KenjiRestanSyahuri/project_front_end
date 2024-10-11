@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./tambahmessagebroker.css"; // Make sure to create this CSS file
+import axios from "axios"; // Digunakan untuk fetch data
 
 function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
   const [messageBrokerData, setMessageBrokerData] = useState({
@@ -10,6 +11,25 @@ function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
     topic: "",
     queue: "",
   });
+
+  const [hosts, setHosts] = useState([]); // State untuk menyimpan daftar host
+  const currentProjectGuid = localStorage.getItem("currentProjectGuid");
+
+  // Fetch data host dari file hostmessagebroker.jsx atau dari API
+  useEffect(() => {
+    const fetchHosts = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/host-msg-broker/by-project/${currentProjectGuid}`
+        );
+        setHosts(response.data); // Set data host yang diterima ke dalam state hosts
+      } catch (error) {
+        console.error("Error fetching hosts:", error);
+      }
+    };
+
+    fetchHosts();
+  }, [currentProjectGuid]);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -94,19 +114,29 @@ function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
+            {/* Dropdown Host */}
             <div className="mb-3">
               <label htmlFor="host" className="form-label">
                 Host
               </label>
-              <input
-                type="text"
-                className="form-control"
+              <select
+                className="form-select"
                 name="host"
                 value={messageBrokerData.host}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="">Pilih Host</option>
+                {hosts.length > 0 &&
+                  hosts.map((host) => (
+                    <option key={host.guid} value={host.name}>
+                      {host.name}
+                    </option>
+                  ))}
+              </select>
             </div>
+
+            {/* Input Fields */}
             <div className="mb-3">
               <label htmlFor="virtualHost" className="form-label">
                 Virtual Host
