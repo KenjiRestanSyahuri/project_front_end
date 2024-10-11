@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./editMessageBroker.css"; // Make sure to create this CSS file
+import "./editmessagebroker.css"; // Make sure to create this CSS file
 import Swal from "sweetalert2";
 
 function EditMessageBroker({ messageBroker, onClose, onMessageBrokerUpdated }) {

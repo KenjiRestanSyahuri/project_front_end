@@ -16,7 +16,8 @@ import Storage from "./components/storage/storage";
 import HostStorage from "./components/storage/hoststorage";
 import HostDatabase from "./components/database/hostdatabase";
 import Worker from "./components/worker/worker";
-import HostWorker from "./components/worker/hostWorker"
+import HostWorker from "./components/worker/hostWorker";
+import HostMessageBroker from "./components/message-broker/hostmessagebroker";
 
 const App = () => {
   return (
@@ -64,6 +65,9 @@ const App = () => {
         </ProtectedRoute>} />
         <Route path="/hostworker" element={<HostWorker />} />
         <Route path="/worker" element={<Worker />} />
+        <Route path="/hostmessagebroker" element={<ProtectedRoute>
+          <HostMessageBroker />
+        </ProtectedRoute>} />
       </Routes>
     </Router>
   );

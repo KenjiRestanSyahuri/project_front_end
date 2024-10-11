@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Sudah ada useNavigate
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import TambahMessageBroker from "./tambahmessagebroker"; // Component for adding a message broker
-import EditMessageBroker from "./editmessagebroker"; // Component for editing a message broker
+import TambahMessageBroker from "./tambahmessagebroker"; 
+import EditMessageBroker from "./editmessagebroker"; 
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
 
@@ -16,7 +16,7 @@ const MessageBroker = () => {
   const [showEditMessageBroker, setShowEditMessageBroker] = useState(false);
   const [currentMessageBroker, setCurrentMessageBroker] = useState(null);
   const apiUrl = import.meta.env.VITE_API_URL;
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Sudah ada useNavigate
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
@@ -91,6 +91,10 @@ const MessageBroker = () => {
     }
   };
 
+  const navigateToHostMessageBroker = () => {
+    navigate("/hostmessagebroker"); // Navigasi ke halaman hostmessagebroker
+  };
+
   if (!project) {
     return (
       <div
@@ -112,12 +116,20 @@ const MessageBroker = () => {
         <div className="flex-grow-1 p-4 bg-light">
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h2>Message Brokers: {project.name}</h2>
-            <button
-              className="btn btn-primary"
-              onClick={() => setShowAddMessageBroker(true)}
-            >
-              <i className="fas fa-plus me-1"></i>Add Message Broker
-            </button>
+            <div>
+              <button
+                className="btn btn-primary me-2"
+                onClick={() => setShowAddMessageBroker(true)}
+              >
+                <i className="fas fa-plus me-1"></i>Add Message Broker
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={navigateToHostMessageBroker} // Tambahkan button untuk ke halaman hostmessagebroker
+              >
+                <i className="fas fa-server me-1"></i>Host Message Brokers
+              </button>
+            </div>
           </div>
 
           {showAddMessageBroker && (
@@ -152,7 +164,7 @@ const MessageBroker = () => {
                 {messageBrokers.length > 0 ? (
                   messageBrokers.map((mb) => (
                     <tr key={mb.guid}>
-                      <td>{mb.host}</td>
+                      <td>{mb.host}</td> 
                       <td>{mb.virtualHost}</td>
                       <td>{mb.username}</td>
                       <td>{mb.password}</td>
