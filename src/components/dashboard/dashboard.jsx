@@ -124,7 +124,7 @@ const Dashboard = () => {
   return (
     <div>
       <Navbar />
-      <div className="container mt-3">
+      <div className="container mt-3" style={{color: "#664343"}}>
         <h2>List Project Terdaftar</h2>
 
         {loading ? (
@@ -146,13 +146,13 @@ const Dashboard = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
-                style={{ paddingLeft: "40px", marginRight: "20px" }}
+                style={{ paddingLeft: "40px", marginRight: "20px", borderColor: "#664343"}}
               />
               <button
                 className="btn btn-primary rounded-pill"
                 type="button"
                 onClick={searchProjects}
-                style={{ backgroundColor: "#226195", width: "80px" }}
+                style={{ backgroundColor: "#664343", width: "80px", borderColor: "#664343" }}
               >
                 Cari
               </button>
@@ -160,7 +160,7 @@ const Dashboard = () => {
               <button
                 className="ms-3 btn btn rounded-pill"
                 onClick={() => setShowAddProject(true)}
-                style={{ backgroundColor: "#fff", color: "#226195" }}
+                style={{ backgroundColor: "#fff", color: "#664343" }}
               >
                 <i className="bi bi-plus-circle-fill me-2"></i>
                 Tambah Project
@@ -173,7 +173,7 @@ const Dashboard = () => {
                   top: "50%",
                   transform: "translateY(-50%)",
                   fontSize: "20px",
-                  color: "#6c757d",
+                  color: "#3B3030",
                 }}
               ></i>
             </div>
@@ -193,16 +193,16 @@ const Dashboard = () => {
               />
             )}
 
-            <div className="table-responsive">
+            <div className="table-responsive" >
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th>Nama Projek</th>
-                    <th>Owner</th>
-                    <th>User</th>
-                    <th>Tanggal Mulai</th>
-                    <th>Edit Terakhir</th>
-                    <th className="action-cell">Aksi</th>
+                    <th style={{color: "#3B3030"}}>Nama Projek</th>
+                    <th style={{color: "#3B3030"}}>Owner</th>
+                    <th style={{color: "#3B3030"}}>User</th>
+                    <th style={{color: "#3B3030"}}>Tanggal Mulai</th>
+                    <th style={{color: "#3B3030"}}>Edit Terakhir</th>
+                    <th className="action-cell" style={{color: "#3B3030"}}>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -233,6 +233,7 @@ const Dashboard = () => {
                               style={{
                                 width: "80px",
                                 backgroundColor: "#D4E6E8",
+                                // color: "#FFF0D1"
                               }}
                             >
                               Edit

@@ -18,7 +18,7 @@ const Logout = () => {
       onClick={handleLogout}
       className="ms-3 btn"
       style={{
-        color: "#226195",
+        color: "#664343",
         fontWeight: "bold",
         fontSize: "17px",
         lineHeight: "24px", // Sama dengan tinggi ikon
@@ -27,7 +27,7 @@ const Logout = () => {
         padding: "8px 10px",
       }}
     >
-      {/* <i className="bi bi-escape me-2"></i> */}
+
       <Icon
         icon="solar:logout-broken"
         width="24"

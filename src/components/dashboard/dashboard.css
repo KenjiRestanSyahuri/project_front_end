@@ -41,3 +41,29 @@ h2 {
   align-items: center;
   z-index: 9999; /* Pastikan spinner menutupi seluruh halaman */
 }
+
+/* Mengganti warna tombol pagination */
+.pagination .page-item .page-link {
+  color: #FFF0D1; /* Warna teks tombol */
+  background-color: #664343; /* Warna latar belakang tombol */
+  border-color: #664343; /* Warna border tombol */
+}
+
+/* Warna tombol saat di-hover */
+.pagination .page-item .page-link:hover {
+  color: #ffffff; /* Warna teks saat hover */
+  background-color: #664343; /* Warna latar belakang saat hover */
+  border-color: #664343; /* Warna border saat hover */
+}
+
+/* Warna tombol saat aktif */
+.pagination .page-item.active .page-link {
+  color: #000000; /* Warna teks tombol aktif */
+  background-color: #FFF0D1; /* Warna latar belakang tombol aktif */
+  border-color: #FFF0D1; /* Warna border tombol aktif */
+}
+
+/* Mengatur fokus tombol pagination */
+.pagination .page-item .page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25); /* Shadow saat tombol di-focus */
+}

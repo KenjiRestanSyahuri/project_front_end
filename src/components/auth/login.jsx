@@ -72,7 +72,7 @@ const Login = () => {
           <div
             className="h-100"
             style={{
-              backgroundImage: "url('/Life_Cycle-Bg-02-1.png')",
+              backgroundImage: "url('src/assets/bg_fitz.png')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -85,14 +85,14 @@ const Login = () => {
             {/* Tampilkan logo dan judul di atas form login dalam satu baris */}
             <div className="d-flex align-items-center mb-4 justify-content-center">
               <img
-                src="/Life_Cycle-01-1.png"
-                alt="Life Cycle Management Logo"
+                src="src/assets/logo_fitz.png"
+                alt="FITZ"
                 className="mb-2 me-2"
                 style={{ maxWidth: "60rem", height: "auto" }} // Responsif logo
               />
               <div className="left">
-                <h2 style={{ color: "#226195" }}>FITZ</h2>
-                <h2 style={{ color: "#000", fontSize: "23px", margin: "0" }}>
+                <h2 style={{ color: "#3B3030" }}>FITZ</h2>
+                <h2 style={{ color: "#664343", fontSize: "23px", margin: "0" }}>
                   Integrated Service Operation Tool
                 </h2>
               </div>
@@ -111,7 +111,10 @@ const Login = () => {
                   placeholder="Masukkan Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  style={{ width: "100%" }}
+                  style={{ 
+                    width: "100%", 
+                    borderColor: "#664343", 
+                    backgroundColor: "#FFF0D1" }}
                 />
               </div>
               <div className="mb-3">
@@ -125,7 +128,10 @@ const Login = () => {
                   placeholder="Masukkan Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  style={{ width: "100%" }}
+                  style={{ 
+                    width: "100%",  
+                    borderColor: "#664343", 
+                    backgroundColor: "#FFF0D1" }}
                 />
               </div>
               <div className="d-flex justify-content-between align-items-center">
@@ -142,7 +148,7 @@ const Login = () => {
               <button
                 type="submit"
                 className="btn btn-primary w-100 mt-3 beta"
-                style={{ borderRadius: "20px", padding: "10px 15px" }}
+                style={{ borderRadius: "20px", padding: "10px 15px", backgroundColor: "#664343", borderColor: "#664343" }}
               >
                 Masuk
               </button>
@@ -157,14 +163,14 @@ const Login = () => {
           /* Ketika di layar kecil, gambar akan jadi background form login dan tambahkan padding putih */
           @media (max-width: 768px) {
             .form-container {
-              background-image: url('/Life_Cycle-Bg-02-1.png');
+              background-image: url('src/assets/bg_fitz.png');
               background-size: cover;
               background-position: center;
               background-repeat: no-repeat;
             }
 
             .form-content {
-              background-color: rgba(255, 255, 255, 10); /* Tambahkan warna putih semi-transparan */
+              background-color: rgba(255, 255, 255, 11); /* Tambahkan warna putih semi-transparan */
               padding: 20px; /* Tambahkan padding di sekitar form */
               border-radius: 10px; /* Berikan border radius untuk tampilan lebih rapi */
             }

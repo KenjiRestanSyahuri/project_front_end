@@ -130,8 +130,8 @@ function TambahProject({ onClose, onProjectAdded }) {
         </button>
         <div className="modal-header">
           <div>
-            <h2 className="h5">Tambah Project</h2>
-            <p className="text-muted small">Masukkan Detail Project</p>
+            <h2 className="h5" style={{ color: "#3B3030"}}>Tambah Project</h2>
+            <p className="text-muted small" style={{ color: "#664343" }}>Masukkan Detail Project</p>
           </div>
         </div>
         <form onSubmit={handleSubmit}>
