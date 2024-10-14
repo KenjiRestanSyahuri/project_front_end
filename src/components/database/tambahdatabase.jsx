@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaTimes, FaClipboard } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import axios from "axios";
 
 function TambahDatabase({ onClose, onDatabaseAdded }) {
@@ -13,7 +13,6 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
 
   const [hosts, setHosts] = useState([]);
   const apiUrl = import.meta.env.VITE_API_URL;
-  const [selectedHost, setSelectedHost] = useState(null); // Store selected host
 
   useEffect(() => {
     const fetchHosts = async () => {
@@ -47,28 +46,11 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
         hostGuid, // Set hostGuid yang sesuai
         databaseType, // Set databaseType yang sesuai
       });
-
-      setSelectedHost(selectedHost); // Set selected host for mongodb URI generation
     } else {
       setDatabaseData({
         ...databaseData,
         [name]: value,
       });
-    }
-  };
-
-  // Fungsi untuk menyalin URI ke clipboard
-  const copyUriToClipboard = () => {
-    if (selectedHost) {
-      const uri = `mongodb://${selectedHost.adminUsername}:${selectedHost.adminPassword}@${selectedHost.alamatHost}`;
-      navigator.clipboard
-        .writeText(uri)
-        .then(() => {
-          alert("URI berhasil disalin ke clipboard!");
-        })
-        .catch((err) => {
-          console.error("Error copying URI:", err);
-        });
     }
   };
 
@@ -209,18 +191,6 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
                 required
               />
             </div>
-            {databaseData.databaseType === "mongodb" && selectedHost && (
-              <div className="mb-3">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={copyUriToClipboard}
-                >
-                  <FaClipboard className="me-2" />
-                  Copy MongoDB URI
-                </button>
-              </div>
-            )}
           </div>
           <div className="modal-footer d-flex justify-content-center">
             <button
