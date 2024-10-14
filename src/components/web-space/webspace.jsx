@@ -9,6 +9,7 @@ import EditWebSpace from "./editwebspace";
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
 import {IconCirclePlusFilled } from "@tabler/icons-react";
+import "./webspace.css";
 
 const DetailProject = () => {
   const [project, setProject] = useState(null);
@@ -118,14 +119,18 @@ const DetailProject = () => {
           <div className="card shadow-sm">
             <div className="card-body">
               <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>Web Space: {project.name}</h2>
+                <h2
+                  style={{
+                    color : "#664343",
+                  }} 
+                >Web Space: {project.name}</h2>
                 <div>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
                     onClick={handleAddHost}
                     style={{
-                      backgroundColor: "#AFD0ED",
-                      color: "#1168E7",
+                      backgroundColor: "#FFF0D1",
+                      color: "#664343",
                       fontFamily: "sans-serif",
                       fontWeight: "bold",
                       width: "150px",
@@ -139,7 +144,7 @@ const DetailProject = () => {
                     style={{
                       backgroundColor: "transparent",
                       width: "170px",
-                      color: "#226195",
+                      color: "#664343",
                       fontFamily: "sans-serif",
                     }}
                   >
@@ -165,8 +170,8 @@ const DetailProject = () => {
                 />
               )}
 
-              <div className="table-responsive">
-                <table className="table table-striped">
+              <div>
+                <table>
                   <thead>
                     <tr>
                       <th>Host</th>
@@ -206,17 +211,19 @@ const DetailProject = () => {
                                 onClick={() => handleEditWebSpace(webSpace)}
                                 style={{
                                   width: "80px",
-                                  backgroundColor: "#D4E6E8",
+                                  backgroundColor: "#795757",
+                                  color: "#FFF0D1",
                                 }}
                               >
                                 Edit
                               </button>
                               <button
-                                className="btn btn-danger btn-sm rounded-5"
+                                className="btn btn btn-sm rounded-5"
                                 onClick={() => handleDeleteWebSpace(webSpace)}
                                 style={{
                                   width: "80px",
-                                  backgroundColor: "#FF4545",
+                                  backgroundColor: "#664343",
+                                  color: "#FFF0D1",
                                 }}
                               >
                                 Hapus

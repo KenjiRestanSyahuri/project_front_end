@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #664343;
 }
 
 .modal-content {
@@ -19,10 +20,12 @@
     padding: 20px;
     border-radius: 8px;
     z-index: 1060;
+    color: #664343;
 }
 
 .form-label {
     font-weight: bold;
+    color: #664343;
 }
 
 .btn-close {
@@ -40,8 +43,10 @@
     font-size: 1.2rem;
     cursor: pointer;
     transition: background-color 0.2s;
+    color: #664343;
 }
 
 .btn-close:hover {
     background-color: #f1f1f1;
+    color: #664343;
 }

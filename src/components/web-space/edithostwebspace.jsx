@@ -168,7 +168,7 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
           <div className="modal-footer d-flex justify-content-center">
             <button
               type="submit"
-              className="btn btn-primary rounded-pill px-4 w-100"
+              className="btn-primary rounded-pill px-4 w-100"
             >
               Perbarui
             </button>

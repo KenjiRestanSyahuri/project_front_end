@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import EditProject from "../dashboard/editproject";
 import Swal from "sweetalert2"; // Import SweetAlert2
 import { TailSpin } from "react-loader-spinner";
+import "./detailProject.css";
 
 const DetailProject = () => {
   const [projects, setProjects] = useState([]);
@@ -76,8 +77,9 @@ const DetailProject = () => {
                   onClick={() => handleEditProject(project.guid)}
                   style={{
                     backgroundColor: "white",
-                    color: "#226195",
-                    fontFamily: "sans-serif",
+                    color: "#664343",
+                    fontFamily: "sans-serif"
+                    
                   }}
                 >
                   <i className="fas fa-edit me-2"></i>Edit Data Project
@@ -92,35 +94,35 @@ const DetailProject = () => {
                 />
               )}
 
-              <div className="table-responsive">
-                <table className="table table-bordered table-striped">
+              <div>
+                <table>
                   <tbody>
                     <tr>
-                      <td className="bg-light fw-bold">Owner</td>
+                      <td className="fw-bold">Owner</td>
                       <td>{project.owner}</td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">User</td>
+                      <td className="fw-bold">User</td>
                       <td>{project.user}</td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">Tanggal Mulai</td>
+                      <td className="fw-bold">Tanggal Mulai</td>
                       <td>
                         {new Date(project.startDate).toLocaleDateString()}
                       </td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">Pembaruan Terakhir</td>
+                      <td className="fw-bold">Pembaruan Terakhir</td>
                       <td>
                         {new Date(project.lastUpdated).toLocaleDateString()}
                       </td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">Versi Terakhir</td>
+                      <td className="fw-bold">Versi Terakhir</td>
                       <td>{project.lastVersion}</td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">Git Repository</td>
+                      <td className="fw-bold">Git Repository</td>
                       <td>
                         <a
                           href={project.gitRepo}
@@ -132,7 +134,7 @@ const DetailProject = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">URL Frontend</td>
+                      <td className="fw-bold">URL Frontend</td>
                       <td>
                         <a
                           href={project.frontendUrl}
@@ -144,7 +146,7 @@ const DetailProject = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">URL Backend</td>
+                      <td className="fw-bold">URL Backend</td>
                       <td>
                         <a
                           href={project.backendUrl}
@@ -156,7 +158,7 @@ const DetailProject = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">Aplikasi Android</td>
+                      <td className="fw-bold">Aplikasi Android</td>
                       <td>
                         <a
                           href={project.androidApp}
@@ -168,19 +170,19 @@ const DetailProject = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">Aplikasi iOS</td>
+                      <td className="fw-bold">Aplikasi iOS</td>
                       <td>{project.iosApp || "-"}</td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">Aplikasi Windows</td>
+                      <td className="fw-bold">Aplikasi Windows</td>
                       <td>{project.windowsApp || "-"}</td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">Aplikasi Mac</td>
+                      <td className="fw-bold">Aplikasi Mac</td>
                       <td>{project.macApp || "-"}</td>
                     </tr>
                     <tr>
-                      <td className="bg-light fw-bold">Deskripsi</td>
+                      <td className="fw-bold">Deskripsi</td>
                       <td>{project.description}</td>
                     </tr>
                   </tbody>
