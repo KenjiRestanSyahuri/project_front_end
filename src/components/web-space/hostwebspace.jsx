@@ -8,6 +8,7 @@ import TambahHostWebSpace from "./tambahhostwebspace";
 import EditHostWebSpace from "./edithostwebspace";
 import Swal from "sweetalert2";
 import {IconCirclePlusFilled } from "@tabler/icons-react";
+import "./hostwebspace.css";
 
 
 const HostWebSpace = () => {
@@ -94,14 +95,18 @@ const HostWebSpace = () => {
 
         <div className="flex-grow-1 p-4 bg-light">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Host Web Space</h2>
+            <h2
+            style={{
+              color : "#664343",
+            }} 
+            >Host Web Space</h2>
             <div>
               <button
                 className="btn btn btn-sm me-1 rounded-5"
                 onClick={handleBackToWebSpace}
                 style={{
-                  backgroundColor: "#AFD0ED",
-                  color: "#1168E7",
+                  backgroundColor: "#FFF0D1",
+                  color: "#3B3030",
                   fontFamily: "sans-serif",
                   fontWeight: "bold",
                   width: "200px",
@@ -115,7 +120,7 @@ const HostWebSpace = () => {
                 style={{
                   backgroundColor: "transparent",
                   width: "170px",
-                  color: "#226195",
+                  color: "#3B3030",
                   fontFamily: "sans-serif",
                 }}
               >
@@ -141,8 +146,8 @@ const HostWebSpace = () => {
             />
           )}
 
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
+          <div>
+            <table>
               <thead>
                 <tr>
                   <th>Host</th>
@@ -187,7 +192,8 @@ const HostWebSpace = () => {
                           onClick={() => handleEditHost(host)}
                           style={{
                             width: "80px",
-                            backgroundColor: "#D4E6E8",
+                            backgroundColor: "#795757",
+                            color: "#FFF0D1",
                           }}
                         >
                           Edit
@@ -197,7 +203,9 @@ const HostWebSpace = () => {
                           onClick={() => handleDeleteHost(host)}
                           style={{
                             width: "80px",
-                            backgroundColor: "#FF4545",
+                            backgroundColor: "#664343",
+                            border: "none",
+                            color: "#FFF0D1",
                           }}
                         >
                           Hapus

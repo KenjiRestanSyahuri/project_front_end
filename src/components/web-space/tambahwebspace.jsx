@@ -11,7 +11,7 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
   });
   
   const [hosts, setHosts] = useState([]); // State untuk menyimpan daftar host
-  const apiUrl = import.meta.env.VITE_API_URL; // API URL
+  const apiUrl = import.meta.env.VITE_API_URL; // API URL     
 
   // Ambil daftar host dari API ketika komponen di-mount
   useEffect(() => {
@@ -156,7 +156,7 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
             </div>
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary rounded-pill px-4 w-100">
+            <button type="submit" className="btn-primary rounded-pill px-4 w-100">
               Tambah
             </button>
           </div>
