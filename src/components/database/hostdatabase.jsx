@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { IconCirclePlusFilled } from "@tabler/icons-react";
+// import { IconCirclePlusFilled } from "@tabler/icons-react";
 import TambahHostDatabase from "./tambahhostdatabase";
 import EditHostDatabase from "./edithostdatabase";
 import Swal from "sweetalert2";
@@ -121,7 +121,7 @@ const HostDatabase = () => {
                   fontFamily: "sans-serif",
                 }}
               >
-                <IconCirclePlusFilled />
+                {/* <IconCirclePlusFilled /> */}
                 Tambah Host
               </button>
             </div>
@@ -147,11 +147,9 @@ const HostDatabase = () => {
               <thead>
                 <tr>
                   <th>Host</th>
-                  <th>IP Address</th>
-                  <th>URL</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>OS</th>
+                  <th>Alamat Host</th>
+                  <th>Admin Username</th>
+                  <th>Admin Password</th>
                   <th>Database Server Type</th>
                   <th className="action-cell">Aksi</th>
                 </tr>
@@ -161,7 +159,6 @@ const HostDatabase = () => {
                   hosts.map((host) => (
                     <tr key={host.guid}>
                       <td>{host.name}</td>
-                      <td>{host.ipAddress}</td>
                       <td
                         style={{
                           maxWidth: "20rem",
@@ -171,16 +168,15 @@ const HostDatabase = () => {
                         }}
                       >
                         <a
-                          href={host.url}
+                          href={host.alamatHost}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {host.url}
+                          {host.alamatHost}
                         </a>
                       </td>
-                      <td>{host.username}</td>
-                      <td>{host.password}</td>
-                      <td>{host.os}</td>
+                      <td>{host.adminUsername}</td>
+                      <td>{host.adminPassword}</td>
                       <td>{host.databaseType}</td>
                       <td>
                         <button

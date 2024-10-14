@@ -5,11 +5,9 @@ import { FaTimes } from "react-icons/fa";
 function TambahHostDatabase({ onClose, onHostAdded }) {
   const [hostData, setHostData] = useState({
     hostName: "",
-    url: "",
-    ipAddress: "",
+    alamatHost: "",
     adminUsername: "",
     adminPassword: "",
-    os: "",
     databaseType: "",
   });
 
@@ -35,15 +33,13 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
       return;
     }
 
-    if (hostData.hostName && hostData.url && hostData.ipAddress) {
+    if (hostData.hostName && hostData.alamatHost) {
       const dataToSend = {
         projectGuid: currentProjectGuid, // Gunakan currentProjectGuid dari localStorage
         name: hostData.hostName,
-        url: hostData.url,
-        ipAddress: hostData.ipAddress,
-        username: hostData.adminUsername,
-        password: hostData.adminPassword,
-        os: hostData.os,
+        alamatHost: hostData.alamatHost,
+        adminUsername: hostData.adminUsername,
+        adminPassword: hostData.adminPassword,
         databaseType: hostData.databaseType,
       };
 
@@ -123,27 +119,14 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="url" className="form-label">
-                URL
+              <label htmlFor="alamatHost" className="form-label">
+                Alamat Host
               </label>
               <input
                 type="text"
                 className="form-control"
-                name="url"
-                value={hostData.url}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="ipAddress" className="form-label">
-                IP Address
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="ipAddress"
-                value={hostData.ipAddress}
+                name="alamatHost"
+                value={hostData.alamatHost}
                 onChange={handleChange}
                 required
               />
@@ -171,25 +154,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
                 name="adminPassword"
                 value={hostData.adminPassword}
                 onChange={handleChange}
-                required
               />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="os" className="form-label">
-                OS
-              </label>
-              <select
-                className="form-select"
-                name="os"
-                value={hostData.os}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Pilih OS</option>
-                <option value="Windows">Windows</option>
-                <option value="Linux">Linux</option>
-                <option value="macOS">macOS</option>
-              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="databaseType" className="form-label">
@@ -203,9 +168,9 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
                 required
               >
                 <option value="">Pilih Jenis Database</option>
-                <option value="MySQL">MySQL</option>
+                <option value="mysql">MySQL</option>
                 <option value="PostgreSQL">PostgreSQL</option>
-                <option value="MongoDB">MongoDB</option>
+                <option value="mongodb">MongoDB</option>
                 <option value="MariaDB">MariaDB</option>
                 <option value="ArangooDB">ArangooDB</option>
                 <option value="Neo4j">Neo4j</option>
