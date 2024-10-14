@@ -98,7 +98,7 @@ function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
     <div className="modal-backdrop d-flex justify-content-center align-items-center">
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
-          <h2 className="h5">Add Message Broker</h2>
+          <h2 className="h5">Tambahkan Message Broker</h2>
           <button
             className="btn-close ms-auto"
             aria-label="Close"
@@ -208,7 +208,7 @@ function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
               type="submit"
               className="btn btn-primary rounded-pill px-4 w-100"
             >
-              Add
+              Tambahkan
             </button>
           </div>
         </form>

@@ -8,6 +8,7 @@ import TambahMessageBroker from "./tambahmessagebroker";
 import EditMessageBroker from "./editmessagebroker"; 
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
+import {IconCirclePlusFilled } from "@tabler/icons-react";
 
 const MessageBroker = () => {
   const [project, setProject] = useState(null);
@@ -112,89 +113,116 @@ const MessageBroker = () => {
 
       <div className="d-flex flex-grow-1">
         <Sidebar />
-
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Message Brokers: {project.name}</h2>
-            <div>
-              <button
-                className="btn btn-primary me-2"
-                onClick={() => setShowAddMessageBroker(true)}
-              >
-                <i className="fas fa-plus me-1"></i>Add Message Broker
-              </button>
-              <button
-                className="btn btn-secondary"
-                onClick={navigateToHostMessageBroker} // Tambahkan button untuk ke halaman hostmessagebroker
-              >
-                <i className="fas fa-server me-1"></i>Host Message Brokers
-              </button>
-            </div>
-          </div>
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2>Message Brokers: {project.name}</h2>
+                <div>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={navigateToHostMessageBroker} // Tambahkan button untuk ke halaman hostmessagebroker
+                    style={{
+                      backgroundColor: "#AFD0ED",
+                      color: "#1168E7",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      width: "170px",
+                    }}
+                  >
+                  Host Message Brokers
+                  </button>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={() => setShowAddMessageBroker(true)}
+                    style={{
+                      backgroundColor: "transparent",
+                      width: "150px",
+                      color: "#226195",
+                      fontFamily: "sans-serif",
+                    }}
+                  >
+                  <IconCirclePlusFilled />
+                  Message Broker
+                  </button>
+                </div>
+              </div>
 
-          {showAddMessageBroker && (
-            <TambahMessageBroker
-              onClose={() => setShowAddMessageBroker(false)}
-              onMessageBrokerAdded={handleAddMessageBroker}
-            />
-          )}
+              {showAddMessageBroker && (
+                <TambahMessageBroker
+                  onClose={() => setShowAddMessageBroker(false)}
+                  onMessageBrokerAdded={handleAddMessageBroker}
+                />
+              )}
 
-          {showEditMessageBroker && (
-            <EditMessageBroker
-              messageBroker={currentMessageBroker}
-              onClose={() => setShowEditMessageBroker(false)}
-              onMessageBrokerUpdated={handleMessageBrokerUpdated}
-            />
-          )}
+              {showEditMessageBroker && (
+                <EditMessageBroker
+                  messageBroker={currentMessageBroker}
+                  onClose={() => setShowEditMessageBroker(false)}
+                  onMessageBrokerUpdated={handleMessageBrokerUpdated}
+                />
+              )}
 
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Host</th>
-                  <th>Virtual Host</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>Topic</th>
-                  <th>Queue</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {messageBrokers.length > 0 ? (
-                  messageBrokers.map((mb) => (
-                    <tr key={mb.guid}>
-                      <td>{mb.host}</td> 
-                      <td>{mb.virtualHost}</td>
-                      <td>{mb.username}</td>
-                      <td>{mb.password}</td>
-                      <td>{mb.topic}</td>
-                      <td>{mb.queue}</td>
-                      <td>
-                        <button
-                          className="btn btn-success btn-sm me-2"
-                          onClick={() => handleEditMessageBroker(mb)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDeleteMessageBroker(mb)}
-                        >
-                          Delete
-                        </button>
-                      </td>
+              <div className="table-responsive">
+                <table className="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Host</th>
+                      <th>Virtual Host</th>
+                      <th>Username</th>
+                      <th>Password</th>
+                      <th>Topic</th>
+                      <th>Queue</th>
+                      <th className="action-cell">Aksi</th>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="7" className="text-center">
-                      No message brokers available
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    {messageBrokers.length > 0 ? (
+                      messageBrokers.map((mb) => (
+                        <tr key={mb.guid}>
+                          <td>{mb.host}</td> 
+                          <td>{mb.virtualHost}</td>
+                          <td>{mb.username}</td>
+                          <td>{mb.password}</td>
+                          <td>{mb.topic}</td>
+                          <td>{mb.queue}</td>
+                          <td className="action-cell">
+                            <div className="d-grid gap-2 d-md-block">
+                            <button
+                              className="btn btn btn-sm me-1 rounded-5"
+                              onClick={() => handleEditMessageBroker(mb)}
+                              style={{
+                                width: "80px",
+                                backgroundColor: "#D4E6E8",
+                              }}
+                            >
+                              Edit
+                            </button>
+                            </div>
+                            <button
+                              className="btn btn btn-sm me-1 rounded-5"
+                              onClick={() => handleDeleteMessageBroker(mb)}
+                              style={{
+                                width: "80px",
+                                backgroundColor: "#FF4545",
+                              }}
+                            >
+                              Hapus
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="7" className="text-center">
+                          No message brokers available
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
