@@ -193,16 +193,16 @@ const Dashboard = () => {
               />
             )}
 
-            <div className="table-responsive" >
-              <table className="table table-striped">
+            <div >
+              <table >
                 <thead>
                   <tr>
-                    <th style={{color: "#3B3030"}}>Nama Projek</th>
-                    <th style={{color: "#3B3030"}}>Owner</th>
-                    <th style={{color: "#3B3030"}}>User</th>
-                    <th style={{color: "#3B3030"}}>Tanggal Mulai</th>
-                    <th style={{color: "#3B3030"}}>Edit Terakhir</th>
-                    <th className="action-cell" style={{color: "#3B3030"}}>Aksi</th>
+                    <th>Nama Project</th>
+                    <th>Owner</th>
+                    <th>User</th>
+                    <th>Tanggal Mulai</th>
+                    <th>Edit Terakhir</th>
+                    <th className="action-cell" >Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -232,8 +232,8 @@ const Dashboard = () => {
                               onClick={() => handleEditProject(project.guid)}
                               style={{
                                 width: "80px",
-                                backgroundColor: "#D4E6E8",
-                                // color: "#FFF0D1"
+                                backgroundColor: "#795757",
+                                color: "#FFF0D1"
                               }}
                             >
                               Edit
@@ -242,8 +242,9 @@ const Dashboard = () => {
                               className="btn btn-danger btn-sm rounded-5"
                               onClick={() => handleDeleteProject(project.guid)}
                               style={{
-                                backgroundColor: "#FF4545",
+                                backgroundColor: "#664343",
                                 width: "80px",
+                                borderColor: "#664343",
                               }}
                             >
                               Hapus
@@ -263,7 +264,7 @@ const Dashboard = () => {
               </table>
             </div>
 
-            <nav>
+            <nav className="mt-4">
               <ul className="pagination justify-content-center">
                 {[...Array(Math.ceil(projects.length / itemsPerPage))].map(
                   (_, index) => (

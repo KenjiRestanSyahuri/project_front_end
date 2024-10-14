@@ -14,7 +14,7 @@ function TambahHostWorker({ onClose, onWorkerAdded }) {
     directoryName: "",
   });
 
-  const currentProjectGuid = localStorage.getItem("currentProjectGuid");
+  const currentProjectGuid = sessionStorage.getItem("currentProjectGuid");
 
   const handleChange = (e) => {
     setWorkerData({

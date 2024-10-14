@@ -126,23 +126,23 @@ function TambahProject({ onClose, onProjectAdded }) {
           onClick={onClose}
         >
           <FaTimes />
-          {/* <i className="bi bi-x" style={{ fontSize: "1.5rem" }}></i> */}
         </button>
         <div className="modal-header">
           <div>
-            <h2 className="h5" style={{ color: "#3B3030"}}>Tambah Project</h2>
-            <p className="text-muted small" style={{ color: "#664343" }}>Masukkan Detail Project</p>
+            <h2 className="h2">Tambah Project</h2>
+            <p className="text-muted small">Masukkan Detail Project</p>
           </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
             <div className="row mb-3">
               <div className="col">
+                <div className="form-group"></div>
                 <input
                   type="text"
                   className="form-control"
                   name="name"
-                  placeholder="Nama Projek"
+                  placeholder="Nama Project"
                   value={projectData.name}
                   onChange={handleChange}
                   required
@@ -298,7 +298,7 @@ function TambahProject({ onClose, onProjectAdded }) {
           <div className="modal-footer d-flex justify-content-center">
             <button
               type="submit"
-              className="btn btn-primary rounded-pill px-4 w-100"
+              className="btn-primary rounded-pill px-4 w-100"
             >
               Tambah
             </button>

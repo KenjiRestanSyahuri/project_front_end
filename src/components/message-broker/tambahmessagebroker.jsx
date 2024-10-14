@@ -13,7 +13,7 @@ function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
   });
 
   const [hosts, setHosts] = useState([]); // State untuk menyimpan daftar host
-  const currentProjectGuid = localStorage.getItem("currentProjectGuid");
+  const currentProjectGuid = sessionStorage.getItem("currentProjectGuid");
 
   // Fetch data host dari file hostmessagebroker.jsx atau dari API
   useEffect(() => {
@@ -54,7 +54,7 @@ function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
       // Prepare data to be sent
       const dataToSend = {
         ...messageBrokerData,
-        projectGuid: localStorage.getItem("currentProjectGuid"),
+        projectGuid: sessionStorage.getItem("currentProjectGuid"),
       };
 
       console.log("Data to send to the server:", dataToSend);

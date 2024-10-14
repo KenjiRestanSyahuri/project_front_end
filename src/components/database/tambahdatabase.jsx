@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 import axios from "axios";
+import "./tambahdatabase.css";
 
 function TambahDatabase({ onClose, onDatabaseAdded }) {
   const [databaseData, setDatabaseData] = useState({
@@ -17,7 +18,7 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
         const response = await axios.get(
           `${apiUrl}/host-database/by-project/${projectGuid}`
         );
@@ -70,7 +71,7 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
         username: databaseData.username,
         databaseName: databaseData.databaseName,
         databaseType: databaseData.databaseType,
-        projectGuid: localStorage.getItem("currentProjectGuid"), // Mengambil projectGuid dari localStorage
+        projectGuid: sessionStorage.getItem("currentProjectGuid"), 
       };
 
       console.log("Data to send to the server:", dataToSend); // Log data yang akan dikirim
@@ -114,7 +115,7 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
           <div>
-            <h2 className="h5">Tambah Database</h2>
+            <h2 className="h2">Tambah Database</h2>
             <p className="text-muted small">
               Masukkan Detail Database Untuk Menambahkan
             </p>

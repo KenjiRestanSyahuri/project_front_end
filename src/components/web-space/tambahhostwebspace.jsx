@@ -12,8 +12,8 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
     serverType: "",
   });
 
-  // Mengambil currentProjectGuid dari localStorage
-  const currentProjectGuid = localStorage.getItem("currentProjectGuid");
+  // Mengambil currentProjectGuid dari sessionStorage
+  const currentProjectGuid = sessionStorage.getItem("currentProjectGuid");
 
   // Handle perubahan input
   const handleChange = (e) => {
@@ -36,7 +36,7 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
 
     if (hostData.hostName && hostData.url && hostData.ipAddress) {
       const dataToSend = {
-        projectGuid: currentProjectGuid, // Gunakan currentProjectGuid dari localStorage
+        projectGuid: currentProjectGuid, // Gunakan currentProjectGuid dari sessionStorage
         name: hostData.hostName,
         url: hostData.url,
         ipAddress: hostData.ipAddress,
@@ -184,7 +184,7 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
             </div>
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary rounded-pill px-4 w-100">
+            <button type="submit" className="btn-primary rounded-pill px-4 w-100">
               Tambah
             </button>
           </div>

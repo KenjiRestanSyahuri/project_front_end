@@ -1,0 +1,27 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    text-align: left;
+    padding: 8px;
+    color: #3B3030;
+}
+
+th {
+    text-align: left;
+    padding: 8px;
+    color: #3B3030;
+    background-color: white;
+}
+
+tr:nth-child(odd) {
+    background-color: #FFF0D1;
+}
+.mb-0 {
+    color: #664343;
+}
+.fw-bold {
+    color: #3B3030
+}

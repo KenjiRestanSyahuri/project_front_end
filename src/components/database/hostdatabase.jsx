@@ -20,7 +20,7 @@ const HostDatabase = () => {
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
         const response = await axios.get(
           `${apiUrl}/host-database/by-project/${projectGuid}`
         );
@@ -95,19 +95,11 @@ const HostDatabase = () => {
         <Sidebar />
 
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Host</h2>
-            <div>
-              <button
-                className="btn btn btn-sm me-1 rounded-5"
-                onClick={handleBackToDatabase}
-                style={{
-                  backgroundColor: "#AFD0ED",
-                  color: "#1168E7",
-                  fontFamily: "sans-serif",
-                  fontWeight: "bold",
-                  width: "95px",
-                }}
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div
+                className="d-flex justify-content-between align-items-center mb-4"
+                style={{ color: "#664343" }}
               >
                 Database
               </button>
@@ -193,16 +185,73 @@ const HostDatabase = () => {
                         </button>
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="8" className="text-center">
-                      Tidak ada data host yang tersedia
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    {hosts.length > 0 ? (
+                      hosts.map((host) => (
+                        <tr key={host.guid}>
+                          <td>{host.name}</td>
+                          <td>{host.ipAddress}</td>
+                          <td
+                            style={{
+                              maxWidth: "20rem",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            <a
+                              href={host.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {host.url}
+                            </a>
+                          </td>
+                          <td>{host.username}</td>
+                          <td>{host.password}</td>
+                          <td>{host.os}</td>
+                          <td>{host.databaseType}</td>
+                          <td className="action-cell">
+                            <div className="d-grid gap-2 d-md-block">
+                              <button
+                                className="btn btn btn-sm me-1 rounded-5"
+                                onClick={() => handleEditHost(host)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#795757",
+                                  color: "#FFF0D1",
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm rounded-5"
+                                onClick={() => handleDeleteHost(host)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#664343",
+                                  color: "#FFF0D1",
+                                  borderColor: "#664343",
+                                }}
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="8" className="text-center">
+                          Tidak ada data host yang tersedia
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

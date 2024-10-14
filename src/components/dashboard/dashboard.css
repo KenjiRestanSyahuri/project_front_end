@@ -67,3 +67,32 @@ h2 {
 .pagination .page-item .page-link:focus {
   box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25); /* Shadow saat tombol di-focus */
 }
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    text-align: left;
+    padding: 8px;
+    color: #3B3030;
+}
+
+th {
+    text-align: left;
+    padding: 8px;
+    color: #3B3030;
+    background-color: white;
+}
+
+tr:nth-child(odd) {
+    background-color: #FFF0D1;
+}
+.mb-0 {
+    color: #664343;
+}
+.fw-bold {
+    color: #3B3030
+}

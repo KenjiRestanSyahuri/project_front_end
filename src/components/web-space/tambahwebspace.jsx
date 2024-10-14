@@ -11,13 +11,13 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
   });
   
   const [hosts, setHosts] = useState([]); // State untuk menyimpan daftar host
-  const apiUrl = import.meta.env.VITE_API_URL; // API URL
+  const apiUrl = import.meta.env.VITE_API_URL; // API URL     
 
   // Ambil daftar host dari API ketika komponen di-mount
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
         const response = await axios.get(`${apiUrl}/host-webspace/by-project/${projectGuid}`);
         setHosts(response.data); // Simpan data host ke dalam state
       } catch (error) {
@@ -47,7 +47,7 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
         url: webSpaceData.url,
         directory: webSpaceData.directory,
         language: webSpaceData.language,
-        projectGuid: localStorage.getItem("currentProjectGuid"), // Mengambil projectGuid dari localStorage
+        projectGuid: sessionStorage.getItem("currentProjectGuid"), // Mengambil projectGuid dari sessionStorage
       };
 
       console.log("Data to send to the server:", dataToSend); // Log data yang akan dikirim
@@ -156,7 +156,7 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
             </div>
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary rounded-pill px-4 w-100">
+            <button type="submit" className="btn-primary rounded-pill px-4 w-100">
               Tambah
             </button>
           </div>
