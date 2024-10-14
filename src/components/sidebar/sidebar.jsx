@@ -36,7 +36,7 @@ const Sidebar = () => {
 
   const activeLinkStyle = {
     ...linkStyle,
-    backgroundColor: "#AFD0ED", // Warna background saat aktif
+    backgroundColor: "#FFF0D1", // Warna background saat aktif
     color: "black", // Warna teks saat aktif
   };
 
@@ -118,7 +118,7 @@ const Sidebar = () => {
         </ul>
         <a
           href="#"
-          style={{ ...linkStyle, color: "blue" }}
+          style={{ ...linkStyle, color: "#664343" }}
           className="mt-1"
           onClick={handleBackToMenu}
         >

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-//import "./tambahwebspace.css";
 import { FaTimes } from "react-icons/fa";
 import axios from "axios";
 import "./tambahdatabase.css";

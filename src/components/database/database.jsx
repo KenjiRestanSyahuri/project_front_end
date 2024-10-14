@@ -8,6 +8,7 @@ import { IconCirclePlusFilled } from "@tabler/icons-react";
 import TambahDatabase from "./tambahdatabase";
 import EditDatabase from "./editdatabase";
 import "./database.css";
+import Swal from "sweetalert2";
 
 const Database = () => {
   const [project, setProject] = useState(null);
@@ -32,7 +33,6 @@ const Database = () => {
             `${apiUrl}/databases/by-project/${projectGuid}`
           );
           setDatabase(databaseResponse.data);
-
         }
       } catch (error) {
         console.error("Error fetching project or database:", error);
@@ -49,6 +49,7 @@ const Database = () => {
   const handleAddDatabase = (newDatabase) => {
     setDatabase((prevDatabase) => [...prevDatabase, newDatabase]);
     setShowAddDatabase(false);
+    Swal.fire("Sukses", "Host Database berhasil ditambahkan!", "success");
   };
 
   const handleEditDatabase = (database) => {
@@ -66,10 +67,17 @@ const Database = () => {
   };
 
   const handleDeleteDatabase = async (database) => {
-    const confirmDelete = window.confirm(
-      "Apakah anda yakin untuk menghapus data?"
-    );
-    if (confirmDelete) {
+    // SweetAlert2 confirmation dialog
+    const result = await Swal.fire({
+      title: "Apakah Anda yakin?",
+      text: "Data ini akan dihapus secara permanen!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    });
+
+    if ((result, isConfirmed)) {
       try {
         const response = await axios.delete(
           `${apiUrl}/databases/${database.guid}`
@@ -78,11 +86,11 @@ const Database = () => {
           setDatabase((prevDatabase) =>
             prevDatabase.filter((db) => db.guid !== database.guid)
           );
-          alert("Database berhasil dihapus!");
+          Swal.fire("Dihapus!", "Host berhasil dihapus!", "success");
         }
       } catch (error) {
         console.error("Error deleting database:", error);
-        alert("Gagal menghapus database.");
+        Swal.fire("Gagal!", "Gagal menghapus host.", "error");
       }
     }
   };
@@ -99,7 +107,10 @@ const Database = () => {
         <div className="flex-grow-1 p-4 bg-light">
           <div className="card shadow-sm">
             <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center mb-4" style={{color: "#664343"}}>
+              <div
+                className="d-flex justify-content-between align-items-center mb-4"
+                style={{ color: "#664343" }}
+              >
                 <h2>Database Project: {project.name}</h2>
                 <div>
                   <button
@@ -154,7 +165,7 @@ const Database = () => {
                       <th>Username</th>
                       <th>Password</th>
                       <th>Nama Database</th>
-                      <th className="action-cell" >Aksi</th>
+                      <th className="action-cell">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -185,7 +196,7 @@ const Database = () => {
                                   width: "80px",
                                   backgroundColor: "#664343",
                                   color: "#FFF0D1",
-                                  borderColor: "#664343"
+                                  borderColor: "#664343",
                                 }}
                               >
                                 Hapus

@@ -68,11 +68,6 @@ button.btn-primary {
   width: 100%; /* Lebar penuh tombol */
 }
 
-/* Hover effect pada tombol */
-button.btn-primary:hover {
-  background-color: #452f2c;
-}
-
 /* Responsivitas untuk layar kecil */
 @media (max-width: 768px) {
   .modal-content {

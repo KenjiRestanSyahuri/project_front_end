@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2"; // Import SweetAlert2
+import { FaTimes } from "react-icons/fa";
 
 const EditHostDatabase = ({ host, onClose, onHostUpdated }) => {
   const [hostData, setHostData] = useState({ ...host });
@@ -48,7 +49,12 @@ const EditHostDatabase = ({ host, onClose, onHostUpdated }) => {
     <div className="modal-backdrop d-flex justify-content-center align-items-center">
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
-          <h2 className="h5">Edit Host</h2>
+          <div>
+            <h2 className="h5">Edit Host</h2>
+            <p className="text-muted small">
+              Masukkan Detail Host Database Untuk Perbarui Data
+            </p>
+          </div>
           <button
             className="btn-close ms-auto"
             aria-label="Close"
@@ -59,7 +65,7 @@ const EditHostDatabase = ({ host, onClose, onHostUpdated }) => {
               fontSize: "1.5rem",
             }}
           >
-            &times;
+            <FaTimes />
           </button>
         </div>
         <form onSubmit={handleSubmit}>
