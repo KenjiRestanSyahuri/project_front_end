@@ -5,10 +5,11 @@ import "./tambahdatabase.css";
 
 function TambahDatabase({ onClose, onDatabaseAdded }) {
   const [databaseData, setDatabaseData] = useState({
+    hostGuid: "",
     host: "",
     username: "",
-    password: "",
     databaseName: "",
+    databaseType: "",
   });
 
   const [hosts, setHosts] = useState([]);
@@ -32,32 +33,52 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
 
   // Handle perubahan input
   const handleChange = (e) => {
-    setDatabaseData({
-      ...databaseData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    if (name === "host") {
+      // Dapatkan hostGuid dan databaseType berdasarkan host yang dipilih
+      const selectedHost = hosts.find((host) => host.name === value);
+      const hostGuid = selectedHost ? selectedHost.guid : "";
+      const databaseType = selectedHost ? selectedHost.databaseType : ""; // Ambil tipe database dari host
+
+      setDatabaseData({
+        ...databaseData,
+        host: value,
+        hostGuid, // Set hostGuid yang sesuai
+        databaseType, // Set databaseType yang sesuai
+      });
+    } else {
+      setDatabaseData({
+        ...databaseData,
+        [name]: value,
+      });
+    }
   };
 
   // Fungsi untuk POST data ke backend menggunakan fetch
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted with data:", databaseData); // Log data sebelum pengiriman
-    if (databaseData.host && databaseData.username && databaseData.password) {
+    if (
+      databaseData.host &&
+      databaseData.username &&
+      databaseData.databaseName
+    ) {
       // Menyiapkan data untuk dikirim
       const dataToSend = {
         host: databaseData.host,
+        hostGuid: databaseData.hostGuid,
         username: databaseData.username,
-        password: databaseData.password,
         databaseName: databaseData.databaseName,
+        databaseType: databaseData.databaseType,
         projectGuid: sessionStorage.getItem("currentProjectGuid"), 
       };
 
       console.log("Data to send to the server:", dataToSend); // Log data yang akan dikirim
 
       try {
-        // Mengirim data ke server melalui POST request menggunakan fetch
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/databases`, // Mengubah URL endpoint
+          `${import.meta.env.VITE_API_URL}/databases`,
           {
             method: "POST",
             headers: {
@@ -67,7 +88,7 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
           }
         );
 
-        console.log("Response status:", response.status); // Log status respons
+        console.log("Response status:", response.status);
 
         if (!response.ok) {
           const errorResponse = await response.json();
@@ -77,15 +98,15 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
         }
 
         const result = await response.json();
-        console.log("Response data from server:", result); // Log data yang diterima dari server
+        console.log("Response data from server:", result);
 
-        onDatabaseAdded(result); // Mengirim data database yang berhasil disimpan ke parent component
-        onClose(); // Tutup modal setelah database berhasil ditambahkan
+        onDatabaseAdded(result);
+        onClose();
       } catch (error) {
-        console.error("Error adding database:", error.message); // Log kesalahan
+        console.error("Error adding database:", error.message);
       }
     } else {
-      alert("Harap isi field wajib!"); // Validasi input wajib
+      alert("Harap isi field wajib!");
     }
   };
 
@@ -126,12 +147,24 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
                 required
               >
                 <option value="">Pilih Host</option>
-                  {hosts.map((host) => (
+                {hosts.map((host) => (
                   <option key={host.guid} value={host.name}>
                     {host.name}
                   </option>
                 ))}
               </select>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="databaseType" className="form-label">
+                Tipe Database
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                name="databaseType"
+                value={databaseData.databaseType}
+                disabled
+              />
             </div>
             <div className="mb-3">
               <label htmlFor="username" className="form-label">
@@ -142,19 +175,6 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
                 className="form-control"
                 name="username"
                 value={databaseData.username}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="Password" className="form-label">
-                Password
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="password"
-                value={databaseData.password}
                 onChange={handleChange}
                 required
               />

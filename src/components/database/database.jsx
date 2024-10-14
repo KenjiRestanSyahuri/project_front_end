@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { IconCirclePlusFilled } from "@tabler/icons-react";
+// import { IconCirclePlusFilled } from "@tabler/icons-react";
 import TambahDatabase from "./tambahdatabase";
 import EditDatabase from "./editdatabase";
 import "./database.css";
@@ -136,7 +136,7 @@ const Database = () => {
                       fontFamily: "sans-serif",
                     }}
                   >
-                    <IconCirclePlusFilled />
+                    {/* <IconCirclePlusFilled /> */}
                     Tambah Database
                   </button>
                 </div>
