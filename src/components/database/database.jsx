@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import { IconCirclePlusFilled } from "@tabler/icons-react";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 import TambahDatabase from "./tambahdatabase";
 import EditDatabase from "./editdatabase";
 import "./database.css";
 import Swal from "sweetalert2";
+import { TailSpin } from "react-loader-spinner";
 
 const Database = () => {
   const [project, setProject] = useState(null);
@@ -77,7 +78,7 @@ const Database = () => {
       cancelButtonText: "Batal",
     });
 
-    if ((result, isConfirmed)) {
+    if (result.isConfirmed) {
       try {
         const response = await axios.delete(
           `${apiUrl}/databases/${database.guid}`
@@ -96,7 +97,11 @@ const Database = () => {
   };
 
   if (!project) {
-    return <div>Loading...</div>;
+    return (
+      <div className="spinner-overlay">
+        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+      </div>
+    );
   }
 
   return (
@@ -136,7 +141,7 @@ const Database = () => {
                       fontFamily: "sans-serif",
                     }}
                   >
-                    {/* <IconCirclePlusFilled /> */}
+                    <IconCirclePlusFilled />
                     Tambah Database
                   </button>
                 </div>

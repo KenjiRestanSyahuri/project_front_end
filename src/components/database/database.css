@@ -1,29 +1,36 @@
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 td {
-    text-align: left;
-    padding: 8px;
-    color: #3B3030;
+  text-align: left;
+  padding: 8px;
+  color: #3b3030;
 }
 
 th {
-    text-align: left;
-    padding: 8px;
-    color: #3B3030;
-    background-color: white;
+  text-align: left;
+  padding: 8px;
+  color: #3b3030;
+  background-color: white;
 }
 
 tr:nth-child(odd) {
-    background-color: #FFF0D1;
+  background-color: #fff0d1;
 }
 .mb-0 {
-    color: #664343;
+  color: #664343;
 }
 .fw-bold {
-    color: #3B3030
+  color: #3b3030;
+}
+
+.spinner-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 /* .btn-host-database {
