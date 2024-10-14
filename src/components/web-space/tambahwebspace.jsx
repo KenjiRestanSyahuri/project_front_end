@@ -17,7 +17,7 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
         const response = await axios.get(`${apiUrl}/host-webspace/by-project/${projectGuid}`);
         setHosts(response.data); // Simpan data host ke dalam state
       } catch (error) {
@@ -47,7 +47,7 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
         url: webSpaceData.url,
         directory: webSpaceData.directory,
         language: webSpaceData.language,
-        projectGuid: localStorage.getItem("currentProjectGuid"), // Mengambil projectGuid dari localStorage
+        projectGuid: sessionStorage.getItem("currentProjectGuid"), // Mengambil projectGuid dari sessionStorage
       };
 
       console.log("Data to send to the server:", dataToSend); // Log data yang akan dikirim

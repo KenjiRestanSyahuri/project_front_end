@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 // Komponen untuk melindungi rute
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('token'); // Cek token di Local Storage
+  const token = sessionStorage.getItem('token'); // Cek token di Local Storage
 
   if (!token) {
     // Jika tidak ada token, alihkan ke halaman login

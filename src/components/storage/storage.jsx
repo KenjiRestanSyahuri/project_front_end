@@ -21,7 +21,7 @@ const Storage = () => {
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
         if (projectGuid) {
           const projectResponse = await axios.get(
             `${apiUrl}/projects/${projectGuid}`

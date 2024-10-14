@@ -7,7 +7,7 @@ const Logout = () => {
 
   const handleLogout = () => {
     // Hapus token dari local storage atau session storage
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
 
     // Arahkan ke halaman login setelah log out
     navigate("/");

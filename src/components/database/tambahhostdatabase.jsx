@@ -13,8 +13,8 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
     databaseType: "",
   });
 
-  // Mengambil currentProjectGuid dari localStorage
-  const currentProjectGuid = localStorage.getItem("currentProjectGuid");
+  // Mengambil currentProjectGuid dari sessionStorage
+  const currentProjectGuid = sessionStorage.getItem("currentProjectGuid");
 
   // Handle perubahan input
   const handleChange = (e) => {
@@ -37,7 +37,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
 
     if (hostData.hostName && hostData.url && hostData.ipAddress) {
       const dataToSend = {
-        projectGuid: currentProjectGuid, // Gunakan currentProjectGuid dari localStorage
+        projectGuid: currentProjectGuid, // Gunakan currentProjectGuid dari sessionStorage
         name: hostData.hostName,
         url: hostData.url,
         ipAddress: hostData.ipAddress,

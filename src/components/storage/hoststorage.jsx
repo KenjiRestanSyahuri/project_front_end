@@ -19,7 +19,7 @@ const HostStorage = () => {
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid"); // Ambil projectGuid dari localStorage
+        const projectGuid = sessionStorage.getItem("currentProjectGuid"); // Ambil projectGuid dari sessionStorage
         if (!projectGuid) {
           Swal.fire("Error", "Project GUID tidak ditemukan!", "error");
           return;

@@ -2,13 +2,13 @@ import React from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom"; // Tambahkan useLocation
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-// import {
-//   IconLayoutDashboard,
-//   IconDatabase,
-//   IconServer,
-//   IconDeviceTv,
-//   IconLicense,
-// } from "@tabler/icons-react";
+import {
+  IconLayoutDashboard,
+  IconDatabase,
+  IconServer,
+  IconDeviceTv,
+  IconLicense,
+} from "@tabler/icons-react";
 import { LogoutBroken } from "solar-icons";
 
 const Sidebar = () => {
@@ -63,9 +63,9 @@ const Sidebar = () => {
               to="/webspace"
               style={
                 location.pathname === "/webspace" ? activeLinkStyle : linkStyle
-              } // Cek jika path aktif adalah "/webspace"
+              } 
             >
-              {/* <IconLayoutDashboard style={iconStyle} /> */}
+              <IconLayoutDashboard style={iconStyle} />
               Web Space
             </Link>
           </li>
@@ -76,7 +76,7 @@ const Sidebar = () => {
                 location.pathname === "/database" ? activeLinkStyle : linkStyle
               } // Cek jika path aktif adalah "/database"
             >
-              {/* <IconDatabase style={iconStyle} /> */}
+              <IconDatabase style={iconStyle} />
               Database
             </Link>
           </li>
@@ -87,7 +87,7 @@ const Sidebar = () => {
                 location.pathname === "/storage" ? activeLinkStyle : linkStyle
               } // Cek jika path aktif adalah "/storage"
             >
-              {/* <IconServer style={iconStyle} /> */}
+              <IconServer style={iconStyle} />
               Storage
             </Link>
           </li>
@@ -100,7 +100,7 @@ const Sidebar = () => {
                   : linkStyle
               } // Cek jika path aktif adalah "/message-broker"
             >
-              {/* <IconDeviceTv stroke={2} style={iconStyle} /> */}
+              <IconDeviceTv stroke={2} style={iconStyle} />
               Message Broker
             </Link>
           </li>
@@ -111,7 +111,7 @@ const Sidebar = () => {
                 location.pathname === "/worker" ? activeLinkStyle : linkStyle
               } // Cek jika path aktif adalah "/worker"
             >
-              {/* <IconLicense style={iconStyle} /> */}
+              <IconLicense style={iconStyle} />
               Worker
             </Link>
           </li>

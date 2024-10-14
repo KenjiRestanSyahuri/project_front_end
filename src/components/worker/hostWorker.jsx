@@ -20,7 +20,7 @@ const HostWorker = () => {
   useEffect(() => {
     const fetchWorkers = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
         const response = await axios.get(
           `${apiUrl}/host-worker/by-project/${projectGuid}`
         );

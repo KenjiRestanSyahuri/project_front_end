@@ -16,7 +16,7 @@ function TambahWorker({ onClose, onWorkerAdded }) {
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
         const response = await axios.get(
           `${apiUrl}/host-worker/by-project/${projectGuid}`
         );
@@ -47,7 +47,7 @@ function TambahWorker({ onClose, onWorkerAdded }) {
     ) {
       const dataToSend = {
         ...workerData,
-        projectGuid: localStorage.getItem("currentProjectGuid"),
+        projectGuid: sessionStorage.getItem("currentProjectGuid"),
       };
 
       console.log("Data to send to the server:", dataToSend);

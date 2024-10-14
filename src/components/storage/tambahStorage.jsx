@@ -17,7 +17,7 @@ function TambahStorage({ onClose, onStorageAdded }) {
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
         const response = await axios.get(
           `${apiUrl}/host-storage/by-project/${projectGuid}`
         );
@@ -54,7 +54,7 @@ function TambahStorage({ onClose, onStorageAdded }) {
         username: storageData.username,
         password: storageData.password,
         directoryName: storageData.directoryName,
-        projectGuid: localStorage.getItem("currentProjectGuid"), // Mengambil projectGuid dari localStorage
+        projectGuid: sessionStorage.getItem("currentProjectGuid"), // Mengambil projectGuid dari sessionStorage
       };
 
       console.log("Data to send to the server:", dataToSend); // Log data yang akan dikirim

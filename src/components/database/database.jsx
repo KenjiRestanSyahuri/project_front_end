@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { IconCirclePlusFilled } from "@tabler/icons-react";
 import TambahDatabase from "./tambahdatabase";
 import EditDatabase from "./editdatabase";
+import "./database.css";
 
 const Database = () => {
   const [project, setProject] = useState(null);
@@ -20,7 +21,7 @@ const Database = () => {
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
         if (projectGuid) {
           const projectResponse = await axios.get(
             `${apiUrl}/projects/${projectGuid}`
@@ -98,15 +99,15 @@ const Database = () => {
         <div className="flex-grow-1 p-4 bg-light">
           <div className="card shadow-sm">
             <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center mb-4">
+              <div className="d-flex justify-content-between align-items-center mb-4" style={{color: "#664343"}}>
                 <h2>Database Project: {project.name}</h2>
                 <div>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
                     onClick={handleAddHost}
                     style={{
-                      backgroundColor: "#AFD0ED",
-                      color: "#1168E7",
+                      backgroundColor: "#FFF0D1",
+                      color: "#3B3030",
                       fontFamily: "sans-serif",
                       fontWeight: "bold",
                       width: "130px",
@@ -120,7 +121,7 @@ const Database = () => {
                     style={{
                       backgroundColor: "white",
                       width: "170px",
-                      color: "#226195",
+                      color: "#664343",
                       fontFamily: "sans-serif",
                     }}
                   >
@@ -145,15 +146,15 @@ const Database = () => {
                 />
               )}
 
-              <div className="table-responsive">
-                <table className="table table-striped">
+              <div>
+                <table>
                   <thead>
                     <tr>
                       <th>Host</th>
                       <th>Username</th>
                       <th>Password</th>
                       <th>Nama Database</th>
-                      <th className="action-cell">Aksi</th>
+                      <th className="action-cell" >Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -171,7 +172,8 @@ const Database = () => {
                                 onClick={() => handleEditDatabase(db)}
                                 style={{
                                   width: "80px",
-                                  backgroundColor: "#D4E6E8",
+                                  backgroundColor: "#795757",
+                                  color: "#FFF0D1",
                                 }}
                               >
                                 Edit
@@ -181,7 +183,9 @@ const Database = () => {
                                 onClick={() => handleDeleteDatabase(db)}
                                 style={{
                                   width: "80px",
-                                  backgroundColor: "#FF4545",
+                                  backgroundColor: "#664343",
+                                  color: "#FFF0D1",
+                                  borderColor: "#664343"
                                 }}
                               >
                                 Hapus

@@ -26,32 +26,34 @@
 
 /* Header Modal */
 .modal-header h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
+    color: #664343;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .modal-header p {
-  color: #664343; /* Warna teks header kecil */
-  font-size: 13px;
+    color: #3B3030; /* Warna teks header kecil */
+    font-size: 13px;
+    font-family: 'Arial', sans-serif;
 }
 
 /* Textbox (input dan textarea) */
 input.form-control, textarea.form-control {
-  font-family: 'Arial', sans-serif;
-  font-size: 14px;
-  color: #3B3030; /* Warna font */
-  border: 1px solid #D9B9B9; 
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: none;
-  width: 100%; /* Lebar penuh untuk input */
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #3B3030; /* Warna font */
+    border: 1px solid #D9B9B9; 
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: none;
+    width: 100%; /* Lebar penuh untuk input */
 }
 
 /* Placeholder styling */
 input::placeholder, textarea::placeholder {
-  color: #B89A9A;
-  font-size: 13px;
+    color: #B89A9A;
+    font-size: 13px;
 }
 
 /* Button Tambah */
@@ -71,33 +73,28 @@ button.btn-primary:hover {
   background-color: #452f2c;
 }
 
-
-.modal-content {
-  max-width: 90%; /* Lebar modal berkurang pada layar kecil */
-  padding: 15px;
-  height: auto;
-}
+/* Responsivitas untuk layar kecil */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 90%; /* Lebar modal berkurang pada layar kecil */
+    padding: 15px;
+    height: auto;
+  }
 
   /* Sesuaikan ukuran font dan jarak pada layar kecil */
-.modal-header h2 {
-  color: #664343;
-  font-size: 18px;
-}
+  .modal-header h2 {
+    font-size: 18px;
+  }
 
-.modal-header p {
-    color: #664343; /* Warna teks header kecil */
+  input.form-control, textarea.form-control {
     font-size: 13px;
-}
+    padding: 8px;
+  }
 
-input.form-control, textarea.form-control {
-  font-size: 13px;
-  padding: 8px;
+  button.btn-primary {
+    font-size: 15px;
+  }
 }
-
-button.btn-primary {
-  font-size: 15px;
-}
-
 
 /* Menonaktifkan scroll di body ketika modal terbuka */
 body.modal-open {

@@ -21,7 +21,7 @@ const HostWebSpace = () => {
   useEffect(() => {
     const fetchHosts = async () => {
       try {
-        const projectGuid = localStorage.getItem("currentProjectGuid");
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
         const response = await axios.get(`${apiUrl}/host-webspace/by-project/${projectGuid}`);
         setHosts(response.data);
       } catch (error) {
