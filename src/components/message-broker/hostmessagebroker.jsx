@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import TambahHostMessageBroker from "./tambahhostmessagebroker"; // Component for adding host message broker
-import EditHostMessageBroker from "./edithostmessagebroker"; // Component for editing host message broker
+import TambahHostMessageBroker from "./tambahhostmessagebroker";
+import EditHostMessageBroker from "./edithostmessagebroker";
 import Swal from "sweetalert2";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 const HostMessageBroker = () => {
   const [hosts, setHosts] = useState([]);
@@ -26,7 +27,6 @@ const HostMessageBroker = () => {
         console.error("Error fetching hosts:", error);
       }
     };
-
     fetchHosts();
   }, [apiUrl]);
 
@@ -47,9 +47,7 @@ const HostMessageBroker = () => {
 
   const handleHostUpdated = (updatedHost) => {
     setHosts((prevHosts) =>
-      prevHosts.map((host) =>
-        host.guid === updatedHost.guid ? updatedHost : host
-      )
+      prevHosts.map((host) => (host.guid === updatedHost.guid ? updatedHost : host))
     );
     setShowEditHost(false);
   };
@@ -66,13 +64,9 @@ const HostMessageBroker = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await axios.delete(
-          `${apiUrl}/host-msg-broker/${host.guid}`
-        );
+        const response = await axios.delete(`${apiUrl}/host-msg-broker/${host.guid}`);
         if (response.status === 200) {
-          setHosts((prevHosts) =>
-            prevHosts.filter((h) => h.guid !== host.guid)
-          );
+          setHosts((prevHosts) => prevHosts.filter((h) => h.guid !== host.guid));
           Swal.fire("Deleted!", "Host has been deleted successfully!", "success");
         }
       } catch (error) {
@@ -85,107 +79,129 @@ const HostMessageBroker = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
-
       <div className="d-flex flex-grow-1">
         <Sidebar />
-
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Host Message Broker</h2>
-            <div>
-              <button
-                className="btn btn-secondary me-2"
-                onClick={handleBackToMessageBroker}
-              >
-                Message Broker
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={() => setShowAddHost(true)}
-              >
-                <i className="fas fa-plus me-2"></i>Add Host
-              </button>
-            </div>
-          </div>
+          <div className="container">
+            <div className="card shadow-sm">
+              <div className="card-body">
+                <div className="d-md-flex justify-content-between align-items-center mb-4">
+                  <h2 className="font-weight-bold">Host Message Broker</h2>
+                  <div className="d-flex">
+                    <button
+                      className="btn btn-sm me-1 rounded-5"
+                      onClick={handleBackToMessageBroker}
+                      style={{
+                        backgroundColor: "#AFD0ED",
+                        color: "#1168E7",
+                        fontFamily: "sans-serif",
+                        fontWeight: "bold",
+                        width: "230px",
+                      }}
+                    >
+                      Kembali ke Message Broker
+                    </button>
+                    <button
+                      className="btn btn-sm rounded-5 d-flex align-items-center"
+                      onClick={() => setShowAddHost(true)}
+                      style={{
+                        backgroundColor: "transparent",
+                        width: "200px",
+                        color: "#226195",
+                        fontFamily: "sans-serif",
+                      }}
+                    >
+                      <IconCirclePlusFilled />
+                      Host Message Broker
+                    </button>
+                  </div>
+                </div>
 
-          {showAddHost && (
-            <TambahHostMessageBroker
-              onClose={() => setShowAddHost(false)}
-              onHostAdded={handleAddHost}
-            />
-          )}
-
-          {showEditHost && (
-            <EditHostMessageBroker
-              host={currentHost}
-              onClose={() => setShowEditHost(false)}
-              onHostUpdated={handleHostUpdated}
-            />
-          )}
-
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>IP Address</th>
-                  <th>URL</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>Broker Type</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {hosts.length > 0 ? (
-                  hosts.map((host) => (
-                    <tr key={host.guid}>
-                      <td>{host.name}</td>
-                      <td>{host.ipAddress}</td>
-                      <td
-                        style={{
-                          maxWidth: "20rem",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        <a
-                          href={host.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {host.url}
-                        </a>
-                      </td>
-                      <td>{host.username}</td>
-                      <td>{host.password}</td>
-                      <td>{host.brokerType}</td>
-                      <td>
-                        <button
-                          className="btn btn-success btn-sm me-2"
-                          onClick={() => handleEditHost(host)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDeleteHost(host)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="7" className="text-center">
-                      No host data available
-                    </td>
-                  </tr>
+                {showAddHost && (
+                  <TambahHostMessageBroker
+                    onClose={() => setShowAddHost(false)}
+                    onHostAdded={handleAddHost}
+                  />
                 )}
-              </tbody>
-            </table>
+
+                {showEditHost && (
+                  <EditHostMessageBroker
+                    host={currentHost}
+                    onClose={() => setShowEditHost(false)}
+                    onHostUpdated={handleHostUpdated}
+                  />
+                )}
+
+                <div className="table-responsive">
+                  <table className="table table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th>Nama</th>
+                        <th>IP Address</th>
+                        <th>URL</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Broker Type</th>
+                        <th className="action-cell">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {hosts.length > 0 ? (
+                        hosts.map((host) => (
+                          <tr key={host.guid}>
+                            <td>{host.name}</td>
+                            <td>{host.ipAddress}</td>
+                            <td
+                              style={{
+                                maxWidth: "20rem",
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                              }}
+                            >
+                              <a href={host.url} target="_blank" rel="noopener noreferrer">
+                                {host.url}
+                              </a>
+                            </td>
+                            <td>{host.username}</td>
+                            <td>{host.password}</td>
+                            <td>{host.brokerType}</td>
+                            <td className="action-cell"> 
+                              <button
+                                className="btn btn-sm me-1 rounded-5"
+                                onClick={() => handleEditHost(host)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#D4E6E8",
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                className="btn btn-sm me-1 rounded-5"
+                                onClick={() => handleDeleteHost(host)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#FF4545",
+                                }}
+                              >
+                                Hapus
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="7" className="text-center">
+                            Data host tidak tersedia
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
