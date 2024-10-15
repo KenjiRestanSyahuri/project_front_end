@@ -87,11 +87,23 @@ const HostStorage = () => {
           setHosts((prevHosts) =>
             prevHosts.filter((h) => h.guid !== host.guid)
           );
-          Swal.fire("Dihapus!", "Host berhasil dihapus!", "success");
+          Swal.fire({
+            title: "Dihapus!",
+            text: "Host berhasil dihapus!",
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "#795757",
+          });
         }
       } catch (error) {
         console.error("Error deleting host:", error);
-        Swal.fire("Gagal!", "Gagal menghapus host.", "error");
+        Swal.fire({
+          title: "Gagal!",
+          text: "Gagal menghapus host.",
+          icon: "error",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#795757",
+        });
       }
     }
   };

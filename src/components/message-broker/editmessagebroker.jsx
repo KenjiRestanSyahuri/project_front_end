@@ -33,6 +33,7 @@ function EditMessageBroker({ messageBroker, onClose, onMessageBrokerUpdated }) {
         text: "GUID not found, unable to update message broker!",
         icon: "error",
         confirmButtonText: "OK",
+        confirmButtonColor: "#795757",
       });
       return;
     }
@@ -64,6 +65,7 @@ function EditMessageBroker({ messageBroker, onClose, onMessageBrokerUpdated }) {
         text: "Message broker updated successfully!",
         icon: "success",
         confirmButtonText: "OK",
+        confirmButtonColor: "#795757",
       });
 
       const result = await response.json();
@@ -77,6 +79,7 @@ function EditMessageBroker({ messageBroker, onClose, onMessageBrokerUpdated }) {
         text: "Failed to update message broker!",
         icon: "error",
         confirmButtonText: "OK",
+        confirmButtonColor: "#795757",
       });
     }
   };

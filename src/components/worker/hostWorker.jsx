@@ -40,7 +40,13 @@ const HostWorker = () => {
   const handleAddWorker = (newWorker) => {
     setWorkers((prevWorkers) => [...prevWorkers, newWorker]);
     setShowAddWorker(false);
-    Swal.fire("Sukses", "Host Worker berhasil ditambahkan!", "success");
+    Swal.fire({
+      title: "Sukses!",
+      text: "Host Worker berhasil ditambahkan!",
+      icon: "success",
+      confirmButtonText: "OK",
+      confirmButtonColor: "#795757",
+    });
   };
 
   const handleEditWorker = (worker) => {
@@ -63,6 +69,8 @@ const HostWorker = () => {
       text: "Data ini akan dihapus secara permanen!",
       icon: "warning",
       showCancelButton: true,
+      confirmButtonColor: "#795757",
+      cancelButtonColor: "#664343",
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
     });
@@ -76,11 +84,23 @@ const HostWorker = () => {
           setWorkers((prevWorkers) =>
             prevWorkers.filter((w) => w.guid !== worker.guid)
           );
-          Swal.fire("Dihapus!", "Worker berhasil dihapus!", "success");
+          Swal.fire({
+            title: "Dihapus!",
+            text: "Berhasil menghapus host worker",
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "#795757",
+          });
         }
       } catch (error) {
-        console.error("Error deleting worker:", error);
-        Swal.fire("Gagal!", "Gagal menghapus worker.", "error");
+        console.error("Error deleting host worker:", error);
+        Swal.fire({
+          title: "Gagal!",
+          text: "Gagal menghapus host worker",
+          icon: "error",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#795757",
+        });
       }
     }
   };

@@ -62,6 +62,8 @@ const HostMessageBroker = () => {
       text: "This data will be permanently deleted!",
       icon: "warning",
       showCancelButton: true,
+      confirmButtonColor: "#795757",
+      cancelButtonColor: "#664343",
       confirmButtonText: "Yes, delete it!",
       cancelButtonText: "Cancel",
     });
@@ -75,15 +77,23 @@ const HostMessageBroker = () => {
           setHosts((prevHosts) =>
             prevHosts.filter((h) => h.guid !== host.guid)
           );
-          Swal.fire(
-            "Deleted!",
-            "Host has been deleted successfully!",
-            "success"
-          );
+          Swal.fire({
+            title: "Deleted!",
+            text: "Host has been deleted.",
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "#795757",
+          });
         }
       } catch (error) {
         console.error("Error deleting host:", error);
-        Swal.fire("Failed!", "Failed to delete host.", "error");
+        Swal.fire({
+          title: "Failed!",
+          text: "Failed to delete host.",
+          icon: "error",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#795757",
+        });
       }
     }
   };

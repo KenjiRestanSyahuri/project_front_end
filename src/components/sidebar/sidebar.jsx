@@ -62,8 +62,11 @@ const Sidebar = () => {
             <Link
               to="/webspace"
               style={
-                location.pathname === "/webspace" ? activeLinkStyle : linkStyle
-              } 
+                location.pathname === "/webspace" ||
+                location.pathname === "/hostwebspace"
+                  ? activeLinkStyle
+                  : linkStyle
+              }
             >
               <IconLayoutDashboard style={iconStyle} />
               Web Space
@@ -73,7 +76,10 @@ const Sidebar = () => {
             <Link
               to="/database"
               style={
-                location.pathname === "/database" ? activeLinkStyle : linkStyle
+                location.pathname === "/database" ||
+                location.pathname === "/hostdatabase"
+                  ? activeLinkStyle
+                  : linkStyle
               } // Cek jika path aktif adalah "/database"
             >
               <IconDatabase style={iconStyle} />
@@ -84,7 +90,10 @@ const Sidebar = () => {
             <Link
               to="/storage"
               style={
-                location.pathname === "/storage" ? activeLinkStyle : linkStyle
+                location.pathname === "/storage" ||
+                location.pathname === "/hoststorage"
+                  ? activeLinkStyle
+                  : linkStyle
               } // Cek jika path aktif adalah "/storage"
             >
               <IconServer style={iconStyle} />
@@ -95,7 +104,8 @@ const Sidebar = () => {
             <Link
               to="/messagebroker"
               style={
-                location.pathname === "/messagebroker"
+                location.pathname === "/messagebroker" ||
+                location.pathname === "/hostmessagebroker"
                   ? activeLinkStyle
                   : linkStyle
               } // Cek jika path aktif adalah "/message-broker"
@@ -108,7 +118,10 @@ const Sidebar = () => {
             <Link
               to="/worker"
               style={
-                location.pathname === "/worker" ? activeLinkStyle : linkStyle
+                location.pathname === "/worker" ||
+                location.pathname === "/hostworker"
+                  ? activeLinkStyle
+                  : linkStyle
               } // Cek jika path aktif adalah "/worker"
             >
               <IconLicense style={iconStyle} />
