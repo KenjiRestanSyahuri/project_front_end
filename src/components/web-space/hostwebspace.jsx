@@ -106,7 +106,7 @@ const HostWebSpace = () => {
                 onClick={handleBackToWebSpace}
                 style={{
                   backgroundColor: "#FFF0D1",
-                  color: "#3B3030",
+                  color: "#664343",
                   fontFamily: "sans-serif",
                   fontWeight: "bold",
                   width: "200px",
@@ -120,7 +120,7 @@ const HostWebSpace = () => {
                 style={{
                   backgroundColor: "transparent",
                   width: "170px",
-                  color: "#3B3030",
+                  color: "#664343",
                   fontFamily: "sans-serif",
                 }}
               >
@@ -157,7 +157,7 @@ const HostWebSpace = () => {
                   <th>Password</th>
                   <th>OS</th>
                   <th>Server Type</th>
-                  <th>Aksi</th>
+                  <th className="action-cell">Aksi</th>
                 </tr>
               </thead>
               <tbody>

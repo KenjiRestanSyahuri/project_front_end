@@ -9,6 +9,7 @@ import EditMessageBroker from "./editmessagebroker";
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
 import {IconCirclePlusFilled } from "@tabler/icons-react";
+import "./messagebroker.css";
 
 const MessageBroker = () => {
   const [project, setProject] = useState(null);
@@ -117,14 +118,18 @@ const MessageBroker = () => {
           <div className="card shadow-sm">
             <div className="card-body">
               <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>Message Brokers: {project.name}</h2>
+                <h2
+                style={{
+                  color : "#664343",
+                }} 
+                >Message Brokers: {project.name}</h2>
                 <div>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
                     onClick={navigateToHostMessageBroker} // Tambahkan button untuk ke halaman hostmessagebroker
                     style={{
-                      backgroundColor: "#AFD0ED",
-                      color: "#1168E7",
+                      backgroundColor: "#FFF0D1",
+                      color: "#664343",
                       fontFamily: "sans-serif",
                       fontWeight: "bold",
                       width: "170px",
@@ -138,7 +143,7 @@ const MessageBroker = () => {
                     style={{
                       backgroundColor: "transparent",
                       width: "150px",
-                      color: "#226195",
+                      color: "#664343",
                       fontFamily: "sans-serif",
                     }}
                   >
@@ -163,8 +168,8 @@ const MessageBroker = () => {
                 />
               )}
 
-              <div className="table-responsive">
-                <table className="table table-striped">
+              <div>
+                <table>
                   <thead>
                     <tr>
                       <th>Host</th>
@@ -193,7 +198,8 @@ const MessageBroker = () => {
                               onClick={() => handleEditMessageBroker(mb)}
                               style={{
                                 width: "80px",
-                                backgroundColor: "#D4E6E8",
+                                backgroundColor: "#795757",
+                                color: "#FFF0D1",
                               }}
                             >
                               Edit
@@ -203,8 +209,9 @@ const MessageBroker = () => {
                               className="btn btn btn-sm me-1 rounded-5"
                               onClick={() => handleDeleteMessageBroker(mb)}
                               style={{
+                                backgroundColor: "#664343",
                                 width: "80px",
-                                backgroundColor: "#FF4545",
+                                color: "#FFF0D1",
                               }}
                             >
                               Hapus

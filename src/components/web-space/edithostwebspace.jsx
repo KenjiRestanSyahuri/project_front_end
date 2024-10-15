@@ -167,6 +167,11 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
           </div>
           <div className="modal-footer d-flex justify-content-center">
             <button
+              style={{
+                width: "80px",
+                backgroundColor: "#664343",
+                color: "#FFF0D1",
+              }}
               type="submit"
               className="btn-primary rounded-pill px-4 w-100"
             >
