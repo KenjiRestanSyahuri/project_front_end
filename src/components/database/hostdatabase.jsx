@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import { IconCirclePlusFilled } from "@tabler/icons-react";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 import TambahHostDatabase from "./tambahhostdatabase";
 import EditHostDatabase from "./edithostdatabase";
 import Swal from "sweetalert2";
@@ -95,11 +95,19 @@ const HostDatabase = () => {
         <Sidebar />
 
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="card shadow-sm">
-            <div className="card-body">
-              <div
-                className="d-flex justify-content-between align-items-center mb-4"
-                style={{ color: "#664343" }}
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2>Host</h2>
+            <div>
+              <button
+                className="btn btn btn-sm me-1 rounded-5"
+                onClick={handleBackToDatabase}
+                style={{
+                  backgroundColor: "#AFD0ED",
+                  color: "#1168E7",
+                  fontFamily: "sans-serif",
+                  fontWeight: "bold",
+                  width: "95px",
+                }}
               >
                 Database
               </button>
@@ -113,7 +121,7 @@ const HostDatabase = () => {
                   fontFamily: "sans-serif",
                 }}
               >
-                {/* <IconCirclePlusFilled /> */}
+                <IconCirclePlusFilled />
                 Tambah Host
               </button>
             </div>
@@ -185,73 +193,16 @@ const HostDatabase = () => {
                         </button>
                       </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {hosts.length > 0 ? (
-                      hosts.map((host) => (
-                        <tr key={host.guid}>
-                          <td>{host.name}</td>
-                          <td>{host.ipAddress}</td>
-                          <td
-                            style={{
-                              maxWidth: "20rem",
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                          >
-                            <a
-                              href={host.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {host.url}
-                            </a>
-                          </td>
-                          <td>{host.username}</td>
-                          <td>{host.password}</td>
-                          <td>{host.os}</td>
-                          <td>{host.databaseType}</td>
-                          <td className="action-cell">
-                            <div className="d-grid gap-2 d-md-block">
-                              <button
-                                className="btn btn btn-sm me-1 rounded-5"
-                                onClick={() => handleEditHost(host)}
-                                style={{
-                                  width: "80px",
-                                  backgroundColor: "#795757",
-                                  color: "#FFF0D1",
-                                }}
-                              >
-                                Edit
-                              </button>
-                              <button
-                                className="btn btn-danger btn-sm rounded-5"
-                                onClick={() => handleDeleteHost(host)}
-                                style={{
-                                  width: "80px",
-                                  backgroundColor: "#664343",
-                                  color: "#FFF0D1",
-                                  borderColor: "#664343",
-                                }}
-                              >
-                                Hapus
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="8" className="text-center">
-                          Tidak ada data host yang tersedia
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="8" className="text-center">
+                      Tidak ada data host yang tersedia
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -260,3 +211,5 @@ const HostDatabase = () => {
 };
 
 export default HostDatabase;
+
+// TODO fix the UI

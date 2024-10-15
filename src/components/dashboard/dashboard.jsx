@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [currentGuid, setCurrentGuid] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  const [message, setMessage] = useState(""); // State untuk menampilkan pesan notifikasi
+  const [, setMessage] = useState(""); // State untuk menampilkan pesan notifikasi
   const [loading, setLoading] = useState(false);
 
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -124,7 +124,7 @@ const Dashboard = () => {
   return (
     <div>
       <Navbar />
-      <div className="container mt-3" style={{color: "#664343"}}>
+      <div className="container mt-3" style={{ color: "#664343" }}>
         <h2>List Project Terdaftar</h2>
 
         {loading ? (
@@ -146,13 +146,21 @@ const Dashboard = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
-                style={{ paddingLeft: "40px", marginRight: "20px", borderColor: "#664343"}}
+                style={{
+                  paddingLeft: "40px",
+                  marginRight: "20px",
+                  borderColor: "#664343",
+                }}
               />
               <button
                 className="btn btn-primary rounded-pill"
                 type="button"
                 onClick={searchProjects}
-                style={{ backgroundColor: "#664343", width: "80px", borderColor: "#664343" }}
+                style={{
+                  backgroundColor: "#664343",
+                  width: "80px",
+                  borderColor: "#664343",
+                }}
               >
                 Cari
               </button>
@@ -193,8 +201,8 @@ const Dashboard = () => {
               />
             )}
 
-            <div >
-              <table >
+            <div>
+              <table>
                 <thead>
                   <tr>
                     <th>Nama Project</th>
@@ -202,7 +210,7 @@ const Dashboard = () => {
                     <th>User</th>
                     <th>Tanggal Mulai</th>
                     <th>Edit Terakhir</th>
-                    <th className="action-cell" >Aksi</th>
+                    <th className="action-cell">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -233,7 +241,7 @@ const Dashboard = () => {
                               style={{
                                 width: "80px",
                                 backgroundColor: "#795757",
-                                color: "#FFF0D1"
+                                color: "#FFF0D1",
                               }}
                             >
                               Edit

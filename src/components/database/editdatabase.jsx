@@ -1,21 +1,51 @@
-import React, { useState } from "react";
-// import "./editwebspace.css";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 function EditDatabase({ database, onClose, onDatabaseUpdated }) {
   const [databaseData, setDatabaseData] = useState({ ...database });
+  const [hosts, setHosts] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    const fetchHosts = async () => {
+      try {
+        const projectGuid = sessionStorage.getItem("currentProjectGuid");
+        const response = await axios.get(
+          `${apiUrl}/host-database/by-project/${projectGuid}`
+        );
+        setHosts(response.data);
+      } catch (error) {
+        console.error("Error fetching hosts:", error);
+      }
+    };
+
+    fetchHosts();
+  }, [apiUrl]);
 
   const handleChange = (e) => {
-    setDatabaseData({
-      ...databaseData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    if (name === "host") {
+      const selectedHost = hosts.find((host) => host.name === value);
+      const hostGuid = selectedHost ? selectedHost.guid : "";
+
+      setDatabaseData({
+        ...databaseData,
+        host: value,
+        hostGuid, // Set hostGuid yang sesuai
+      });
+    } else {
+      setDatabaseData({
+        ...databaseData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted with updated data:", databaseData);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/databases/${database.guid}`,
@@ -35,7 +65,6 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
         );
       }
 
-      // SweetAlert success notification
       Swal.fire({
         title: "Success",
         text: "Database berhasil diperbarui!",
@@ -44,7 +73,6 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
       });
 
       const result = await response.json();
-      console.log("Updated database data from server:", result);
       onDatabaseUpdated(result);
       onClose();
     } catch (error) {
@@ -89,8 +117,12 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
                 onChange={handleChange}
                 required
               >
-                <option value="Nginx">Nginx</option>
-                <option value="Apache">Apache</option>
+                <option value="">Pilih Host</option>
+                {hosts.map((host) => (
+                  <option key={host.guid} value={host.name}>
+                    {host.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="mb-3">
@@ -113,7 +145,7 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
               <input
                 type="text"
                 className="form-control"
-                name="directory"
+                name="password"
                 value={databaseData.password}
                 onChange={handleChange}
                 required
@@ -124,6 +156,7 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
                 Nama Database
               </label>
               <input
+                type="text"
                 className="form-control"
                 name="databaseName"
                 value={databaseData.databaseName}
