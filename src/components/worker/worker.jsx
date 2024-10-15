@@ -100,7 +100,7 @@ const Worker = () => {
         className="d-flex justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
-        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+        <TailSpin height="60" width="60" color="#664343" ariaLabel="loading" />
       </div>
     );
   }

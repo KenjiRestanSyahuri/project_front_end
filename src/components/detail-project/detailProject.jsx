@@ -45,8 +45,13 @@ const DetailProject = () => {
       )
     );
     setProject(updatedProject); // Update state project langsung
-    setMessage("Proyek berhasil diperbarui."); // Set pesan sukses
-    Swal.fire("Proyek berhasil diperbarui", "", "success"); // Notifikasi sukses
+    setMessage("Project sudah diperbarui."); // Set pesan sukses
+    Swal.fire({
+      title: "Project sudah berhasil diperbarui",
+      icon: "success",
+      showCloseButton: true,
+      confirmButtonColor: "#664343",
+    }); // Notifikasi sukses
   };
 
   if (!project) {
@@ -55,7 +60,7 @@ const DetailProject = () => {
         className="d-flex justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
-        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+        <TailSpin height="60" width="60" color="#664343" ariaLabel="loading" />
       </div>
     );
   }
@@ -78,8 +83,7 @@ const DetailProject = () => {
                   style={{
                     backgroundColor: "white",
                     color: "#664343",
-                    fontFamily: "sans-serif"
-                    
+                    fontFamily: "sans-serif",
                   }}
                 >
                   <i className="fas fa-edit me-2"></i>Edit Data Project

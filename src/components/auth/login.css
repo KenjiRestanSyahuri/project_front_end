@@ -1,4 +1,8 @@
 .beta {
-    color: #fff;
-    background-color: #226195;
-  }
+  color: #fff;
+  background-color: #226195;
+}
+
+.confirm-button {
+  background-color: #664343;
+}

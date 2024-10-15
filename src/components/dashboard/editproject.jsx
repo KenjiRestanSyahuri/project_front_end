@@ -51,7 +51,7 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
           <TailSpin
             height="60"
             width="60"
-            color="#226195"
+            color="#664343"
             ariaLabel="loading"
           />
         </div>

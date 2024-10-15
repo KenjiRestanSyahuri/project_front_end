@@ -9,16 +9,18 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
     directory: "",
     language: "",
   });
-  
+
   const [hosts, setHosts] = useState([]); // State untuk menyimpan daftar host
-  const apiUrl = import.meta.env.VITE_API_URL; // API URL     
+  const apiUrl = import.meta.env.VITE_API_URL; // API URL
 
   // Ambil daftar host dari API ketika komponen di-mount
   useEffect(() => {
     const fetchHosts = async () => {
       try {
         const projectGuid = sessionStorage.getItem("currentProjectGuid");
-        const response = await axios.get(`${apiUrl}/host-webspace/by-project/${projectGuid}`);
+        const response = await axios.get(
+          `${apiUrl}/host-webspace/by-project/${projectGuid}`
+        );
         setHosts(response.data); // Simpan data host ke dalam state
       } catch (error) {
         console.error("Error fetching hosts:", error);
@@ -69,7 +71,9 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
 
         if (!response.ok) {
           const errorResponse = await response.json();
-          throw new Error(`HTTP error! status: ${response.status}, message: ${errorResponse.message}`);
+          throw new Error(
+            `HTTP error! status: ${response.status}, message: ${errorResponse.message}`
+          );
         }
 
         const result = await response.json();
@@ -90,11 +94,15 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
           <h2 className="h5">Tambah Web Space</h2>
-          <button 
-            className="btn-close ms-auto" 
-            aria-label="Close" 
+          <button
+            className="btn-close ms-auto"
+            aria-label="Close"
             onClick={onClose}
-            style={{ border: 'none', background: 'transparent', fontSize: '1.5rem' }} // Mengubah gaya tombol X
+            style={{
+              border: "none",
+              background: "transparent",
+              fontSize: "1.5rem",
+            }} // Mengubah gaya tombol X
           >
             &times; {/* Simbol X untuk tombol tutup */}
           </button>
@@ -102,7 +110,9 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
             <div className="mb-3">
-              <label htmlFor="host" className="form-label">Host</label>
+              <label htmlFor="host" className="form-label">
+                Host
+              </label>
               <select
                 className="form-select"
                 name="host"
@@ -120,7 +130,9 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
               </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="url" className="form-label">URL</label>
+              <label htmlFor="url" className="form-label">
+                URL
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -131,7 +143,9 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="directory" className="form-label">Directory</label>
+              <label htmlFor="directory" className="form-label">
+                Directory
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -142,7 +156,9 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="language" className="form-label">Bahasa</label>
+              <label htmlFor="language" className="form-label">
+                Bahasa
+              </label>
               <select
                 className="form-select"
                 name="language"
@@ -156,13 +172,16 @@ function TambahWebSpace({ onClose, onWebSpaceAdded }) {
             </div>
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button 
-            style={{
-              width: "80px",
-              backgroundColor: "#664343",
-              color: "#FFF0D1",
-            }}
-            type="submit" color="#FFF0D1" className="btn-primary rounded-pill px-4 w-100">
+            <button
+              style={{
+                width: "80px",
+                backgroundColor: "#664343",
+                color: "#FFF0D1",
+              }}
+              type="submit"
+              color="#FFF0D1"
+              className="btn-primary rounded-pill px-4 w-100"
+            >
               Tambah
             </button>
           </div>

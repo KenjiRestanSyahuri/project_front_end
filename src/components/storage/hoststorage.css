@@ -1,0 +1,35 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  text-align: left;
+  padding: 8px;
+  color: #3b3030;
+}
+
+th {
+  text-align: left;
+  padding: 8px;
+  color: #3b3030;
+  background-color: white;
+}
+
+tr:nth-child(odd) {
+  background-color: #fff0d1;
+}
+.mb-0 {
+  color: #664343;
+}
+.fw-bold {
+  color: #3b3030;
+}
+
+.confirm-swal {
+  background-color: #795757;
+}
+
+.batal-swal {
+  background-color: #664343;
+}

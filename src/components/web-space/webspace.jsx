@@ -8,7 +8,7 @@ import TambahWebSpace from "./tambahwebspace";
 import EditWebSpace from "./editwebspace";
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
-import {IconCirclePlusFilled } from "@tabler/icons-react";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 import "./webspace.css";
 
 const DetailProject = () => {
@@ -50,7 +50,12 @@ const DetailProject = () => {
   const handleAddWebSpace = (newWebSpace) => {
     setWebSpaces((prevWebSpaces) => [...prevWebSpaces, newWebSpace]);
     setShowAddWebSpace(false);
-    Swal.fire("Sukses", "Web space berhasil ditambahkan!", "success");
+    Swal.fire({
+      title: "Web Space berhasil ditambahkan",
+      icon: "success",
+      showCloseButton: true,
+      confirmButtonColor: "#664343",
+    });
   };
 
   const handleEditWebSpace = (webSpace) => {
@@ -73,8 +78,8 @@ const DetailProject = () => {
       text: "Data ini akan dihapus secara permanen!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#795757",
+      cancelButtonColor: "#664343",
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
     });
@@ -88,11 +93,21 @@ const DetailProject = () => {
           setWebSpaces((prevWebSpaces) =>
             prevWebSpaces.filter((ws) => ws.guid !== webSpace.guid)
           );
-          Swal.fire("Terhapus!", "Web space berhasil dihapus.", "success");
+          Swal.fire({
+            title: "Web Space sudah berhasil dihapus",
+            icon: "success",
+            showCloseButton: true,
+            confirmButtonColor: "#664343",
+          });
         }
       } catch (error) {
         console.error("Error deleting web space:", error);
-        Swal.fire("Gagal", "Gagal menghapus web space.", "error");
+        Swal.fire({
+          title: "Gagal menghapus web space.",
+          icon: "error",
+          showCloseButton: true,
+          confirmButtonColor: "#664343",
+        });
       }
     }
   };
@@ -103,7 +118,7 @@ const DetailProject = () => {
         className="d-flex justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
-        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+        <TailSpin height="60" width="60" color="#664343" ariaLabel="loading" />
       </div>
     );
   }
@@ -121,9 +136,11 @@ const DetailProject = () => {
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2
                   style={{
-                    color : "#664343",
-                  }} 
-                >Web Space: {project.name}</h2>
+                    color: "#664343",
+                  }}
+                >
+                  Web Space: {project.name}
+                </h2>
                 <div>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
@@ -150,7 +167,7 @@ const DetailProject = () => {
                   >
                     {/* <i className="fas fa-plus me-1"></i> */}
                     <IconCirclePlusFilled />
-                  Tambah Web Space
+                    Tambah Web Space
                   </button>
                 </div>
               </div>

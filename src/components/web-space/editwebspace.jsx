@@ -36,11 +36,11 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
 
       // SweetAlert success notification
       Swal.fire({
-        title: "Success",
-        text: "Web space berhasil diperbarui!",
+        title: "Project sudah berhasil diperbarui",
         icon: "success",
-        confirmButtonText: "OK",
-      });
+        showCloseButton: true,
+        confirmButtonColor: "#664343",
+      }); // Notifikasi sukses
 
       const result = await response.json();
       console.log("Updated web space data from server:", result);
@@ -53,6 +53,7 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
         text: "Gagal memperbarui web space!",
         icon: "error",
         confirmButtonText: "OK",
+        confirmButtonColor: "#664343",
       });
     }
   };
@@ -97,7 +98,7 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
                 name="url"
                 value={webSpaceData.url}
                 onChange={handleChange}
-                required                
+                required
               />
             </div>
             <div className="mb-3">
@@ -107,7 +108,7 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
               <input
                 type="text"
                 className="form-control"
-                name="directory"                
+                name="directory"
                 value={webSpaceData.directory}
                 onChange={handleChange}
                 required

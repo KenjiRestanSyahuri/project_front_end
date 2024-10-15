@@ -19,7 +19,9 @@ const Login = () => {
         title: "Error",
         text: "Username dan Password wajib diisi",
         confirmButtonText: "OK",
-        confirmButtonColor: "#226195",
+        customClass: {
+          confirmButton: "confirm-button",
+        },
       });
     } else {
       fetch(`${apiUrl}/auth/login`, {
@@ -48,7 +50,9 @@ const Login = () => {
               title: "Error",
               text: "Invalid login response",
               confirmButtonText: "OK",
-              confirmButtonColor: "#226195",
+              customClass: {
+                confirmButton: "confirm-button",
+              },
             });
           }
         })
@@ -58,7 +62,9 @@ const Login = () => {
             title: "Error",
             text: "Invalid username or password",
             confirmButtonText: "OK",
-            confirmButtonColor: "#226195",
+            customClass: {
+              confirmButton: "confirm-button",
+            },
           });
         });
     }
@@ -111,10 +117,11 @@ const Login = () => {
                   placeholder="Masukkan Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  style={{ 
-                    width: "100%", 
-                    borderColor: "#664343", 
-                    backgroundColor: "#FFF0D1" }}
+                  style={{
+                    width: "100%",
+                    borderColor: "#664343",
+                    backgroundColor: "#FFF0D1",
+                  }}
                 />
               </div>
               <div className="mb-3">
@@ -128,10 +135,11 @@ const Login = () => {
                   placeholder="Masukkan Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  style={{ 
-                    width: "100%",  
-                    borderColor: "#664343", 
-                    backgroundColor: "#FFF0D1" }}
+                  style={{
+                    width: "100%",
+                    borderColor: "#664343",
+                    backgroundColor: "#FFF0D1",
+                  }}
                 />
               </div>
               <div className="d-flex justify-content-between align-items-center">
@@ -139,7 +147,7 @@ const Login = () => {
                 <a
                   href="/lupapassword"
                   className="text-muted"
-                  style={{ color: "#226195" }}
+                  style={{ color: "#664343" }}
                   onClick={LupaPassword}
                 >
                   Lupa Password?
@@ -148,7 +156,12 @@ const Login = () => {
               <button
                 type="submit"
                 className="btn btn-primary w-100 mt-3 beta"
-                style={{ borderRadius: "20px", padding: "10px 15px", backgroundColor: "#664343", borderColor: "#664343" }}
+                style={{
+                  borderRadius: "20px",
+                  padding: "10px 15px",
+                  backgroundColor: "#664343",
+                  borderColor: "#664343",
+                }}
               >
                 Masuk
               </button>

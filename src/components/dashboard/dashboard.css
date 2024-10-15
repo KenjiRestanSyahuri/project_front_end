@@ -44,7 +44,7 @@ h2 {
 
 /* Mengganti warna tombol pagination */
 .pagination .page-item .page-link {
-  color: #FFF0D1; /* Warna teks tombol */
+  color: #fff0d1; /* Warna teks tombol */
   background-color: #664343; /* Warna latar belakang tombol */
   border-color: #664343; /* Warna border tombol */
 }
@@ -59,8 +59,8 @@ h2 {
 /* Warna tombol saat aktif */
 .pagination .page-item.active .page-link {
   color: #000000; /* Warna teks tombol aktif */
-  background-color: #FFF0D1; /* Warna latar belakang tombol aktif */
-  border-color: #FFF0D1; /* Warna border tombol aktif */
+  background-color: #fff0d1; /* Warna latar belakang tombol aktif */
+  border-color: #fff0d1; /* Warna border tombol aktif */
 }
 
 /* Mengatur fokus tombol pagination */
@@ -68,31 +68,38 @@ h2 {
   box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25); /* Shadow saat tombol di-focus */
 }
 
-
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 td {
-    text-align: left;
-    padding: 8px;
-    color: #3B3030;
+  text-align: left;
+  padding: 8px;
+  color: #3b3030;
 }
 
 th {
-    text-align: left;
-    padding: 8px;
-    color: #3B3030;
-    background-color: white;
+  text-align: left;
+  padding: 8px;
+  color: #3b3030;
+  background-color: white;
 }
 
 tr:nth-child(odd) {
-    background-color: #FFF0D1;
+  background-color: #fff0d1;
 }
 .mb-0 {
-    color: #664343;
+  color: #664343;
 }
 .fw-bold {
-    color: #3B3030
+  color: #3b3030;
+}
+
+.confirm-swal {
+  background-color: #795757;
+}
+
+.batal-swal {
+  background-color: #664343;
 }

@@ -99,7 +99,7 @@ const Database = () => {
   if (!project) {
     return (
       <div className="spinner-overlay">
-        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+        <TailSpin height="60" width="60" color="#664343" ariaLabel="loading" />
       </div>
     );
   }

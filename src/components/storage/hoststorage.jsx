@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 import TambahHostStorage from "./tambahhoststorage"; // Komponen untuk menambah host storage
 import EditHostStorage from "./edithoststorage"; // Komponen untuk mengedit host storage
 import Swal from "sweetalert2";
+import "./hoststorage.css";
 
 const HostStorage = () => {
   const [hosts, setHosts] = useState([]);
@@ -67,6 +69,10 @@ const HostStorage = () => {
       title: "Apakah Anda yakin?",
       text: "Data ini akan dihapus secara permanen!",
       icon: "warning",
+      customClass: {
+        cancelButton: "batal-swal",
+        confirmButton: "confirm-swal",
+      },
       showCancelButton: true,
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
@@ -98,104 +104,133 @@ const HostStorage = () => {
         <Sidebar />
 
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Host Storage</h2>
-            <div>
-              <button
-                className="btn btn-secondary me-2"
-                onClick={handleBackToStorage}
-              >
-                Storage
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={() => setShowAddHost(true)}
-              >
-                <i className="fas fa-plus me-2"></i>Tambah Host
-              </button>
-            </div>
-          </div>
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2>Host Storage</h2>
+                <div>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    style={{
+                      backgroundColor: "#FFF0D1",
+                      color: "#664343",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      width: "130px",
+                    }}
+                    onClick={handleBackToStorage}
+                  >
+                    Storage
+                  </button>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={() => setShowAddHost(true)}
+                    style={{
+                      backgroundColor: "white",
+                      width: "140px",
+                      color: "#664343",
+                      fontFamily: "sans-serif",
+                    }}
+                  >
+                    <IconCirclePlusFilled />
+                    Tambah Host
+                  </button>
+                </div>
+              </div>
 
-          {showAddHost && (
-            <TambahHostStorage
-              onClose={() => setShowAddHost(false)}
-              onHostAdded={handleAddHost}
-            />
-          )}
+              {showAddHost && (
+                <TambahHostStorage
+                  onClose={() => setShowAddHost(false)}
+                  onHostAdded={handleAddHost}
+                />
+              )}
 
-          {showEditHost && (
-            <EditHostStorage
-              host={currentHost}
-              onClose={() => setShowEditHost(false)}
-              onHostUpdated={handleHostUpdated}
-            />
-          )}
+              {showEditHost && (
+                <EditHostStorage
+                  host={currentHost}
+                  onClose={() => setShowEditHost(false)}
+                  onHostUpdated={handleHostUpdated}
+                />
+              )}
 
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Host</th>
-                  <th>IP Address</th>
-                  <th>URL</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>OS</th>
-                  <th>FTP Server Type</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {hosts.length > 0 ? (
-                  hosts.map((host) => (
-                    <tr key={host.guid}>
-                      <td>{host.name}</td>
-                      <td>{host.ipAddress}</td>
-                      <td
-                        style={{
-                          maxWidth: "20rem",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        <a
-                          href={host.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {host.url}
-                        </a>
-                      </td>
-                      <td>{host.username}</td>
-                      <td>{host.password}</td>
-                      <td>{host.os}</td>
-                      <td>{host.ftpType}</td>
-                      <td>
-                        <button
-                          className="btn btn-success btn-sm me-2"
-                          onClick={() => handleEditHost(host)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDeleteHost(host)}
-                        >
-                          Hapus
-                        </button>
-                      </td>
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Host</th>
+                      <th>IP Address</th>
+                      <th>URL</th>
+                      <th>Username</th>
+                      <th>Password</th>
+                      <th>OS</th>
+                      <th>FTP Server Type</th>
+                      <th>Aksi</th>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="8" className="text-center">
-                      Tidak ada data host yang tersedia
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    {hosts.length > 0 ? (
+                      hosts.map((host) => (
+                        <tr key={host.guid}>
+                          <td>{host.name}</td>
+                          <td>{host.ipAddress}</td>
+                          <td
+                            style={{
+                              maxWidth: "20rem",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            <a
+                              href={host.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {host.url}
+                            </a>
+                          </td>
+                          <td>{host.username}</td>
+                          <td>{host.password}</td>
+                          <td>{host.os}</td>
+                          <td>{host.ftpType}</td>
+                          <td>
+                            <button
+                              className="btn btn btn-sm me-1 rounded-5"
+                              onClick={() => handleEditHost(host)}
+                              style={{
+                                width: "80px",
+                                backgroundColor: "#795757",
+                                color: "#FFF0D1",
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="btn btn-danger btn-sm rounded-5"
+                              onClick={() => handleDeleteHost(host)}
+                              style={{
+                                width: "80px",
+                                backgroundColor: "#664343",
+                                color: "#FFF0D1",
+                                borderColor: "#664343",
+                              }}
+                            >
+                              Hapus
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="8" className="text-center">
+                          Tidak ada data host yang tersedia
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
