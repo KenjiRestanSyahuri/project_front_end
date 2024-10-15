@@ -71,7 +71,7 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
         username: databaseData.username,
         databaseName: databaseData.databaseName,
         databaseType: databaseData.databaseType,
-        projectGuid: sessionStorage.getItem("currentProjectGuid"), 
+        projectGuid: sessionStorage.getItem("currentProjectGuid"),
       };
 
       console.log("Data to send to the server:", dataToSend); // Log data yang akan dikirim
@@ -111,8 +111,20 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
           <div>
             <h2 className="h2">Tambah Database</h2>
@@ -120,18 +132,6 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
               Masukkan Detail Database Untuk Menambahkan
             </p>
           </div>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-            style={{
-              border: "none",
-              background: "transparent",
-              fontSize: "1.5rem",
-            }}
-          >
-            <FaTimes />
-          </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -196,7 +196,8 @@ function TambahDatabase({ onClose, onDatabaseAdded }) {
           <div className="modal-footer d-flex justify-content-center">
             <button
               type="submit"
-              className="btn btn-primary rounded-pill px-4 w-100"
+              className="btn-primary rounded-pill px-4 w-100"
+              style={{ color: "#FFF0D1" }}
             >
               Tambah
             </button>

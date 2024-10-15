@@ -70,13 +70,20 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
           className="btn-close ms-auto"
           aria-label="Close"
           onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
         >
           <FaTimes />
         </button>
         <div className="header">
           <div>
-            <h2 className="h4">Edit Project</h2>
-            <p className="text-muted small mb-0">Masukkan Detail Project</p>
+            <h2 className="h5">Edit Project</h2>
+            <p className="text-muted small mb-0">
+              Masukkan Detail Project Untuk Perbarui Data
+            </p>
           </div>
         </div>
         <form onSubmit={handleSubmit}>
@@ -256,8 +263,12 @@ const EditProject = ({ guid, onClose, onProjectUpdated }) => {
 
           {/* Tombol Update */}
           <div className="button-container">
-            <button type="submit" className="btn btn-primary rounded-pill px-4">
-              Update
+            <button
+              type="submit"
+              className="btn btn-primary rounded-pill px-4"
+              style={{ color: "#FFF0D1" }}
+            >
+              Perbarui
             </button>
           </div>
         </form>

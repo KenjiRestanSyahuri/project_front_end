@@ -68,23 +68,23 @@ const LupaPassword = () => {
             className="h-100"
             style={{
               backgroundImage: "url('src/assets/bg_fitz.png')",
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           ></div>
         </div>
 
         <div className="col-12 col-md-6 d-flex justify-content-center align-items-center bg-white form-container">
-          <div className="w-100 p-4 form-content" style={{ maxWidth: '500px' }}>
+          <div className="w-100 p-4 form-content" style={{ maxWidth: "500px" }}>
             <div className="d-flex align-items-center mb-4 justify-content-center">
               <img
                 src="src/assets/logo_fitz.png"
                 alt="FITZ"
                 className="mb-2 me-2"
-                style={{ maxWidth: "60rem", height: "auto"}}
+                style={{ maxWidth: "60rem", height: "auto" }}
               />
               <div className="left">
-                <h2 style={{ color: '#3B3030' }}>FITZ</h2>
+                <h2 style={{ color: "#3B3030" }}>FITZ</h2>
                 <h2 style={{ color: "#664343", fontSize: "23px", margin: "0" }}>
                   Integrated Service Operation Tool
                 </h2>
@@ -93,7 +93,9 @@ const LupaPassword = () => {
 
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label htmlFor="username" className="form-label">Username Saat Ini</label>
+                <label htmlFor="username" className="form-label">
+                  Username Saat Ini
+                </label>
                 <input
                   type="text"
                   className="form-control rounded-pill"
@@ -101,14 +103,17 @@ const LupaPassword = () => {
                   placeholder="Masukkan Username Saat Ini"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  style={{ 
-                    width: "100%", 
-                    borderColor: "#664343", 
-                    backgroundColor: "#FFF0D1" }}
+                  style={{
+                    width: "100%",
+                    borderColor: "#664343",
+                    backgroundColor: "#FFF0D1",
+                  }}
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="newPassword" className="form-label">Password Baru</label>
+                <label htmlFor="newPassword" className="form-label">
+                  Password Baru
+                </label>
                 <input
                   type="password"
                   className="form-control rounded-pill"
@@ -116,24 +121,37 @@ const LupaPassword = () => {
                   placeholder="Masukkan Password Baru"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  style={{ 
-                    width: "100%",  
-                    borderColor: "#664343", 
-                    backgroundColor: "#FFF0D1" }}
+                  style={{
+                    width: "100%",
+                    borderColor: "#664343",
+                    backgroundColor: "#FFF0D1",
+                  }}
                 />
               </div>
               <div className="d-grid gap-2">
                 <Button
                   type="submit"
                   className="btn btn-primary w-100 mt-3"
-                  style={{borderRadius: "20px", padding: "10px 15px", backgroundColor: "#664343", borderColor: "#664343" }}
+                  style={{
+                    borderRadius: "20px",
+                    padding: "10px 15px",
+                    backgroundColor: "#664343",
+                    borderColor: "#664343",
+                    color: "#FFF0D1",
+                  }}
                 >
                   Simpan
                 </Button>
                 <Link
                   to="/"
                   className="btn btn-secondary w-100 mt-3"
-                  style={{ borderRadius: "20px", padding: "10px 15px", backgroundColor: "#795757", borderColor: "#664343" }}
+                  style={{
+                    borderRadius: "20px",
+                    padding: "10px 15px",
+                    backgroundColor: "#795757",
+                    borderColor: "#664343",
+                    color: "#FFF0D1",
+                  }}
                 >
                   Batal
                 </Link>

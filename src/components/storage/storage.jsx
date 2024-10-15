@@ -148,10 +148,10 @@ const Storage = () => {
                       color: "#664343",
                       fontFamily: "sans-serif",
                       fontWeight: "bold",
-                      width: "90px",
+                      width: "130px",
                     }}
                   >
-                    Host
+                    Host Storage
                   </button>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"

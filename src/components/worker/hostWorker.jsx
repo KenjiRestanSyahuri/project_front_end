@@ -113,123 +113,129 @@ const HostWorker = () => {
         <Sidebar />
 
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2
-              style={{
-                color: "#664343",
-              }}
-            >
-              Host Worker
-            </h2>
-            <div>
-              <button
-                className="btn btn btn-sm me-1 rounded-5"
-                onClick={handleBackToWorker}
-                style={{
-                  backgroundColor: "#FFF0D1",
-                  color: "#664343",
-                  fontFamily: "sans-serif",
-                  fontWeight: "bold",
-                  width: "150px",
-                }}
-              >
-                Kembali ke Worker
-              </button>
-              <button
-                className="btn btn btn-sm me-1 rounded-5"
-                onClick={() => setShowAddWorker(true)}
-                style={{
-                  backgroundColor: "transparent",
-                  width: "170px",
-                  color: "#664343",
-                  fontFamily: "sans-serif",
-                }}
-              >
-                <IconCirclePlusFilled />
-                Host Worker
-              </button>
-            </div>
-          </div>
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2
+                  style={{
+                    color: "#664343",
+                  }}
+                >
+                  Host Worker
+                </h2>
+                <div>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={handleBackToWorker}
+                    style={{
+                      backgroundColor: "#FFF0D1",
+                      color: "#664343",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      width: "90px",
+                    }}
+                  >
+                    Worker
+                  </button>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={() => setShowAddWorker(true)}
+                    style={{
+                      backgroundColor: "transparent",
+                      width: "170px",
+                      color: "#664343",
+                      fontFamily: "sans-serif",
+                    }}
+                  >
+                    <IconCirclePlusFilled />
+                    Host Worker
+                  </button>
+                </div>
+              </div>
 
-          {showAddWorker && (
-            <TambahHostWorker
-              onClose={() => setShowAddWorker(false)}
-              onWorkerAdded={handleAddWorker}
-            />
-          )}
+              {showAddWorker && (
+                <TambahHostWorker
+                  onClose={() => setShowAddWorker(false)}
+                  onWorkerAdded={handleAddWorker}
+                />
+              )}
 
-          {showEditWorker && (
-            <EditHostWorker
-              worker={currentWorker}
-              onClose={() => setShowEditWorker(false)}
-              onWorkerUpdated={handleWorkerUpdated}
-            />
-          )}
+              {showEditWorker && (
+                <EditHostWorker
+                  worker={currentWorker}
+                  onClose={() => setShowEditWorker(false)}
+                  onWorkerUpdated={handleWorkerUpdated}
+                />
+              )}
 
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Nama</th>
-                  <th>URL</th>
-                  <th>IP Address</th>
-                  <th>Username</th>
-                  <th>OS</th>
-                  <th>Language</th>
-                  <th>Process Manager</th>
-                  <th>Directory Name</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {workers.length > 0 ? (
-                  workers.map((worker) => (
-                    <tr key={worker.guid}>
-                      <td>{worker.name}</td>
-                      <td>{worker.url}</td>
-                      <td>{worker.ipAddress}</td>
-                      <td>{worker.username}</td>
-                      <td>{worker.os}</td>
-                      <td>{worker.language}</td>
-                      <td>{worker.processManager}</td>
-                      <td>{worker.directoryName}</td>
-                      <td>
-                        <button
-                          className="btn btn btn-sm me-1 rounded-5"
-                          onClick={() => handleEditWorker(worker)}
-                          style={{
-                            width: "80px",
-                            backgroundColor: "#795757",
-                            color: "#FFF0D1",
-                          }}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger btn-sm rounded-5"
-                          onClick={() => handleDeleteWorker(worker)}
-                          style={{
-                            width: "80px",
-                            height: "32px",
-                            backgroundColor: "#664343",
-                            color: "#FFF0D1",
-                            border: "none",
-                          }}
-                        >
-                          Hapus
-                        </button>
-                      </td>
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nama</th>
+                      <th>URL</th>
+                      <th>IP Address</th>
+                      <th>Username</th>
+                      <th>OS</th>
+                      <th>Bahasa</th>
+                      <th>Process Manager</th>
+                      <th>Directory Name</th>
+                      <th className="action-cell">Aksi</th>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="9" className="text-center">
-                      Tidak ada data worker yang tersedia
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    {workers.length > 0 ? (
+                      workers.map((worker) => (
+                        <tr key={worker.guid}>
+                          <td>{worker.name}</td>
+                          <td>{worker.url}</td>
+                          <td>{worker.ipAddress}</td>
+                          <td>{worker.username}</td>
+                          <td>{worker.os}</td>
+                          <td>{worker.language}</td>
+                          <td>{worker.processManager}</td>
+                          <td>{worker.directoryName}</td>
+                          <td className="action-cell">
+                            <div className="d-grid gap-2 d-md-block">
+                              <button
+                                className="btn btn btn-sm me-1 rounded-5"
+                                onClick={() => handleEditWorker(worker)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#795757",
+                                  color: "#FFF0D1",
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm rounded-5"
+                                onClick={() => handleDeleteWorker(worker)}
+                                style={{
+                                  width: "80px",
+                                  height: "32px",
+                                  backgroundColor: "#664343",
+                                  color: "#FFF0D1",
+                                  border: "none",
+                                }}
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="9" className="text-center">
+                          Tidak ada data worker yang tersedia
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

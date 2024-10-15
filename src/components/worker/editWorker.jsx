@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./editWorker.css";
+import { FaTimes } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 function EditWorker({ worker, onClose, onWorkerUpdated }) {
@@ -60,17 +61,27 @@ function EditWorker({ worker, onClose, onWorkerUpdated }) {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
-          <h2 className="h5">Edit Worker</h2>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-          >
-            &times;
-          </button>
+          <div>
+            <h2 className="h5">Edit Worker</h2>
+            <p className="text-muted small">
+              Masukkan Detail Worker Untuk Perbarui Data
+            </p>
+          </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -105,7 +116,7 @@ function EditWorker({ worker, onClose, onWorkerUpdated }) {
                 Password
               </label>
               <input
-                type="password"
+                type="text"
                 className="form-control"
                 name="password"
                 value={workerData.password}
@@ -137,7 +148,7 @@ function EditWorker({ worker, onClose, onWorkerUpdated }) {
               type="submit"
               className="btn btn-primary rounded-pill px-4 w-100"
             >
-              Update
+              Perbarui
             </button>
           </div>
         </form>

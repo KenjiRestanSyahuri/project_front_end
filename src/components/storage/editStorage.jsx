@@ -77,8 +77,20 @@ function EditStorage({ storage, onClose, onStorageUpdated }) {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
           <div>
             <h2 className="h5">Edit Storage</h2>
@@ -86,13 +98,6 @@ function EditStorage({ storage, onClose, onStorageUpdated }) {
               Masukkan Detail Storage Untuk Perbarui Data
             </p>
           </div>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-          >
-            <FaTimes />
-          </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -129,7 +134,7 @@ function EditStorage({ storage, onClose, onStorageUpdated }) {
                 Password
               </label>
               <input
-                type="password"
+                type="text"
                 className="form-control"
                 name="password"
                 value={storageData.password}
@@ -155,8 +160,9 @@ function EditStorage({ storage, onClose, onStorageUpdated }) {
             <button
               type="submit"
               className="btn btn-primary rounded-pill px-4 w-100"
+              style={{ color: "#FFF0D1" }}
             >
-              Update
+              Perbarui
             </button>
           </div>
         </form>

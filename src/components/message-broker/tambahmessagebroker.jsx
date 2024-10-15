@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaTimes } from "react-icons/fa";
 import "./tambahmessagebroker.css"; // Make sure to create this CSS file
 import axios from "axios"; // Digunakan untuk fetch data
 
@@ -97,22 +98,27 @@ function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
-          <h2 className="h5">Tambahkan Message Broker</h2>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-            style={{
-              border: "none",
-              background: "transparent",
-              fontSize: "1.5rem",
-            }}
-          >
-            &times;
-          </button>
+          <div>
+            <h2 className="h2">Tambah Message Broker</h2>
+            <p className="text-muted small">
+              Masukkan Detail Message Broker Untuk Menambahkan
+            </p>
+          </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -170,7 +176,7 @@ function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
                 Password
               </label>
               <input
-                type="password"
+                type="text"
                 className="form-control"
                 name="password"
                 value={messageBrokerData.password}
@@ -209,8 +215,9 @@ function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
             <button
               type="submit"
               className="btn btn-primary rounded-pill px-4 w-100"
+              style={{ color: "#FFF0D1" }}
             >
-              Tambahkan
+              Tambah
             </button>
           </div>
         </form>

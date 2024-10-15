@@ -66,10 +66,10 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
       }
 
       Swal.fire({
-        title: "Success",
-        text: "Database berhasil diperbarui!",
+        title: "Project sudah berhasil diperbarui",
         icon: "success",
-        confirmButtonText: "OK",
+        showCloseButton: true,
+        confirmButtonColor: "#664343",
       });
 
       const result = await response.json();
@@ -82,13 +82,26 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
         text: "Gagal memperbarui database!",
         icon: "error",
         confirmButtonText: "OK",
+        confirmButtonColor: "#664343",
       });
     }
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
           <div>
             <h2 className="h5">Edit Database</h2>
@@ -96,13 +109,6 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
               Masukkan Detail Database Untuk Perbarui Data
             </p>
           </div>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-          >
-            <FaTimes />
-          </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -168,9 +174,10 @@ function EditDatabase({ database, onClose, onDatabaseUpdated }) {
           <div className="modal-footer d-flex justify-content-center">
             <button
               type="submit"
-              className="btn btn-primary rounded-pill px-4 w-100"
+              className="btn-primary rounded-pill px-4 w-100"
+              style={{ color: "#FFF0D1" }}
             >
-              Simpan
+              Perbarui
             </button>
           </div>
         </form>

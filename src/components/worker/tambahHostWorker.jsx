@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./tambahhostworker.css";
+import { FaTimes } from "react-icons/fa";
+
 
 function TambahHostWorker({ onClose, onWorkerAdded }) {
   const [workerData, setWorkerData] = useState({
@@ -75,22 +77,27 @@ function TambahHostWorker({ onClose, onWorkerAdded }) {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
-          <h2 className="h5">Tambah Host Worker</h2>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-            style={{
-              border: "none",
-              background: "transparent",
-              fontSize: "1.5rem",
-            }}
-          >
-            &times;
-          </button>
+          <div>
+            <h2 className="h5">Tambah Host Worker</h2>
+            <p className="text-muted small">
+              Masukkan Detail Host Worker Untuk Menambahkan
+            </p>
+          </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -188,13 +195,18 @@ function TambahHostWorker({ onClose, onWorkerAdded }) {
               <label htmlFor="processManager" className="form-label">
                 Process Manager
               </label>
-              <input
+              <select
                 type="text"
-                className="form-control"
+                className="form-select"
                 name="processManager"
                 value={workerData.processManager}
                 onChange={handleChange}
-              />
+              >
+                <option value="">Pilih Process Manager</option>
+                <option value="PM2">PM2</option>
+                <option value="Systemd">Systemd</option>
+                <option value="Windows">Windows</option>
+              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="directoryName" className="form-label">

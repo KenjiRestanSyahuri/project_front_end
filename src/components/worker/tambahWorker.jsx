@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./tambahWorker.css";
 import axios from "axios";
+import { FaTimes } from "react-icons/fa";
 
 function TambahWorker({ onClose, onWorkerAdded }) {
   const [workerData, setWorkerData] = useState({
@@ -84,22 +85,27 @@ function TambahWorker({ onClose, onWorkerAdded }) {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
-          <h2 className="h5">Tambah Worker</h2>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-            style={{
-              border: "none",
-              background: "transparent",
-              fontSize: "1.5rem",
-            }}
-          >
-            &times;
-          </button>
+          <div>
+            <h2 className="h2">Tambah Worker</h2>
+            <p className="text-muted small">
+              Masukkan Detail Worker Untuk Menambahkan
+            </p>
+          </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -140,7 +146,7 @@ function TambahWorker({ onClose, onWorkerAdded }) {
                 Password
               </label>
               <input
-                type="password"
+                type="text"
                 className="form-control"
                 name="password"
                 value={workerData.password}

@@ -31,6 +31,7 @@ const EditHostDatabase = ({ host, onClose, onHostUpdated }) => {
         text: "Database berhasil diperbarui!",
         icon: "success",
         confirmButtonText: "OK",
+        confirmButtonColor: "#664343",
       });
       onClose(); // Tutup modal setelah host berhasil diperbarui
     } catch (error) {
@@ -46,27 +47,27 @@ const EditHostDatabase = ({ host, onClose, onHostUpdated }) => {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
           <div>
-            <h2 className="h5">Edit Host</h2>
+            <h2 className="h5">Edit Host Database</h2>
             <p className="text-muted small">
               Masukkan Detail Host Database Untuk Perbarui Data
             </p>
           </div>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-            style={{
-              border: "none",
-              background: "transparent",
-              fontSize: "1.5rem",
-            }}
-          >
-            <FaTimes />
-          </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -114,7 +115,7 @@ const EditHostDatabase = ({ host, onClose, onHostUpdated }) => {
                 Admin Password
               </label>
               <input
-                type="password"
+                type="text"
                 className="form-control"
                 name="adminPassword"
                 value={hostData.adminPassword}
@@ -146,7 +147,8 @@ const EditHostDatabase = ({ host, onClose, onHostUpdated }) => {
           <div className="modal-footer d-flex justify-content-center">
             <button
               type="submit"
-              className="btn btn-primary rounded-pill px-4 w-100"
+              className="btn-primary rounded-pill px-4 w-100"
+              style={{ color: "#FFF0D1" }}
             >
               Perbarui
             </button>

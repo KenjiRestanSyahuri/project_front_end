@@ -50,7 +50,12 @@ const Database = () => {
   const handleAddDatabase = (newDatabase) => {
     setDatabase((prevDatabase) => [...prevDatabase, newDatabase]);
     setShowAddDatabase(false);
-    Swal.fire("Sukses", "Host Database berhasil ditambahkan!", "success");
+    Swal.fire({
+      title: "Database berhasil ditambahkan",
+      icon: "success",
+      showCloseButton: true,
+      confirmButtonColor: "#664343",
+    });
   };
 
   const handleEditDatabase = (database) => {
@@ -70,14 +75,12 @@ const Database = () => {
   const handleDeleteDatabase = async (database) => {
     // SweetAlert2 confirmation dialog
     const result = await Swal.fire({
-      title: "Apakah Anda yakin?",
+      title: "Apakah anda yakin?",
       text: "Data ini akan dihapus secara permanen!",
       icon: "warning",
-      customClass: {
-        cancelButton: "batal-swal",
-        confirmButton: "confirm-swal",
-      },
       showCancelButton: true,
+      confirmButtonColor: "#795757",
+      cancelButtonColor: "#664343",
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
     });
@@ -91,11 +94,21 @@ const Database = () => {
           setDatabase((prevDatabase) =>
             prevDatabase.filter((db) => db.guid !== database.guid)
           );
-          Swal.fire("Dihapus!", "Host berhasil dihapus!", "success");
+          Swal.fire({
+            title: "Database sudah berhasil dihapus",
+            icon: "success",
+            showCloseButton: true,
+            confirmButtonColor: "#664343",
+          });
         }
       } catch (error) {
         console.error("Error deleting database:", error);
-        Swal.fire("Gagal!", "Gagal menghapus host.", "error");
+        Swal.fire({
+          title: "Gagal menghapus web space.",
+          icon: "error",
+          showCloseButton: true,
+          confirmButtonColor: "#664343",
+        });
       }
     }
   };

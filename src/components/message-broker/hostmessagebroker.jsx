@@ -125,10 +125,10 @@ const HostMessageBroker = () => {
                         color: "#664343",
                         fontFamily: "sans-serif",
                         fontWeight: "bold",
-                        width: "250px",
+                        width: "140px",
                       }}
                     >
-                      Kembali ke Message Broker
+                      Message Broker
                     </button>
                     <button
                       className="btn btn-sm rounded-5 d-flex align-items-center"

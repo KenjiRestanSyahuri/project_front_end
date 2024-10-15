@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./tambahhostmessagebroker.css";
+import { FaTimes } from "react-icons/fa";
 
 function TambahHostMessageBroker({ onClose, onHostAdded }) {
   const [hostData, setHostData] = useState({
@@ -81,22 +82,27 @@ function TambahHostMessageBroker({ onClose, onHostAdded }) {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
-          <h2 className="h5">Tambah Host Message Broker</h2>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-            style={{
-              border: "none",
-              background: "transparent",
-              fontSize: "1.5rem",
-            }}
-          >
-            &times;
-          </button>
+          <div>
+            <h2 className="h5">Tambah Host Message Broker</h2>
+            <p className="text-muted small">
+              Masukkan Detail Host Message Broker Untuk Menambahkan
+            </p>
+          </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -157,7 +163,7 @@ function TambahHostMessageBroker({ onClose, onHostAdded }) {
                 Admin Password
               </label>
               <input
-                type="password"
+                type="text"
                 className="form-control"
                 name="adminPassword"
                 value={hostData.adminPassword}

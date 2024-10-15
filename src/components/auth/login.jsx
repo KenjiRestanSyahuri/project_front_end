@@ -161,6 +161,7 @@ const Login = () => {
                   padding: "10px 15px",
                   backgroundColor: "#664343",
                   borderColor: "#664343",
+                  color: "#FFF0D1",
                 }}
               >
                 Masuk

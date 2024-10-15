@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaTimes } from "react-icons/fa";
 import "./editwebspace.css";
 import Swal from "sweetalert2";
 
@@ -59,17 +60,27 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
-          <h2 className="h5">Edit Web Space</h2>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-          >
-            &times;
-          </button>
+          <div>
+            <h2 className="h5">Edit Web Space</h2>
+            <p className="text-muted small">
+              Masukkan Detail Web Space Untuk Perbarui Data
+            </p>
+          </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -139,7 +150,7 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
               type="submit"
               className="btn-primary rounded-pill px-4 w-100"
             >
-              Update
+              Perbarui
             </button>
           </div>
         </form>

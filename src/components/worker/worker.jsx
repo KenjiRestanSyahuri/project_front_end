@@ -150,7 +150,7 @@ const Worker = () => {
                       color: "#664343",
                       fontFamily: "sans-serif",
                       fontWeight: "bold",
-                      width: "150px",
+                      width: "110px",
                     }}
                   >
                     <i className="fas me-1"></i>Host Worker
@@ -203,7 +203,7 @@ const Worker = () => {
                         <tr key={worker.guid}>
                           <td>{worker.host}</td>
                           <td>{worker.username}</td>
-                          <td>••••••••</td>
+                          <td>{worker.password}</td>
                           <td>{worker.directoryName}</td>
                           <td className="action-cell">
                             <div className="d-grid gap-2 d-md-block">
@@ -225,6 +225,7 @@ const Worker = () => {
                                   width: "80px",
                                   backgroundColor: "#664343",
                                   color: "#FFF0D1",
+                                  border: "none",
                                 }}
                               >
                                 Hapus

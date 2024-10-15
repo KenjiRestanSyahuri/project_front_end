@@ -124,6 +124,11 @@ function TambahProject({ onClose, onProjectAdded }) {
           className="btn-close ms-auto"
           aria-label="Close"
           onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
         >
           <FaTimes />
         </button>
@@ -138,30 +143,32 @@ function TambahProject({ onClose, onProjectAdded }) {
             <div className="row mb-3">
               <div className="col">
                 <div className="form-group"></div>
+                <label htmlFor="name" className="form-label">
+                  Nama Project
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   name="name"
-                  placeholder="Nama Project"
                   value={projectData.name}
                   onChange={handleChange}
                   required
                 />
               </div>
               <div className="col">
+                <label htmlFor="owner" className="form-label">
+                  Owner
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   name="owner"
-                  placeholder="Owner"
                   value={projectData.owner}
                   onChange={handleChange}
                   required
                 />
               </div>
             </div>
-
-            {/* Baris untuk Tanggal Mulai dan Pembaruan Terakhir */}
             <div className="row mb-3">
               <div className="col">
                 <label htmlFor="startDate" className="form-label">
@@ -189,66 +196,75 @@ function TambahProject({ onClose, onProjectAdded }) {
                 />
               </div>
             </div>
-
-            {/* Baris untuk Tanggal Mulai dan Pembaruan Terakhir */}
             <div className="row mb-3">
               <div className="col">
+                <label htmlFor="user" className="form-label">
+                  User
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   name="user"
-                  placeholder="User"
                   value={projectData.user}
                   onChange={handleChange}
                 />
               </div>
               <div className="col">
+                <label htmlFor="lastVersion" className="form-label">
+                  Versi Terakhir
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   name="lastVersion"
-                  placeholder="Versi Terakhir"
                   value={projectData.lastVersion}
                   onChange={handleChange}
                 />
               </div>
             </div>
-
+            <label htmlFor="gitRepository" className="form-label">
+              Git Repository
+            </label>
             <input
               type="text"
               className="form-control mb-3"
               name="gitRepository"
-              placeholder="Git Repository"
               value={projectData.gitRepository}
               onChange={handleChange}
             />
             <div className="row mb-3">
               <div className="col">
+                <label htmlFor="frontendUrl" className="form-label">
+                  URL Frontend
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   name="frontendUrl"
-                  placeholder="URL Frontend"
                   value={projectData.frontendUrl}
                   onChange={handleChange}
                 />
               </div>
               <div className="col">
+                <label htmlFor="backendUrl" className="form-label">
+                  URL Backend
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   name="backendUrl"
-                  placeholder="URL Backend"
                   value={projectData.backendUrl}
                   onChange={handleChange}
                 />
               </div>
               <div className="col">
+                <label htmlFor="androidAppLink" className="form-label">
+                  Aplikasi Android
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   name="androidAppLink"
-                  placeholder="Aplikasi Android"
                   value={projectData.androidAppLink}
                   onChange={handleChange}
                 />
@@ -256,40 +272,48 @@ function TambahProject({ onClose, onProjectAdded }) {
             </div>
             <div className="row mb-3">
               <div className="col">
+                <label htmlFor="iosAppLink" className="form-label">
+                  Aplikasi IOS
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   name="iosAppLink"
-                  placeholder="Aplikasi IOS"
                   value={projectData.iosAppLink}
                   onChange={handleChange}
                 />
               </div>
               <div className="col">
+                <label htmlFor="windowsAppLink" className="form-label">
+                  Aplikasi Windows
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   name="windowsAppLink"
-                  placeholder="Aplikasi Windows"
                   value={projectData.windowsAppLink}
                   onChange={handleChange}
                 />
               </div>
               <div className="col">
+                <label htmlFor="macAppLink" className="form-label">
+                  Aplikasi Mac
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   name="macAppLink"
-                  placeholder="Aplikasi Mac"
                   value={projectData.macAppLink}
                   onChange={handleChange}
                 />
               </div>
             </div>
+            <label htmlFor="description" className="form-label">
+              Deskripsi
+            </label>
             <textarea
               className="form-control mb-3"
               name="description"
-              placeholder="Deskripsi"
               rows="3"
               value={projectData.description}
               onChange={handleChange}
@@ -299,6 +323,7 @@ function TambahProject({ onClose, onProjectAdded }) {
             <button
               type="submit"
               className="btn-primary rounded-pill px-4 w-100"
+              style={{ color: "#FFF0D1" }}
             >
               Tambah
             </button>

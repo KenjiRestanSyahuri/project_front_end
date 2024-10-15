@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./edithostmessagebroker.css";
 import Swal from "sweetalert2"; // Import SweetAlert2
+import { FaTimes } from "react-icons/fa";
 
 const EditHostMessageBroker = ({ host, onClose, onHostUpdated }) => {
   const [hostData, setHostData] = useState({ ...host });
@@ -46,22 +47,27 @@ const EditHostMessageBroker = ({ host, onClose, onHostUpdated }) => {
   };
 
   return (
-    <div className="modal-backdrop d-flex justify-content-center align-items-center">
-      <div className="modal-content p-4 rounded shadow">
+    <div className="modal-container">
+      <div className="modal-content">
+        <button
+          className="btn-close ms-auto"
+          aria-label="Close"
+          onClick={onClose}
+          style={{
+            border: "none",
+            background: "transparent",
+            fontSize: "1.5rem",
+          }}
+        >
+          <FaTimes />
+        </button>
         <div className="modal-header">
-          <h2 className="h5">Edit Host Message Broker</h2>
-          <button
-            className="btn-close ms-auto"
-            aria-label="Close"
-            onClick={onClose}
-            style={{
-              border: "none",
-              background: "transparent",
-              fontSize: "1.5rem",
-            }}
-          >
-            &times;
-          </button>
+          <div>
+            <h2 className="h5">Edit Host Message Broker</h2>
+            <p className="text-muted small">
+              Masukkan Detail Host Message Broker Untuk Perbarui Data
+            </p>
+          </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -122,7 +128,7 @@ const EditHostMessageBroker = ({ host, onClose, onHostUpdated }) => {
                 Password
               </label>
               <input
-                type="password"
+                type="text"
                 className="form-control"
                 name="password"
                 value={hostData.password}

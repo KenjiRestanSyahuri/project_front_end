@@ -9,6 +9,7 @@ import EditProject from "./editproject";
 import "./dashboard.css"; // Mengimpor CSS yang berisi style untuk modal
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { TailSpin } from "react-loader-spinner";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -149,7 +150,7 @@ const Dashboard = () => {
               <input
                 type="text"
                 className="bi bi-search form-control rounded-pill"
-                placeholder="Cari project"
+                placeholder="Cari Project"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
@@ -157,6 +158,7 @@ const Dashboard = () => {
                   paddingLeft: "40px",
                   marginRight: "20px",
                   borderColor: "#664343",
+                  color: "#FFF0D1",
                 }}
               />
               <button
@@ -167,6 +169,7 @@ const Dashboard = () => {
                   backgroundColor: "#664343",
                   width: "80px",
                   borderColor: "#664343",
+                  color: "#FFF0D1",
                 }}
               >
                 Cari
@@ -175,9 +178,14 @@ const Dashboard = () => {
               <button
                 className="ms-3 btn btn rounded-pill"
                 onClick={() => setShowAddProject(true)}
-                style={{ backgroundColor: "#fff", color: "#664343" }}
+                style={{
+                  backgroundColor: "white",
+                  width: "170px",
+                  color: "#664343",
+                  fontFamily: "sans-serif",
+                }}
               >
-                <i className="bi bi-plus-circle-fill me-2"></i>
+                <IconCirclePlusFilled />
                 Tambah Project
               </button>
 
@@ -260,6 +268,7 @@ const Dashboard = () => {
                                 backgroundColor: "#664343",
                                 width: "80px",
                                 borderColor: "#664343",
+                                color: "#FFF0D1",
                               }}
                             >
                               Hapus

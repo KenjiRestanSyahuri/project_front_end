@@ -129,10 +129,10 @@ const HostWebSpace = () => {
                       color: "#664343",
                       fontFamily: "sans-serif",
                       fontWeight: "bold",
-                      width: "200px",
+                      width: "120px",
                     }}
                   >
-                    Kembali ke Web Space
+                   Web Space
                   </button>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
