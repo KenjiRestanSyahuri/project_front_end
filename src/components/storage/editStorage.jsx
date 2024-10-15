@@ -58,6 +58,7 @@ function EditStorage({ storage, onClose, onStorageUpdated }) {
         text: "Storage berhasil diperbarui!",
         icon: "success",
         confirmButtonText: "OK",
+        confirmButtonColor: "#795757",
       });
 
       const result = await response.json();

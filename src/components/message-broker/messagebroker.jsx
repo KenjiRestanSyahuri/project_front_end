@@ -49,7 +49,13 @@ const MessageBroker = () => {
       newMessageBroker,
     ]);
     setShowAddMessageBroker(false);
-    Swal.fire("Success", "Message broker added successfully!", "success");
+    Swal.fire({
+      title: "Success",
+      text: "Message broker added successfully!",
+      icon: "success",
+      confirmButtonText: "OK",
+      confirmButtonColor: "#795757",
+    });
   };
 
   const handleEditMessageBroker = (messageBroker) => {
@@ -72,8 +78,8 @@ const MessageBroker = () => {
       text: "This data will be permanently deleted!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#795757",
+      cancelButtonColor: "#664343",
       confirmButtonText: "Yes, delete it!",
       cancelButtonText: "Cancel",
     });
@@ -87,11 +93,23 @@ const MessageBroker = () => {
           setMessageBrokers((prevMessageBrokers) =>
             prevMessageBrokers.filter((mb) => mb.guid !== messageBroker.guid)
           );
-          Swal.fire("Deleted!", "Message broker has been deleted.", "success");
+          Swal.fire({
+            title: "Deleted!",
+            text: "Message broker has been deleted.",
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "#795757",
+          });
         }
       } catch (error) {
         console.error("Error deleting message broker:", error);
-        Swal.fire("Failed", "Failed to delete message broker.", "error");
+        Swal.fire({
+          title: "Failed!",
+          text: "Failed to delete message broker.",
+          icon: "error",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#795757",
+        });
       }
     }
   };

@@ -40,6 +40,7 @@ function EditWorker({ worker, onClose, onWorkerUpdated }) {
         text: "Worker berhasil diperbarui!",
         icon: "success",
         confirmButtonText: "OK",
+        confirmButtonColor: "#795757",
       });
 
       const result = await response.json();
@@ -53,6 +54,7 @@ function EditWorker({ worker, onClose, onWorkerUpdated }) {
         text: "Gagal memperbarui worker!",
         icon: "error",
         confirmButtonText: "OK",
+        confirmButtonColor: "#795757",
       });
     }
   };

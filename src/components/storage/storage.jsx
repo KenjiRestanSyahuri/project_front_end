@@ -45,7 +45,13 @@ const Storage = () => {
   const handleAddStorage = (newStorage) => {
     setStorages((prevStorages) => [...prevStorages, newStorage]);
     setShowAddStorage(false);
-    Swal.fire("Sukses", "Storage berhasil ditambahkan!", "success");
+    Swal.fire({
+      title: "Sukses!",
+      text: "Storage berhasil ditambahkan!",
+      icon: "success",
+      showCloseButton: true,
+      confirmButtonColor: "#664343",
+    }); // Notifikasi sukses
   };
 
   const handleEditStorage = (storage) => {
@@ -72,8 +78,8 @@ const Storage = () => {
       text: "Data ini akan dihapus secara permanen!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#795757",
+      cancelButtonColor: "#664343",
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
     });
@@ -87,11 +93,23 @@ const Storage = () => {
           setStorages((prevStorages) =>
             prevStorages.filter((s) => s.guid !== storage.guid)
           );
-          Swal.fire("Terhapus!", "Storage berhasil dihapus.", "success");
+          Swal.fire({
+            title: "Terhapus!",
+            text: "Storage berhasil dihapus.",
+            icon: "success",
+            showCloseButton: true,
+            confirmButtonColor: "#664343",
+          }); // Notifikasi sukses
         }
       } catch (error) {
         console.error("Error deleting storage:", error);
-        Swal.fire("Gagal", "Gagal menghapus storage.", "error");
+        Swal.fire({
+          title: "Gagal!",
+          text: "Gagal menghapus storage.",
+          icon: "error",
+          showCloseButton: true,
+          confirmButtonColor: "#664343",
+        }); // Notifikasi sukses
       }
     }
   };
