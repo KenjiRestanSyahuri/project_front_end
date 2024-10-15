@@ -8,7 +8,7 @@ import TambahWebSpace from "./tambahwebspace";
 import EditWebSpace from "./editwebspace";
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
-import {IconCirclePlusFilled } from "@tabler/icons-react";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 import "./webspace.css";
 
 const DetailProject = () => {
@@ -121,9 +121,11 @@ const DetailProject = () => {
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2
                   style={{
-                    color : "#664343",
-                  }} 
-                >Web Space: {project.name}</h2>
+                    color: "#664343",
+                  }}
+                >
+                  Web Space: {project.name}
+                </h2>
                 <div>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
@@ -150,7 +152,7 @@ const DetailProject = () => {
                   >
                     {/* <i className="fas fa-plus me-1"></i> */}
                     <IconCirclePlusFilled />
-                  Tambah Web Space
+                    Tambah Web Space
                   </button>
                 </div>
               </div>

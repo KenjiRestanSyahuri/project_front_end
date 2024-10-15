@@ -20,7 +20,9 @@ function TambahMessageBroker({ onClose, onMessageBrokerAdded }) {
     const fetchHosts = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/host-msg-broker/by-project/${currentProjectGuid}`
+          `${
+            import.meta.env.VITE_API_URL
+          }/host-msg-broker/by-project/${currentProjectGuid}`
         );
         setHosts(response.data); // Set data host yang diterima ke dalam state hosts
       } catch (error) {

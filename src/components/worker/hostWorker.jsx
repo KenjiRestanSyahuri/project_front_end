@@ -94,17 +94,23 @@ const HostWorker = () => {
 
         <div className="flex-grow-1 p-4 bg-light">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Host Worker</h2>
+            <h2
+              style={{
+                color: "#664343",
+              }}
+            >
+              Host Worker
+            </h2>
             <div>
               <button
                 className="btn btn btn-sm me-1 rounded-5"
                 onClick={handleBackToWorker}
                 style={{
-                  backgroundColor: "#AFD0ED",
-                  color: "#1168E7",
+                  backgroundColor: "#FFF0D1",
+                  color: "#664343",
                   fontFamily: "sans-serif",
                   fontWeight: "bold",
-                  width: "200px",
+                  width: "150px",
                 }}
               >
                 Kembali ke Worker
@@ -115,7 +121,7 @@ const HostWorker = () => {
                 style={{
                   backgroundColor: "transparent",
                   width: "170px",
-                  color: "#226195",
+                  color: "#664343",
                   fontFamily: "sans-serif",
                 }}
               >
@@ -140,8 +146,8 @@ const HostWorker = () => {
             />
           )}
 
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
+          <div>
+            <table>
               <thead>
                 <tr>
                   <th>Nama</th>
@@ -173,7 +179,8 @@ const HostWorker = () => {
                           onClick={() => handleEditWorker(worker)}
                           style={{
                             width: "80px",
-                            backgroundColor: "#D4E6E8",
+                            backgroundColor: "#795757",
+                            color: "#FFF0D1",
                           }}
                         >
                           Edit
@@ -183,7 +190,10 @@ const HostWorker = () => {
                           onClick={() => handleDeleteWorker(worker)}
                           style={{
                             width: "80px",
-                            backgroundColor: "#FF4545",
+                            height: "32px",
+                            backgroundColor: "#664343",
+                            color: "#FFF0D1",
+                            border: "none",
                           }}
                         >
                           Hapus

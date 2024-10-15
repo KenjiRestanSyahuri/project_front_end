@@ -97,7 +97,7 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
                 name="url"
                 value={webSpaceData.url}
                 onChange={handleChange}
-                required                
+                required
               />
             </div>
             <div className="mb-3">
@@ -107,7 +107,7 @@ function EditWebSpace({ webSpace, onClose, onWebSpaceUpdated }) {
               <input
                 type="text"
                 className="form-control"
-                name="directory"                
+                name="directory"
                 value={webSpaceData.directory}
                 onChange={handleChange}
                 required

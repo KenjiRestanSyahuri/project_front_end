@@ -50,7 +50,7 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/host-webspace`, 
+          `${import.meta.env.VITE_API_URL}/host-webspace`,
           {
             method: "POST",
             headers: {
@@ -64,7 +64,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
 
         if (!response.ok) {
           const errorResponse = await response.json();
-          throw new Error(`HTTP error! status: ${response.status}, message: ${errorResponse.message}`);
+          throw new Error(
+            `HTTP error! status: ${response.status}, message: ${errorResponse.message}`
+          );
         }
 
         const result = await response.json();
@@ -85,11 +87,15 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
           <h2 className="h5">Tambah Host</h2>
-          <button 
-            className="btn-close ms-auto" 
-            aria-label="Close" 
+          <button
+            className="btn-close ms-auto"
+            aria-label="Close"
             onClick={onClose}
-            style={{ border: 'none', background: 'transparent', fontSize: '1.5rem' }}
+            style={{
+              border: "none",
+              background: "transparent",
+              fontSize: "1.5rem",
+            }}
           >
             &times;
           </button>
@@ -98,7 +104,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
           <div className="modal-body">
             {/* Field form sama seperti sebelumnya */}
             <div className="mb-3">
-              <label htmlFor="hostName" className="form-label">Nama Host</label>
+              <label htmlFor="hostName" className="form-label">
+                Nama Host
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -109,7 +117,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="url" className="form-label">URL</label>
+              <label htmlFor="url" className="form-label">
+                URL
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -120,7 +130,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="ipAddress" className="form-label">IP Address</label>
+              <label htmlFor="ipAddress" className="form-label">
+                IP Address
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -131,7 +143,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="adminUsername" className="form-label">Admin Username</label>
+              <label htmlFor="adminUsername" className="form-label">
+                Admin Username
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -142,7 +156,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="adminPassword" className="form-label">Admin Password</label>
+              <label htmlFor="adminPassword" className="form-label">
+                Admin Password
+              </label>
               <input
                 type="password"
                 className="form-control"
@@ -153,7 +169,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="os" className="form-label">OS</label>
+              <label htmlFor="os" className="form-label">
+                OS
+              </label>
               <select
                 className="form-select"
                 name="os"
@@ -168,7 +186,9 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
               </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="serverType" className="form-label">Jenis Server</label>
+              <label htmlFor="serverType" className="form-label">
+                Jenis Server
+              </label>
               <select
                 className="form-select"
                 name="serverType"
@@ -184,13 +204,15 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
             </div>
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button 
-            style={{
-              width: "80px",
-              backgroundColor: "#664343",
-              color: "#FFF0D1",
-            }}
-            type="submit" className="btn-primary rounded-pill px-4 w-100">
+            <button
+              style={{
+                width: "80px",
+                backgroundColor: "#664343",
+                color: "#FFF0D1",
+              }}
+              type="submit"
+              className="btn-primary rounded-pill px-4 w-100"
+            >
               Tambah
             </button>
           </div>
