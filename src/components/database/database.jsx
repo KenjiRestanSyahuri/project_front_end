@@ -123,7 +123,7 @@ const Database = () => {
                     onClick={handleAddHost}
                     style={{
                       backgroundColor: "#FFF0D1",
-                      color: "#3B3030",
+                      color: "#664343",
                       fontFamily: "sans-serif",
                       fontWeight: "bold",
                       width: "130px",

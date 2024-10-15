@@ -5,20 +5,30 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons"; // Ikon profil
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white" style={{ border: "1px solid #ddd" }}>
+    <nav
+      className="navbar navbar-expand-lg navbar-light bg-white"
+      style={{ border: "1px solid #ddd" }}
+    >
       <div className="container-fluid">
         {/* Logo dan Teks */}
         <div className="navbar-brand d-flex align-items-center">
           <img
-            src="src/assets/logo_fitz.png"
+            src="/public/logo_fitz.png"
             alt="Logo"
             height="42"
             width="46"
             className="me-2"
           />
           <div className="d-flex flex-column">
-            <h1 className="fs-5 m-0" style={{ color: "#664343" }}>FITZ</h1>
-            <h2 className="fs-6 m-0 d-none d-lg-block" style={{ color: "#664343" }}>Integrated Service Operation Tool</h2>
+            <h1 className="fs-5 m-0" style={{ color: "#664343" }}>
+              FITZ
+            </h1>
+            <h2
+              className="fs-6 m-0 d-none d-lg-block"
+              style={{ color: "#664343" }}
+            >
+              Integrated Service Operation Tool
+            </h2>
           </div>
         </div>
 
