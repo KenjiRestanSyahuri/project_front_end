@@ -73,6 +73,10 @@ const Database = () => {
       title: "Apakah Anda yakin?",
       text: "Data ini akan dihapus secara permanen!",
       icon: "warning",
+      customClass: {
+        cancelButton: "batal-swal",
+        confirmButton: "confirm-swal",
+      },
       showCancelButton: true,
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",

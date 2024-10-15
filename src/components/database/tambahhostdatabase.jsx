@@ -123,7 +123,7 @@ function TambahHostDatabase({ onClose, onHostAdded }) {
                 Alamat Host
               </label>
               <input
-                type="text"
+                type="string"
                 className="form-control"
                 name="alamatHost"
                 value={hostData.alamatHost}

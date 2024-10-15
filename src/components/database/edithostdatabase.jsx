@@ -84,73 +84,43 @@ const EditHostDatabase = ({ host, onClose, onHostUpdated }) => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="url" className="form-label">
-                URL
+              <label htmlFor="alamatHost" className="form-label">
+                Alamat Host
               </label>
               <input
                 type="text"
                 className="form-control"
-                name="url"
-                value={hostData.url}
+                name="alamatHost"
+                value={hostData.alamatHost}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="ipAddress" className="form-label">
-                IP Address
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="ipAddress"
-                value={hostData.ipAddress}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="username" className="form-label">
+              <label htmlFor="adminUsername" className="form-label">
                 Admin Username
               </label>
               <input
                 type="text"
                 className="form-control"
-                name="usernameAdmin"
-                value={hostData.username}
+                name="adminUsername"
+                value={hostData.adminUsername}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">
+              <label htmlFor="adminPassword" className="form-label">
                 Admin Password
               </label>
               <input
                 type="password"
                 className="form-control"
-                name="password"
-                value={hostData.passwordn}
+                name="adminPassword"
+                value={hostData.adminPassword}
                 onChange={handleChange}
                 required
               />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="os" className="form-label">
-                OS
-              </label>
-              <select
-                className="form-select"
-                name="os"
-                value={hostData.os}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Pilih OS</option>
-                <option value="Windows">Windows</option>
-                <option value="Linux">Linux</option>
-                <option value="macOS">macOS</option>
-              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="databaseType" className="form-label">

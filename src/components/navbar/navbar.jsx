@@ -13,7 +13,7 @@ const Navbar = () => {
         {/* Logo dan Teks */}
         <div className="navbar-brand d-flex align-items-center">
           <img
-            src="/public/logo_fitz.png"
+            src="/logo_fitz.png"
             alt="Logo"
             height="42"
             width="46"

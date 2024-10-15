@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaTimes } from "react-icons/fa";
 import "./editstorage.css";
 import Swal from "sweetalert2";
 
@@ -78,13 +79,18 @@ function EditStorage({ storage, onClose, onStorageUpdated }) {
     <div className="modal-backdrop d-flex justify-content-center align-items-center">
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
-          <h2 className="h5">Edit Storage</h2>
+          <div>
+            <h2 className="h5">Edit Storage</h2>
+            <p className="text-muted small">
+              Masukkan Detail Storage Untuk Perbarui Data
+            </p>
+          </div>
           <button
             className="btn-close ms-auto"
             aria-label="Close"
             onClick={onClose}
           >
-            &times;
+            <FaTimes />
           </button>
         </div>
         <form onSubmit={handleSubmit}>
