@@ -107,141 +107,143 @@ const HostWebSpace = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
-
       <div className="d-flex flex-grow-1">
         <Sidebar />
-
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2
-              style={{
-                color: "#664343",
-              }}
-            >
-              Host Web Space
-            </h2>
-            <div>
-              <button
-                className="btn btn btn-sm me-1 rounded-5"
-                onClick={handleBackToWebSpace}
-                style={{
-                  backgroundColor: "#FFF0D1",
-                  color: "#664343",
-                  fontFamily: "sans-serif",
-                  fontWeight: "bold",
-                  width: "200px",
-                }}
-              >
-                Kembali ke Web Space
-              </button>
-              <button
-                className="btn btn btn-sm me-1 rounded-5"
-                onClick={() => setShowAddHost(true)}
-                style={{
-                  backgroundColor: "transparent",
-                  width: "170px",
-                  color: "#664343",
-                  fontFamily: "sans-serif",
-                }}
-              >
-                {/* <i className="fas fa-plus me-1"></i> */}
-                <IconCirclePlusFilled />
-                Host Web Space
-              </button>
-            </div>
-          </div>
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2
+                  style={{
+                    color: "#664343",
+                  }}
+                >
+                  Host Web Space
+                </h2>
+                <div>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={handleBackToWebSpace}
+                    style={{
+                      backgroundColor: "#FFF0D1",
+                      color: "#664343",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      width: "200px",
+                    }}
+                  >
+                    Kembali ke Web Space
+                  </button>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={() => setShowAddHost(true)}
+                    style={{
+                      backgroundColor: "transparent",
+                      width: "170px",
+                      color: "#664343",
+                      fontFamily: "sans-serif",
+                    }}
+                  >
+                    {/* <i className="fas fa-plus me-1"></i> */}
+                    <IconCirclePlusFilled />
+                    Host Web Space
+                  </button>
+                </div>
+              </div>
 
-          {showAddHost && (
-            <TambahHostWebSpace
-              onClose={() => setShowAddHost(false)}
-              onHostAdded={handleAddHost}
-            />
-          )}
+              {showAddHost && (
+                <TambahHostWebSpace
+                  onClose={() => setShowAddHost(false)}
+                  onHostAdded={handleAddHost}
+                />
+              )}
 
-          {showEditHost && (
-            <EditHostWebSpace
-              host={currentHost}
-              onClose={() => setShowEditHost(false)}
-              onHostUpdated={handleHostUpdated}
-            />
-          )}
+              {showEditHost && (
+                <EditHostWebSpace
+                  host={currentHost}
+                  onClose={() => setShowEditHost(false)}
+                  onHostUpdated={handleHostUpdated}
+                />
+              )}
 
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Host</th>
-                  <th>IP Address</th>
-                  <th>URL</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>OS</th>
-                  <th>Server Type</th>
-                  <th className="action-cell">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {hosts.length > 0 ? (
-                  hosts.map((host) => (
-                    <tr key={host.guid}>
-                      <td>{host.name}</td>
-                      <td>{host.ipAddress}</td>
-                      <td
-                        style={{
-                          maxWidth: "20rem",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        <a
-                          href={host.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {host.url}
-                        </a>
-                      </td>
-                      <td>{host.username}</td>
-                      <td>{host.password}</td>
-                      <td>{host.os}</td>
-                      <td>{host.serverType}</td>
-                      <td>
-                        <button
-                          className="btn btn btn-sm me-1 rounded-5"
-                          onClick={() => handleEditHost(host)}
-                          style={{
-                            width: "80px",
-                            backgroundColor: "#795757",
-                            color: "#FFF0D1",
-                          }}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger btn-sm rounded-5"
-                          onClick={() => handleDeleteHost(host)}
-                          style={{
-                            width: "80px",
-                            backgroundColor: "#664343",
-                            border: "none",
-                            color: "#FFF0D1",
-                          }}
-                        >
-                          Hapus
-                        </button>
-                      </td>
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Host</th>
+                      <th>IP Address</th>
+                      <th>URL</th>
+                      <th>Username</th>
+                      <th>Password</th>
+                      <th>OS</th>
+                      <th>Server Type</th>
+                      <th className="action-cell">Aksi</th>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="8" className="text-center">
-                      Tidak ada data host yang tersedia
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    {hosts.length > 0 ? (
+                      hosts.map((host) => (
+                        <tr key={host.guid}>
+                          <td>{host.name}</td>
+                          <td>{host.ipAddress}</td>
+                          <td
+                            style={{
+                              maxWidth: "20rem",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            <a
+                              href={host.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {host.url}
+                            </a>
+                          </td>
+                          <td>{host.username}</td>
+                          <td>{host.password}</td>
+                          <td>{host.os}</td>
+                          <td>{host.serverType}</td>
+                          <td>
+                            <button
+                              className="btn btn btn-sm me-1 rounded-5"
+                              onClick={() => handleEditHost(host)}
+                              style={{
+                                width: "80px",
+                                backgroundColor: "#795757",
+                                color: "#FFF0D1",
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="btn btn-danger btn-sm rounded-5"
+                              onClick={() => handleDeleteHost(host)}
+                              style={{
+                                width: "80px",
+                                backgroundColor: "#664343",
+                                border: "none",
+                                color: "#FFF0D1",
+                              }}
+                            >
+                              Hapus
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="8" className="text-center">
+                          Tidak ada data host yang tersedia
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

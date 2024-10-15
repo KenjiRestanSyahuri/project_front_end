@@ -21,7 +21,9 @@ const HostMessageBroker = () => {
     const fetchHosts = async () => {
       try {
         const projectGuid = sessionStorage.getItem("currentProjectGuid");
-        const response = await axios.get(`${apiUrl}/host-msg-broker/by-project/${projectGuid}`);
+        const response = await axios.get(
+          `${apiUrl}/host-msg-broker/by-project/${projectGuid}`
+        );
         setHosts(response.data);
       } catch (error) {
         console.error("Error fetching hosts:", error);
@@ -47,7 +49,9 @@ const HostMessageBroker = () => {
 
   const handleHostUpdated = (updatedHost) => {
     setHosts((prevHosts) =>
-      prevHosts.map((host) => (host.guid === updatedHost.guid ? updatedHost : host))
+      prevHosts.map((host) =>
+        host.guid === updatedHost.guid ? updatedHost : host
+      )
     );
     setShowEditHost(false);
   };
@@ -64,10 +68,18 @@ const HostMessageBroker = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await axios.delete(`${apiUrl}/host-msg-broker/${host.guid}`);
+        const response = await axios.delete(
+          `${apiUrl}/host-msg-broker/${host.guid}`
+        );
         if (response.status === 200) {
-          setHosts((prevHosts) => prevHosts.filter((h) => h.guid !== host.guid));
-          Swal.fire("Deleted!", "Host has been deleted successfully!", "success");
+          setHosts((prevHosts) =>
+            prevHosts.filter((h) => h.guid !== host.guid)
+          );
+          Swal.fire(
+            "Deleted!",
+            "Host has been deleted successfully!",
+            "success"
+          );
         }
       } catch (error) {
         console.error("Error deleting host:", error);
@@ -86,17 +98,24 @@ const HostMessageBroker = () => {
             <div className="card shadow-sm">
               <div className="card-body">
                 <div className="d-md-flex justify-content-between align-items-center mb-4">
-                  <h2 className="font-weight-bold">Host Message Broker</h2>
+                  <h2
+                    style={{
+                      color: "#664343",
+                    }}
+                    className="font-weight-bold"
+                  >
+                    Host Message Broker
+                  </h2>
                   <div className="d-flex">
                     <button
                       className="btn btn-sm me-1 rounded-5"
                       onClick={handleBackToMessageBroker}
                       style={{
-                        backgroundColor: "#AFD0ED",
-                        color: "#1168E7",
+                        backgroundColor: "#FFF0D1",
+                        color: "#664343",
                         fontFamily: "sans-serif",
                         fontWeight: "bold",
-                        width: "230px",
+                        width: "250px",
                       }}
                     >
                       Kembali ke Message Broker
@@ -106,8 +125,8 @@ const HostMessageBroker = () => {
                       onClick={() => setShowAddHost(true)}
                       style={{
                         backgroundColor: "transparent",
-                        width: "200px",
-                        color: "#226195",
+                        width: "190px",
+                        color: "#664343",
                         fontFamily: "sans-serif",
                       }}
                     >
@@ -132,8 +151,8 @@ const HostMessageBroker = () => {
                   />
                 )}
 
-                <div className="table-responsive">
-                  <table className="table table-striped table-hover">
+                <div>
+                  <table>
                     <thead>
                       <tr>
                         <th>Nama</th>
@@ -159,20 +178,25 @@ const HostMessageBroker = () => {
                                 textOverflow: "ellipsis",
                               }}
                             >
-                              <a href={host.url} target="_blank" rel="noopener noreferrer">
+                              <a
+                                href={host.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
                                 {host.url}
                               </a>
                             </td>
                             <td>{host.username}</td>
                             <td>{host.password}</td>
                             <td>{host.brokerType}</td>
-                            <td className="action-cell"> 
+                            <td className="action-cell">
                               <button
                                 className="btn btn-sm me-1 rounded-5"
                                 onClick={() => handleEditHost(host)}
                                 style={{
                                   width: "80px",
-                                  backgroundColor: "#D4E6E8",
+                                  backgroundColor: "#795757",
+                                  color: "#FFF0D1",
                                 }}
                               >
                                 Edit
@@ -182,7 +206,8 @@ const HostMessageBroker = () => {
                                 onClick={() => handleDeleteHost(host)}
                                 style={{
                                   width: "80px",
-                                  backgroundColor: "#FF4545",
+                                  backgroundColor: "#664343",
+                                  color: "#FFF0D1",
                                 }}
                               >
                                 Hapus

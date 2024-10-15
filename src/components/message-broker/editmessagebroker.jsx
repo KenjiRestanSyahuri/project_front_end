@@ -3,11 +3,16 @@ import "./editmessagebroker.css"; // Make sure to create this CSS file
 import Swal from "sweetalert2";
 
 function EditMessageBroker({ messageBroker, onClose, onMessageBrokerUpdated }) {
-  const [messageBrokerData, setMessageBrokerData] = useState({ ...messageBroker });
+  const [messageBrokerData, setMessageBrokerData] = useState({
+    ...messageBroker,
+  });
 
   useEffect(() => {
     if (!messageBroker.guid) {
-      console.error("GUID is missing from the message broker data:", messageBroker);
+      console.error(
+        "GUID is missing from the message broker data:",
+        messageBroker
+      );
     }
   }, [messageBroker]);
 
@@ -34,7 +39,9 @@ function EditMessageBroker({ messageBroker, onClose, onMessageBrokerUpdated }) {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/message-brokers/${messageBrokerData.guid}`,
+        `${import.meta.env.VITE_API_URL}/message-brokers/${
+          messageBrokerData.guid
+        }`,
         {
           method: "PUT",
           headers: {
@@ -170,6 +177,11 @@ function EditMessageBroker({ messageBroker, onClose, onMessageBrokerUpdated }) {
           </div>
           <div className="modal-footer d-flex justify-content-center">
             <button
+              style={{
+                width: "80px",
+                backgroundColor: "#664343",
+                color: "#FFF0D1",
+              }}
               type="submit"
               className="btn btn-primary rounded-pill px-4 w-100"
             >

@@ -116,14 +116,20 @@ const Worker = () => {
           <div className="card shadow-sm">
             <div className="card-body">
               <div className="d-flex justify-content-between align-items-center mb-4">
-                <h2>Workers: {project.name}</h2>
+                <h2
+                  style={{
+                    color: "#664343",
+                  }}
+                >
+                  Workers: {project.name}
+                </h2>
                 <div>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
                     onClick={handleAddHost}
                     style={{
-                      backgroundColor: "#AFD0ED",
-                      color: "#1168E7",
+                      backgroundColor: "#FFF0D1",
+                      color: "#664343",
                       fontFamily: "sans-serif",
                       fontWeight: "bold",
                       width: "150px",
@@ -137,7 +143,7 @@ const Worker = () => {
                     style={{
                       backgroundColor: "transparent",
                       width: "170px",
-                      color: "#226195",
+                      color: "#664343",
                       fontFamily: "sans-serif",
                     }}
                   >
@@ -162,8 +168,8 @@ const Worker = () => {
                 />
               )}
 
-              <div className="table-responsive">
-                <table className="table table-striped">
+              <div>
+                <table>
                   <thead>
                     <tr>
                       <th>Host</th>
@@ -188,7 +194,8 @@ const Worker = () => {
                                 onClick={() => handleEditWorker(worker)}
                                 style={{
                                   width: "80px",
-                                  backgroundColor: "#D4E6E8",
+                                  backgroundColor: "#795757",
+                                  color: "#FFF0D1",
                                 }}
                               >
                                 Edit
@@ -198,7 +205,8 @@ const Worker = () => {
                                 onClick={() => handleDeleteWorker(worker)}
                                 style={{
                                   width: "80px",
-                                  backgroundColor: "#FF4545",
+                                  backgroundColor: "#664343",
+                                  color: "#FFF0D1",
                                 }}
                               >
                                 Hapus
