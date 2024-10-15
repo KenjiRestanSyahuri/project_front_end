@@ -33,6 +33,14 @@ tr:nth-child(odd) {
   height: 100vh;
 }
 
+.batal-swal {
+  background-color: #664343;
+}
+
+.confirm-swal {
+  background-color: #795757;
+}
+
 /* .btn-host-database {
   background-color: #FFF0D1;
   color: #3B3030;

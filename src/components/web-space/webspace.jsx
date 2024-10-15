@@ -50,7 +50,12 @@ const DetailProject = () => {
   const handleAddWebSpace = (newWebSpace) => {
     setWebSpaces((prevWebSpaces) => [...prevWebSpaces, newWebSpace]);
     setShowAddWebSpace(false);
-    Swal.fire("Sukses", "Web space berhasil ditambahkan!", "success");
+    Swal.fire({
+      title: "Web Space berhasil ditambahkan",
+      icon: "success",
+      showCloseButton: true,
+      confirmButtonColor: "#664343",
+    });
   };
 
   const handleEditWebSpace = (webSpace) => {
@@ -73,8 +78,8 @@ const DetailProject = () => {
       text: "Data ini akan dihapus secara permanen!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#795757",
+      cancelButtonColor: "#664343",
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
     });
@@ -88,11 +93,21 @@ const DetailProject = () => {
           setWebSpaces((prevWebSpaces) =>
             prevWebSpaces.filter((ws) => ws.guid !== webSpace.guid)
           );
-          Swal.fire("Terhapus!", "Web space berhasil dihapus.", "success");
+          Swal.fire({
+            title: "Web Space sudah berhasil dihapus",
+            icon: "success",
+            showCloseButton: true,
+            confirmButtonColor: "#664343",
+          });
         }
       } catch (error) {
         console.error("Error deleting web space:", error);
-        Swal.fire("Gagal", "Gagal menghapus web space.", "error");
+        Swal.fire({
+          title: "Gagal menghapus web space.",
+          icon: "error",
+          showCloseButton: true,
+          confirmButtonColor: "#664343",
+        });
       }
     }
   };
@@ -103,7 +118,7 @@ const DetailProject = () => {
         className="d-flex justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
-        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+        <TailSpin height="60" width="60" color="#664343" ariaLabel="loading" />
       </div>
     );
   }

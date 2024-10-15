@@ -84,7 +84,12 @@ const Dashboard = () => {
         project.guid === updatedProject.guid ? updatedProject : project
       )
     );
-    Swal.fire("Proyek berhasil diperbarui", "", "success"); // Notifikasi sukses
+    Swal.fire({
+      title: "Project sudah berhasil diperbarui",
+      icon: "success",
+      showCloseButton: true,
+      confirmButtonColor: "#664343",
+    }); // Notifikasi sukses
   };
 
   const handleDeleteProject = async (guid) => {
@@ -93,9 +98,11 @@ const Dashboard = () => {
       title: "Apakah Anda yakin?",
       text: "Proyek ini akan dihapus!",
       icon: "warning",
+      customClass: {
+        cancelButton: "batal-swal",
+        confirmButton: "confirm-swal",
+      },
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
     }).then(async (result) => {
@@ -132,7 +139,7 @@ const Dashboard = () => {
             <TailSpin
               height="60"
               width="60"
-              color="#226195"
+              color="#664343"
               ariaLabel="loading"
             />
           </div>

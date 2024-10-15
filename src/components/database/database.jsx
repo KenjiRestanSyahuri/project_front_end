@@ -73,6 +73,10 @@ const Database = () => {
       title: "Apakah Anda yakin?",
       text: "Data ini akan dihapus secara permanen!",
       icon: "warning",
+      customClass: {
+        cancelButton: "batal-swal",
+        confirmButton: "confirm-swal",
+      },
       showCancelButton: true,
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
@@ -99,7 +103,7 @@ const Database = () => {
   if (!project) {
     return (
       <div className="spinner-overlay">
-        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+        <TailSpin height="60" width="60" color="#664343" ariaLabel="loading" />
       </div>
     );
   }

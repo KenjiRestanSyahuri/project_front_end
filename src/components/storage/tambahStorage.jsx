@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./tambahstorage.css";
 import axios from "axios";
+import { FaTimes } from "react-icons/fa";
 
 function TambahStorage({ onClose, onStorageAdded }) {
   const [storageData, setStorageData] = useState({
@@ -98,7 +99,12 @@ function TambahStorage({ onClose, onStorageAdded }) {
     <div className="modal-backdrop d-flex justify-content-center align-items-center">
       <div className="modal-content p-4 rounded shadow">
         <div className="modal-header">
-          <h2 className="h5">Tambah Storage</h2>
+          <div>
+            <h2 className="h5">Tambah Storage</h2>
+            <p className="text-muted small">
+              Masukkan Detail Storage Untuk Menambahkan
+            </p>
+          </div>
           <button
             className="btn-close ms-auto"
             aria-label="Close"
@@ -107,9 +113,9 @@ function TambahStorage({ onClose, onStorageAdded }) {
               border: "none",
               background: "transparent",
               fontSize: "1.5rem",
-            }} // Mengubah gaya tombol X
+            }}
           >
-            &times; {/* Simbol X untuk tombol tutup */}
+            <FaTimes />
           </button>
         </div>
         <form onSubmit={handleSubmit}>

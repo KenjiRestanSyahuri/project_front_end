@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import TambahStorage from "./tambahstorage"; // Komponen untuk menambah storage
+import TambahStorage from "./tambahstorage";
 import EditStorage from "./editStorage"; // Komponen untuk mengedit storage
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 const Storage = () => {
   const [project, setProject] = useState(null);
@@ -101,7 +102,7 @@ const Storage = () => {
         className="d-flex justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
-        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+        <TailSpin height="60" width="60" color="#664343" ariaLabel="loading" />
       </div>
     );
   }
@@ -109,85 +110,120 @@ const Storage = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
-
       <div className="d-flex flex-grow-1">
         <Sidebar />
 
         <div className="flex-grow-1 p-4 bg-light">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Storage: {project.name}</h2>
-            <div>
-              <button className="btn btn-primary me-2" onClick={handleAddHost}>
-                <i className="fas me-1"></i>Host
-              </button>
-            </div>
-            <button
-              className="btn btn-primary"
-              onClick={() => setShowAddStorage(true)}
-            >
-              <i className="fas fa-plus me-1"></i>Tambah Storage
-            </button>
-          </div>
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div
+                className="d-flex justify-content-between align-items-center mb-4"
+                style={{ color: "#664343" }}
+              >
+                <h2>Storage: {project.name}</h2>
+                <div>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={handleAddHost}
+                    style={{
+                      backgroundColor: "#FFF0D1",
+                      color: "#664343",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      width: "90px",
+                    }}
+                  >
+                    Host
+                  </button>
+                  <button
+                    className="btn btn btn-sm me-1 rounded-5"
+                    onClick={() => setShowAddStorage(true)}
+                    style={{
+                      backgroundColor: "white",
+                      width: "170px",
+                      color: "#664343",
+                      fontFamily: "sans-serif",
+                    }}
+                  >
+                    <IconCirclePlusFilled />
+                    Tambah Storage
+                  </button>
+                </div>
+              </div>
+              {showAddStorage && (
+                <TambahStorage
+                  onClose={() => setShowAddStorage(false)}
+                  onStorageAdded={handleAddStorage}
+                />
+              )}
 
-          {showAddStorage && (
-            <TambahStorage
-              onClose={() => setShowAddStorage(false)}
-              onStorageAdded={handleAddStorage}
-            />
-          )}
+              {showEditStorage && (
+                <EditStorage
+                  storage={currentStorage}
+                  onClose={() => setShowEditStorage(false)}
+                  onStorageUpdated={handleStorageUpdated}
+                />
+              )}
 
-          {showEditStorage && (
-            <EditStorage
-              storage={currentStorage}
-              onClose={() => setShowEditStorage(false)}
-              onStorageUpdated={handleStorageUpdated}
-            />
-          )}
-
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Host</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>Nama Directory</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {storages.length > 0 ? (
-                  storages.map((storage) => (
-                    <tr key={storage.guid}>
-                      <td>{storage.host}</td>
-                      <td>{storage.username}</td>
-                      <td>{storage.password}</td>
-                      <td>{storage.directoryName}</td>
-                      <td>
-                        <button
-                          className="btn btn-success btn-sm me-2"
-                          onClick={() => handleEditStorage(storage)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() => handleDeleteStorage(storage)}
-                        >
-                          Hapus
-                        </button>
-                      </td>
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Host</th>
+                      <th>Username</th>
+                      <th>Password</th>
+                      <th>Nama Directory</th>
+                      <th className="action-cell">Aksi</th>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="5" className="text-center">
-                      Tidak ada storage yang tersedia
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody>
+                    {storages.length > 0 ? (
+                      storages.map((storage) => (
+                        <tr key={storage.guid}>
+                          <td>{storage.host}</td>
+                          <td>{storage.username}</td>
+                          <td>{storage.password}</td>
+                          <td>{storage.directoryName}</td>
+                          <td className="action-cell">
+                            <div className="d-grid gap-2 d-md-block">
+                              <button
+                                className="btn btn btn-sm me-1 rounded-5"
+                                onClick={() => handleEditStorage(storage)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#795757",
+                                  color: "#FFF0D1",
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm rounded-5"
+                                onClick={() => handleDeleteStorage(storage)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#664343",
+                                  color: "#FFF0D1",
+                                  borderColor: "#664343",
+                                }}
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5" className="text-center">
+                          Tidak ada storage yang tersedia
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

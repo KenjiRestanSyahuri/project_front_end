@@ -41,7 +41,12 @@ const HostWebSpace = () => {
   const handleAddHost = (newHost) => {
     setHosts((prevHosts) => [...prevHosts, newHost]);
     setShowAddHost(false);
-    Swal.fire("Sukses", "Host Web space berhasil ditambahkan!", "success");
+    Swal.fire({
+      title: "Host Web space berhasil ditambahkan!",
+      icon: "success",
+      showCloseButton: true,
+      confirmButtonColor: "#664343",
+    });
   };
 
   const handleEditHost = (host) => {
@@ -67,6 +72,8 @@ const HostWebSpace = () => {
       showCancelButton: true,
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
+      confirmButtonColor: "#795757",
+      cancelButtonColor: "#664343",
     });
 
     if (result.isConfirmed) {
@@ -78,11 +85,21 @@ const HostWebSpace = () => {
           setHosts((prevHosts) =>
             prevHosts.filter((h) => h.guid !== host.guid)
           );
-          Swal.fire("Dihapus!", "Host berhasil dihapus!", "success");
+          Swal.fire({
+            title: "Host berhasil dihapus!",
+            icon: "success",
+            showCloseButton: true,
+            confirmButtonColor: "#664343",
+          });
         }
       } catch (error) {
         console.error("Error deleting host:", error);
-        Swal.fire("Gagal!", "Gagal menghapus host.", "error");
+        Swal.fire({
+          title: "Gagal menghapus host.",
+          icon: "error",
+          showCloseButton: true,
+          confirmButtonColor: "#664343",
+        });
       }
     }
   };
