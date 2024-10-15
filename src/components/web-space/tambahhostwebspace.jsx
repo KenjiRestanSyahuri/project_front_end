@@ -184,7 +184,13 @@ function TambahHostWebSpace({ onClose, onHostAdded }) {
             </div>
           </div>
           <div className="modal-footer d-flex justify-content-center">
-            <button type="submit" className="btn-primary rounded-pill px-4 w-100">
+            <button 
+            style={{
+              width: "80px",
+              backgroundColor: "#664343",
+              color: "#FFF0D1",
+            }}
+            type="submit" className="btn-primary rounded-pill px-4 w-100">
               Tambah
             </button>
           </div>
