@@ -31,6 +31,7 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
         text: "Web space berhasil diperbarui!",
         icon: "success",
         confirmButtonText: "OK",
+        confirmButtonColor: "#664343",
       });
       onClose(); // Tutup modal setelah host berhasil diperbarui
     } catch (error) {
@@ -41,6 +42,7 @@ const EditHostWebSpace = ({ host, onClose, onHostUpdated }) => {
         text: "Gagal memperbarui web space!",
         icon: "error",
         confirmButtonText: "OK",
+        confirmButtonColor: "#664343",
       });
     }
   };

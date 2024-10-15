@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom"; // Sudah ada useNavigate
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import TambahMessageBroker from "./tambahmessagebroker"; 
-import EditMessageBroker from "./editmessagebroker"; 
+import TambahMessageBroker from "./tambahmessagebroker";
+import EditMessageBroker from "./editmessagebroker";
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
-import {IconCirclePlusFilled } from "@tabler/icons-react";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 import "./messagebroker.css";
 
 const MessageBroker = () => {
@@ -44,7 +44,10 @@ const MessageBroker = () => {
   }, [apiUrl]);
 
   const handleAddMessageBroker = (newMessageBroker) => {
-    setMessageBrokers((prevMessageBrokers) => [...prevMessageBrokers, newMessageBroker]);
+    setMessageBrokers((prevMessageBrokers) => [
+      ...prevMessageBrokers,
+      newMessageBroker,
+    ]);
     setShowAddMessageBroker(false);
     Swal.fire("Success", "Message broker added successfully!", "success");
   };
@@ -103,7 +106,7 @@ const MessageBroker = () => {
         className="d-flex justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
-        <TailSpin height="60" width="60" color="#226195" ariaLabel="loading" />
+        <TailSpin height="60" width="60" color="#664343" ariaLabel="loading" />
       </div>
     );
   }
@@ -119,10 +122,12 @@ const MessageBroker = () => {
             <div className="card-body">
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2
-                style={{
-                  color : "#664343",
-                }} 
-                >Message Brokers: {project.name}</h2>
+                  style={{
+                    color: "#664343",
+                  }}
+                >
+                  Message Brokers: {project.name}
+                </h2>
                 <div>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
@@ -135,7 +140,7 @@ const MessageBroker = () => {
                       width: "170px",
                     }}
                   >
-                  Host Message Brokers
+                    Host Message Brokers
                   </button>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
@@ -147,8 +152,8 @@ const MessageBroker = () => {
                       fontFamily: "sans-serif",
                     }}
                   >
-                  <IconCirclePlusFilled />
-                  Message Broker
+                    <IconCirclePlusFilled />
+                    Message Broker
                   </button>
                 </div>
               </div>
@@ -185,7 +190,7 @@ const MessageBroker = () => {
                     {messageBrokers.length > 0 ? (
                       messageBrokers.map((mb) => (
                         <tr key={mb.guid}>
-                          <td>{mb.host}</td> 
+                          <td>{mb.host}</td>
                           <td>{mb.virtualHost}</td>
                           <td>{mb.username}</td>
                           <td>{mb.password}</td>
@@ -193,17 +198,17 @@ const MessageBroker = () => {
                           <td>{mb.queue}</td>
                           <td className="action-cell">
                             <div className="d-grid gap-2 d-md-block">
-                            <button
-                              className="btn btn btn-sm me-1 rounded-5"
-                              onClick={() => handleEditMessageBroker(mb)}
-                              style={{
-                                width: "80px",
-                                backgroundColor: "#795757",
-                                color: "#FFF0D1",
-                              }}
-                            >
-                              Edit
-                            </button>
+                              <button
+                                className="btn btn btn-sm me-1 rounded-5"
+                                onClick={() => handleEditMessageBroker(mb)}
+                                style={{
+                                  width: "80px",
+                                  backgroundColor: "#795757",
+                                  color: "#FFF0D1",
+                                }}
+                              >
+                                Edit
+                              </button>
                             </div>
                             <button
                               className="btn btn btn-sm me-1 rounded-5"

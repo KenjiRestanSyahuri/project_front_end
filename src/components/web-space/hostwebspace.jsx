@@ -7,9 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import TambahHostWebSpace from "./tambahhostwebspace";
 import EditHostWebSpace from "./edithostwebspace";
 import Swal from "sweetalert2";
-import {IconCirclePlusFilled } from "@tabler/icons-react";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 import "./hostwebspace.css";
-
 
 const HostWebSpace = () => {
   const [hosts, setHosts] = useState([]);
@@ -23,7 +22,9 @@ const HostWebSpace = () => {
     const fetchHosts = async () => {
       try {
         const projectGuid = sessionStorage.getItem("currentProjectGuid");
-        const response = await axios.get(`${apiUrl}/host-webspace/by-project/${projectGuid}`);
+        const response = await axios.get(
+          `${apiUrl}/host-webspace/by-project/${projectGuid}`
+        );
         setHosts(response.data);
       } catch (error) {
         console.error("Error fetching hosts:", error);
@@ -40,7 +41,12 @@ const HostWebSpace = () => {
   const handleAddHost = (newHost) => {
     setHosts((prevHosts) => [...prevHosts, newHost]);
     setShowAddHost(false);
-    Swal.fire("Sukses", "Host Web space berhasil ditambahkan!", "success");
+    Swal.fire({
+      title: "Host Web space berhasil ditambahkan!",
+      icon: "success",
+      showCloseButton: true,
+      confirmButtonColor: "#664343",
+    });
   };
 
   const handleEditHost = (host) => {
@@ -66,6 +72,8 @@ const HostWebSpace = () => {
       showCancelButton: true,
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
+      confirmButtonColor: "#795757",
+      cancelButtonColor: "#664343",
     });
 
     if (result.isConfirmed) {
@@ -77,11 +85,21 @@ const HostWebSpace = () => {
           setHosts((prevHosts) =>
             prevHosts.filter((h) => h.guid !== host.guid)
           );
-          Swal.fire("Dihapus!", "Host berhasil dihapus!", "success");
+          Swal.fire({
+            title: "Host berhasil dihapus!",
+            icon: "success",
+            showCloseButton: true,
+            confirmButtonColor: "#664343",
+          });
         }
       } catch (error) {
         console.error("Error deleting host:", error);
-        Swal.fire("Gagal!", "Gagal menghapus host.", "error");
+        Swal.fire({
+          title: "Gagal menghapus host.",
+          icon: "error",
+          showCloseButton: true,
+          confirmButtonColor: "#664343",
+        });
       }
     }
   };
@@ -96,10 +114,12 @@ const HostWebSpace = () => {
         <div className="flex-grow-1 p-4 bg-light">
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h2
-            style={{
-              color : "#664343",
-            }} 
-            >Host Web Space</h2>
+              style={{
+                color: "#664343",
+              }}
+            >
+              Host Web Space
+            </h2>
             <div>
               <button
                 className="btn btn btn-sm me-1 rounded-5"
