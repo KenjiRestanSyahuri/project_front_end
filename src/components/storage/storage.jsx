@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
 import Navbar from "../navbar/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import TambahStorage from "./tambahstorage";
+import TambahStorage from "./tambahStorage";
 import EditStorage from "./editStorage"; // Komponen untuk mengedit storage
 import { TailSpin } from "react-loader-spinner";
 import Swal from "sweetalert2";
