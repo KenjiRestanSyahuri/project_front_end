@@ -142,13 +142,13 @@ const HostWorker = () => {
                     onClick={() => setShowAddWorker(true)}
                     style={{
                       backgroundColor: "transparent",
-                      width: "170px",
+                      width: "130px",
                       color: "#664343",
                       fontFamily: "sans-serif",
                     }}
                   >
                     <IconCirclePlusFilled />
-                    Host Worker
+                    Tambah Host 
                   </button>
                 </div>
               </div>

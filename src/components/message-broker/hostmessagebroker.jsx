@@ -135,13 +135,13 @@ const HostMessageBroker = () => {
                       onClick={() => setShowAddHost(true)}
                       style={{
                         backgroundColor: "transparent",
-                        width: "190px",
+                        width: "130px",
                         color: "#664343",
                         fontFamily: "sans-serif",
                       }}
                     >
                       <IconCirclePlusFilled />
-                      Host Message Broker
+                      Tambah Host
                     </button>
                   </div>
                 </div>

@@ -144,9 +144,8 @@ const HostWebSpace = () => {
                       fontFamily: "sans-serif",
                     }}
                   >
-                    {/* <i className="fas fa-plus me-1"></i> */}
                     <IconCirclePlusFilled />
-                    Host Web Space
+                    Tambah Host
                   </button>
                 </div>
               </div>
