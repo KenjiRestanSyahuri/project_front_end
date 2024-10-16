@@ -78,7 +78,7 @@ const Login = () => {
           <div
             className="h-100"
             style={{
-              backgroundImage: "url('public/bg_fitz.png')",
+              backgroundImage: "url('/bg_fitz.png')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -91,7 +91,7 @@ const Login = () => {
             {/* Tampilkan logo dan judul di atas form login dalam satu baris */}
             <div className="d-flex align-items-center mb-4 justify-content-center">
               <img
-                src="public/logo_fitz.png"
+                src="/logo_fitz.png"
                 alt="FITZ"
                 className="mb-2 me-2"
                 style={{ maxWidth: "60rem", height: "auto" }} // Responsif logo
