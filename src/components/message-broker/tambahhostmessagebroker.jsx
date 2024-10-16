@@ -183,9 +183,9 @@ function TambahHostMessageBroker({ onClose, onHostAdded }) {
                 required
               >
                 <option value="">Pilih Broker Type</option>
-                <option value="MQTT">MQTT</option>
-                <option value="AMQP">AMQP</option>
+                <option value="RabbitMQ">RabbitMQ</option>
                 <option value="Kafka">Kafka</option>
+                <option value="ActiveMQ">ActiveMQ</option>
               </select>
             </div>
           </div>
