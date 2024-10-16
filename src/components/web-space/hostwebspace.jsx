@@ -132,7 +132,7 @@ const HostWebSpace = () => {
                       width: "120px",
                     }}
                   >
-                   Web Space
+                    Web Space
                   </button>
                   <button
                     className="btn btn btn-sm me-1 rounded-5"
@@ -224,7 +224,7 @@ const HostWebSpace = () => {
                               style={{
                                 width: "80px",
                                 backgroundColor: "#664343",
-                                border: "none",
+                                borderColor: "#664343",
                                 color: "#FFF0D1",
                               }}
                             >
