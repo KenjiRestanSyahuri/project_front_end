@@ -8,6 +8,7 @@ import EditProject from "../dashboard/editproject";
 import Swal from "sweetalert2"; // Import SweetAlert2
 import { TailSpin } from "react-loader-spinner";
 import "./detailProject.css";
+import { IconEdit } from "@tabler/icons-react";
 
 const DetailProject = () => {
   const [projects, setProjects] = useState([]);
@@ -86,7 +87,8 @@ const DetailProject = () => {
                     fontFamily: "sans-serif",
                   }}
                 >
-                  <i className="fas fa-edit me-2"></i>Edit Data Project
+                  <IconEdit />
+                  Edit Data Project
                 </button>
               </div>
 
