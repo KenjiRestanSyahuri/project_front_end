@@ -193,7 +193,7 @@ const MessageBroker = () => {
 
               <div>
                 <table>
-                  <thead>
+                  <thead class="table-group-divider">
                     <tr>
                       <th>Host</th>
                       <th>Virtual Host</th>
@@ -204,7 +204,7 @@ const MessageBroker = () => {
                       <th className="action-cell">Aksi</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="table-group-divider">
                     {messageBrokers.length > 0 ? (
                       messageBrokers.map((mb) => (
                         <tr key={mb.guid}>

@@ -25,3 +25,14 @@ tr:nth-child(odd) {
 .fw-bold {
     color: #3B3030
 }
+
+thead {
+    border-collapse: collapse;
+    width: 100%;
+    color: #d3d3d3;
+}
+tbody {
+    border-collapse: collapse;
+    width: 100%;
+    color: #d3d3d3;
+}

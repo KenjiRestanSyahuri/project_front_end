@@ -163,7 +163,7 @@ const HostMessageBroker = () => {
 
                 <div>
                   <table>
-                    <thead>
+                    <thead class="table-group-divider">
                       <tr>
                         <th>Nama</th>
                         <th>IP Address</th>
@@ -174,7 +174,7 @@ const HostMessageBroker = () => {
                         <th className="action-cell">Aksi</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-group-divider">
                       {hosts.length > 0 ? (
                         hosts.map((host) => (
                           <tr key={host.guid}>

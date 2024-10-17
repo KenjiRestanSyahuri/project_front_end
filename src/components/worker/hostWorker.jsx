@@ -170,7 +170,7 @@ const HostWorker = () => {
 
               <div>
                 <table>
-                  <thead>
+                  <thead class="table-group-divider">
                     <tr>
                       <th>Nama</th>
                       <th>URL</th>
@@ -183,7 +183,7 @@ const HostWorker = () => {
                       <th className="action-cell">Aksi</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="table-group-divider">
                     {workers.length > 0 ? (
                       workers.map((worker) => (
                         <tr key={worker.guid}>

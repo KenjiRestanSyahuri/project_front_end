@@ -189,7 +189,7 @@ const DetailProject = () => {
 
               <div>
                 <table>
-                  <thead>
+                  <thead class="table-group-divider">
                     <tr>
                       <th>Host</th>
                       <th>URL</th>
@@ -198,7 +198,7 @@ const DetailProject = () => {
                       <th className="action-cell">Aksi</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="table-group-divider">
                     {webSpaces.length > 0 ? (
                       webSpaces.map((webSpace) => (
                         <tr key={webSpace.guid}>

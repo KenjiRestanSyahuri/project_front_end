@@ -167,7 +167,7 @@ const HostWebSpace = () => {
 
               <div>
                 <table>
-                  <thead>
+                  <thead class="table-group-divider">
                     <tr>
                       <th>Host</th>
                       <th>IP Address</th>
@@ -179,7 +179,7 @@ const HostWebSpace = () => {
                       <th className="action-cell">Aksi</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="table-group-divider">
                     {hosts.length > 0 ? (
                       hosts.map((host) => (
                         <tr key={host.guid}>

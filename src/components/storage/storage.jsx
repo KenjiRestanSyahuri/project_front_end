@@ -185,7 +185,7 @@ const Storage = () => {
 
               <div>
                 <table>
-                  <thead>
+                  <thead class="table-group-divider">
                     <tr>
                       <th>Host</th>
                       <th>Username</th>
@@ -194,7 +194,7 @@ const Storage = () => {
                       <th className="action-cell">Aksi</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="table-group-divider">
                     {storages.length > 0 ? (
                       storages.map((storage) => (
                         <tr key={storage.guid}>

@@ -218,7 +218,7 @@ const Dashboard = () => {
 
             <div>
               <table>
-                <thead>
+                <thead class="table-group-divider">
                   <tr>
                     <th>Nama Project</th>
                     <th>Owner</th>
@@ -228,7 +228,7 @@ const Dashboard = () => {
                     <th className="action-cell">Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-group-divider">
                   {currentProjects.length > 0 ? (
                     currentProjects.map((project) => (
                       <tr key={project.guid}>

@@ -102,7 +102,12 @@ const DetailProject = () => {
 
               <div>
                 <table>
-                  <tbody>
+                  <tbody 
+                    style={{
+                      color: "#423E3E",
+                      
+                    }}
+                    class="table-group-divider">
                     <tr>
                       <td className="fw-bold">Owner</td>
                       <td>{project.owner}</td>

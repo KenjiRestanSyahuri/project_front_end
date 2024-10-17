@@ -181,7 +181,7 @@ const Database = () => {
 
               <div>
                 <table>
-                  <thead>
+                  <thead class="table-group-divider">
                     <tr>
                       <th>Host</th>
                       <th>Username</th>
@@ -190,7 +190,7 @@ const Database = () => {
                       <th className="action-cell">Aksi</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="table-group-divider">
                     {database.length > 0 ? (
                       database.map((db) => (
                         <tr key={db.guid}>
